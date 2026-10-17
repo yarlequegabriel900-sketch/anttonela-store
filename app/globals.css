@@ -1,0 +1,628 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --ink: #171814;
+  --muted: #77766f;
+  --accent: #25271f;
+  --line: #e4e0d7;
+  --soft: #eeebe4;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* BARRA SUPERIOR */
+
+.announcement {
+  background: var(--accent);
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* HEADER */
+
+.site-header {
+  min-height: 86px;
+  background: rgba(247, 245, 240, 0.96);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.site-header nav a {
+  font-size: 14px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.cart-link {
+  border: 1px solid var(--ink);
+  padding: 11px 18px;
+  border-radius: 30px;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 620px;
+  padding: 80px 6%;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: 70px;
+}
+
+.hero-copy {
+  max-width: 620px;
+}
+
+.eyebrow {
+  color: #7b7056;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(54px, 6vw, 92px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  margin-bottom: 28px;
+}
+
+.hero-description {
+  max-width: 530px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 34px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 25px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-secondary {
+  border: 1px solid var(--ink);
+}
+
+.hero-visual {
+  min-height: 500px;
+  background:
+    linear-gradient(135deg, rgba(37,39,31,.08), rgba(37,39,31,.02)),
+    var(--soft);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.hero-visual-inner {
+  text-align: center;
+}
+
+.hero-visual-inner strong {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-size: 52px;
+  margin-bottom: 10px;
+}
+
+.hero-visual-inner span {
+  color: var(--muted);
+}
+
+/* SECCIONES */
+
+.section {
+  padding: 90px 6%;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 42px;
+}
+
+.section-heading h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(36px, 4vw, 58px);
+}
+
+.section-heading p {
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* CATEGORÍAS */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.category-card {
+  min-height: 150px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  border-color: #aaa69c;
+}
+
+.category-card strong {
+  font-size: 20px;
+}
+
+.category-card span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* CATÁLOGO */
+
+.catalog-section {
+  background: var(--surface);
+}
+
+.catalog-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.search-input,
+.filter-select {
+  height: 48px;
+  background: white;
+  border: 1px solid var(--line);
+  padding: 0 16px;
+  outline: none;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.filter-select {
+  min-width: 180px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.product-card {
+  border: 1px solid var(--line);
+  background: white;
+  overflow: hidden;
+}
+
+.product-image {
+  aspect-ratio: 4 / 5;
+  background: #efede7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #97938a;
+  font-size: 13px;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-code {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-fabric {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.product-price small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.product-button {
+  background: var(--accent);
+  color: white;
+  border: 0;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+/* INFORMACIÓN */
+
+.info-strip {
+  background: var(--accent);
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 55px 6%;
+}
+
+.info-item {
+  padding: 10px 35px;
+  border-right: 1px solid rgba(255,255,255,.2);
+}
+
+.info-item:first-child {
+  padding-left: 0;
+}
+
+.info-item:last-child {
+  border-right: 0;
+}
+
+.info-item strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+
+.info-item span {
+  color: rgba(255,255,255,.7);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 60px 6%;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.footer strong {
+  letter-spacing: 2px;
+}
+
+.footer p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .products-grid,
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .site-header nav {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 0 20px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+
+  .hero,
+  .section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+  }
+
+  .hero-visual {
+    min-height: 330px;
+  }
+
+  .products-grid,
+  .category-grid,
+  .info-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-toolbar,
+  .section-heading,
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .info-item {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+    padding: 25px 0;
+  }
+}
+/* ===== PORTADA PRENDAS ANTTONELA ===== */
+
+.hero {
+  padding: 0;
+  width: 100%;
+}
+
+.hero-image {
+  position: relative;
+  min-height: 680px;
+  width: 100%;
+  background-image: url("/tienda-anttonela.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.45) 45%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin-left: 6%;
+  padding: 70px 0;
+  color: white;
+}
+
+.hero-content .eyebrow {
+  color: white;
+  margin-bottom: 22px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.hero-content h1 {
+  color: white;
+  font-size: clamp(55px, 6vw, 92px);
+  line-height: 0.95;
+  margin: 0 0 30px;
+}
+
+.hero-description {
+  max-width: 570px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 35px;
+}
+
+.hero-content .primary-button {
+  display: inline-block;
+  background: white;
+  color: #20201d;
+  padding: 17px 30px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  border: 1px solid white;
+}
+
+.hero-content .primary-button:hover {
+  background: transparent;
+  color: white;
+}
+/* ===== CORRECCIÓN HERO PANTALLA COMPLETA ===== */
+
+.hero {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.hero-image {
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 680px !important;
+
+  background-image: url("/tienda-anttonela.jpg") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+
+  display: flex !important;
+  align-items: center !important;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(700px, 90%);
+  margin-left: 6%;
+  padding: 70px 0;
+}
+/* ===== AJUSTE FINAL DE PORTADA ===== */
+
+.hero-image {
+  min-height: 0 !important;
+  height: calc(100vh - 190px) !important;
+  max-height: 720px !important;
+  background-position: center 45% !important;
+}
+
+.hero-content {
+  margin-left: 6% !important;
+  max-width: 650px !important;
+  padding: 40px 0 !important;
+}
+
+.hero-content h1 {
+  font-size: clamp(52px, 5.3vw, 82px) !important;
+  line-height: 0.94 !important;
+  margin-bottom: 24px !important;
+}
+
+.hero-description {
+  font-size: 17px !important;
+  max-width: 560px !important;
+}
+/* ===== SECCIÓN CATÁLOGO ===== */
+
+.catalog-section {
+  width: 100%;
+  padding: 80px 6% !important;
+  background: #f8f7f3;
+}
+
+.catalog-section .section-heading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 8px;
+  margin-bottom: 45px;
+}
+
+.catalog-section .section-heading .eyebrow {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #77766f;
+}
+
+.catalog-section .section-heading h2 {
+  margin: 0;
+  font-size: clamp(38px, 4vw, 64px) !important;
+  line-height: 1 !important;
+  color: #20201d;
+}
