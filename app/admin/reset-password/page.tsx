@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/utils/client";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +11,37 @@ export default function ResetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+  const supabase = createClient();
+
+  async function verificarRecuperacion() {
+    const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
+
+if (code) {
+  const { error: exchangeError } =
+    await supabase.auth.exchangeCodeForSession(code);
+
+  if (exchangeError) {
+    setError(
+      "El enlace de recuperación no es válido o ya expiró. Solicita uno nuevo."
+    );
+    return;
+  }
+}
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session) {
+      setError(
+        "El enlace de recuperación no es válido o ya expiró. Solicita uno nuevo."
+      );
+    }
+  }
+
+  verificarRecuperacion();
+}, []);
 
   async function cambiarPassword(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
