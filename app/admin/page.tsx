@@ -1,9 +1,21 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
-
+import { redirect } from "next/navigation";
+import {
+  cerrarSesion,
+  eliminarProducto,
+  cambiarEstadoProducto,
+} from "./actions";
+import EliminarProductoButton from "./EliminarProductoButton";
 export default async function AdminPage() {
   const supabase = await createClient();
+const {
+  data: { user },
+} = await supabase.auth.getUser();
 
+if (!user) {
+  redirect("/admin/login");
+}
   const { data: products, error } = await supabase
     .from("products")
     .select("id, code, name, fabric, price_dozen, stock_dozen, status")
@@ -13,7 +25,9 @@ export default async function AdminPage() {
     <main>
       <h1>Administrador PRENDAS ANTTONELA</h1>
       <p>Panel de administración del catálogo.</p>
-
+<form action={cerrarSesion}>
+  <button type="submit">CERRAR SESIÓN</button>
+</form>
       <h2>Productos</h2>
 
      <Link href="/admin/nuevo">
@@ -38,6 +52,22 @@ export default async function AdminPage() {
               </p>
               <p>Stock: {product.stock_dozen} docenas</p>
               <p>Estado: {product.status}</p>
+              <Link href={`/admin/editar/${product.id}`}>
+  <button type="button">EDITAR</button>
+</Link>
+<form action={cambiarEstadoProducto}>
+  <input type="hidden" name="id" value={product.id} />
+  <input type="hidden" name="status" value={product.status} />
+
+  <button type="submit">
+    {product.status === "published" ? "OCULTAR" : "PUBLICAR"}
+  </button>
+</form>
+<form action={eliminarProducto}>
+  <input type="hidden" name="id" value={product.id} />
+
+  <EliminarProductoButton productName={product.name} />
+</form>
             </div>
           ))}
         </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/utils/client";
+import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function AdminLoginPage() {
@@ -11,6 +12,8 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+const [recovering, setRecovering] = useState(false);
 
   async function iniciarSesion(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,7 +22,13 @@ export default function AdminLoginPage() {
     setError("");
 
     const supabase = createClient();
+const {
+  data: { user },
+} = await supabase.auth.getUser();
 
+if (!user) {
+  redirect("/admin/login");
+}
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -34,49 +43,104 @@ export default function AdminLoginPage() {
     router.push("/admin");
     router.refresh();
   }
+async function recuperarPassword() {
+  setError("");
+  setMessage("");
 
+  if (!email) {
+    setError("Primero escribe tu correo electrónico.");
+    return;
+  }
+
+  setRecovering(true);
+
+  const supabase = createClient();
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo:
+      "https://anttonela-store-6lpt.vercel.app/admin/reset-password",
+  });
+
+  if (error) {
+    setError("No se pudo enviar el correo de recuperación.");
+    setRecovering(false);
+    return;
+  }
+
+  setMessage(
+    "Te enviamos un enlace para cambiar tu contraseña. Revisa tu correo."
+  );
+
+  setRecovering(false);
+}
   return (
-    <main
-      style={{
-        maxWidth: "420px",
-        margin: "80px auto",
-        padding: "30px",
-      }}
-    >
-      <h1>PRENDAS ANTTONELA</h1>
-      <h2>Acceso administrador</h2>
+  <main className="admin-login-page">
+    <section className="admin-login-card">
+      <div className="admin-login-brand">
+        <span>PRENDAS</span>
+        <strong>ANTTONELA</strong>
+      </div>
+
+      <div className="admin-login-heading">
+        <p>ADMINISTRACIÓN</p>
+        <h1>Bienvenido</h1>
+        <span>
+          Ingresa tus datos para administrar el catálogo mayorista.
+        </span>
+      </div>
 
       <form
         onSubmit={iniciarSesion}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "15px",
-          marginTop: "30px",
-        }}
+        className="admin-login-form"
       >
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <label>
+          Correo electrónico
+          <input
+            type="email"
+            placeholder="Correo"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </label>
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <label>
+          Contraseña
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
 
-        {error && <p>{error}</p>}
+        {error && (
+          <p className="admin-login-error">{error}</p>
+        )}
 
         <button type="submit" disabled={loading}>
           {loading ? "INGRESANDO..." : "INICIAR SESIÓN"}
         </button>
+        <button
+  type="button"
+  onClick={recuperarPassword}
+  disabled={recovering}
+>
+  {recovering
+    ? "ENVIANDO..."
+    : "OLVIDÉ MI CONTRASEÑA"}
+</button>
+
+{message && (
+  <p className="admin-login-success">{message}</p>
+)}
       </form>
-    </main>
-  );
+
+      <p className="admin-login-footer">
+        Acceso exclusivo · PRENDAS ANTTONELA
+      </p>
+    </section>
+  </main>
+);
 }
