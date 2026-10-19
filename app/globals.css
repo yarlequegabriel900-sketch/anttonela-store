@@ -23,7 +23,7 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
 }
 
 a {
@@ -42,620 +42,95 @@ img {
   max-width: 100%;
 }
 
-/* BARRA SUPERIOR */
+/* =========================
+   BARRA SUPERIOR
+========================= */
 
 .announcement {
+  width: 100%;
   background: var(--accent);
-  color: white;
+  color: #fff;
   text-align: center;
   padding: 10px 20px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 2px;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .site-header {
-  min-height: 86px;
-  background: rgba(247, 245, 240, 0.96);
+  min-height: 100px;
+  width: 100%;
+  background: rgba(247, 245, 240, 0.98);
   border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 6%;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
 }
 
 .brand {
+  display: flex;
+  flex-direction: column;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: 2px;
+  line-height: 1.05;
+  letter-spacing: 3px;
 }
 
 .site-header nav {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 40px;
 }
 
 .site-header nav a {
   font-size: 14px;
+  transition: opacity 0.2s ease;
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+.site-header nav a:hover {
+  opacity: 0.55;
 }
 
 .cart-link {
   border: 1px solid var(--ink);
-  padding: 11px 18px;
+  padding: 12px 22px;
   border-radius: 30px;
-}
-
-/* HERO */
-
-.hero {
-  min-height: 620px;
-  padding: 80px 6%;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  align-items: center;
-  gap: 70px;
-}
-
-.hero-copy {
-  max-width: 620px;
-}
-
-.eyebrow {
-  color: #7b7056;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 22px;
-}
-
-.hero h1 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(54px, 6vw, 92px);
-  line-height: 0.98;
-  letter-spacing: -3px;
-  margin-bottom: 28px;
-}
-
-.hero-description {
-  max-width: 530px;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.7;
-  margin-bottom: 34px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn-primary,
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: 0 25px;
-  border-radius: 4px;
-  font-weight: 600;
   font-size: 14px;
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: white;
-}
-
-.btn-secondary {
-  border: 1px solid var(--ink);
-}
-
-.hero-visual {
-  min-height: 500px;
-  background:
-    linear-gradient(135deg, rgba(37,39,31,.08), rgba(37,39,31,.02)),
-    var(--soft);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 50px;
-}
-
-.hero-visual-inner {
-  text-align: center;
-}
-
-.hero-visual-inner strong {
-  display: block;
-  font-family: "Playfair Display", serif;
-  font-size: 52px;
-  margin-bottom: 10px;
-}
-
-.hero-visual-inner span {
-  color: var(--muted);
-}
-
-/* SECCIONES */
-
-.section {
-  padding: 90px 6%;
-}
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 30px;
-  margin-bottom: 42px;
-}
-
-.section-heading h2 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(36px, 4vw, 58px);
-}
-
-.section-heading p {
-  color: var(--muted);
-  max-width: 500px;
-  line-height: 1.6;
-}
-
-/* CATEGORÍAS */
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-}
-
-.category-card {
-  min-height: 150px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: 0.2s ease;
-}
-
-.category-card:hover {
-  transform: translateY(-4px);
-  border-color: #aaa69c;
-}
-
-.category-card strong {
-  font-size: 20px;
-}
-
-.category-card span {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* CATÁLOGO */
-
-.catalog-section {
-  background: var(--surface);
-}
-
-.catalog-toolbar {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 35px;
-}
-
-.search-input,
-.filter-select {
-  height: 48px;
-  background: white;
-  border: 1px solid var(--line);
-  padding: 0 16px;
-  outline: none;
-}
-
-.search-input {
-  flex: 1;
-}
-
-.filter-select {
-  min-width: 180px;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-
-.product-card {
-  border: 1px solid var(--line);
-  background: white;
-  overflow: hidden;
-}
-
-.product-image {
-  aspect-ratio: 4 / 5;
-  background: #efede7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #97938a;
-  font-size: 13px;
-}
-
-.product-info {
-  padding: 20px;
-}
-
-.product-code {
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 7px;
-}
-
-.product-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.product-fabric {
-  color: var(--muted);
-  font-size: 13px;
-  margin-bottom: 18px;
-}
-
-.product-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.product-price {
-  font-size: 19px;
-  font-weight: 700;
-}
-
-.product-price small {
-  display: block;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 400;
-}
-
-.product-button {
-  background: var(--accent);
-  color: white;
-  border: 0;
-  padding: 10px 14px;
-  cursor: pointer;
-}
-
-/* INFORMACIÓN */
-
-.info-strip {
-  background: var(--accent);
-  color: white;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 55px 6%;
-}
-
-.info-item {
-  padding: 10px 35px;
-  border-right: 1px solid rgba(255,255,255,.2);
-}
-
-.info-item:first-child {
-  padding-left: 0;
-}
-
-.info-item:last-child {
-  border-right: 0;
-}
-
-.info-item strong {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 17px;
-}
-
-.info-item span {
-  color: rgba(255,255,255,.7);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-/* FOOTER */
-
-.footer {
-  padding: 60px 6%;
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  border-top: 1px solid var(--line);
-}
-
-.footer strong {
-  letter-spacing: 2px;
-}
-
-.footer p {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 1000px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
-  .products-grid,
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .site-header nav {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .site-header {
-    padding: 0 20px;
-  }
-
-  .brand {
-    font-size: 16px;
-  }
-
-  .hero,
-  .section {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .hero h1 {
-    font-size: 50px;
-  }
-
-  .hero-visual {
-    min-height: 330px;
-  }
-
-  .products-grid,
-  .category-grid,
-  .info-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .catalog-toolbar,
-  .section-heading,
-  .footer {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .info-item {
-    border-right: 0;
-    border-bottom: 1px solid rgba(255,255,255,.2);
-    padding: 25px 0;
-  }
-}
-/* ===== PORTADA PRENDAS ANTTONELA ===== */
+/* =========================
+   HERO CON FOTO DE TIENDA
+========================= */
 
 .hero {
-  padding: 0;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .hero-image {
   position: relative;
-  min-height: 680px;
   width: 100%;
+  height: calc(100vh - 140px);
+  min-height: 570px;
+  max-height: 760px;
+
   background-image: url("/tienda-anttonela.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center 45%;
   background-repeat: no-repeat;
+
   display: flex;
   align-items: center;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.72) 0%,
-    rgba(0, 0, 0, 0.45) 45%,
-    rgba(0, 0, 0, 0.12) 100%
-  );
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 720px;
-  margin-left: 6%;
-  padding: 70px 0;
-  color: white;
-}
-
-.hero-content .eyebrow {
-  color: white;
-  margin-bottom: 22px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 4px;
-}
-
-.hero-content h1 {
-  color: white;
-  font-size: clamp(55px, 6vw, 92px);
-  line-height: 0.95;
-  margin: 0 0 30px;
-}
-
-.hero-description {
-  max-width: 570px;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 35px;
-}
-
-.hero-content .primary-button {
-  display: inline-block;
-  background: white;
-  color: #20201d;
-  padding: 17px 30px;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  border: 1px solid white;
-}
-
-.hero-content .primary-button:hover {
-  background: transparent;
-  color: white;
-}
-/* ===== CORRECCIÓN HERO PANTALLA COMPLETA ===== */
-
-.hero {
-  display: block !important;
-  width: 100% !important;
-  max-width: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.hero-image {
-  position: relative !important;
-  width: 100% !important;
-  max-width: none !important;
-  min-height: 680px !important;
-
-  background-image: url("/tienda-anttonela.jpg") !important;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-
-  display: flex !important;
-  align-items: center !important;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  width: min(700px, 90%);
-  margin-left: 6%;
-  padding: 70px 0;
-}
-/* ===== AJUSTE FINAL DE PORTADA ===== */
-
-.hero-image {
-  min-height: 0 !important;
-  height: calc(100vh - 190px) !important;
-  max-height: 720px !important;
-  background-position: center 45% !important;
-}
-
-.hero-content {
-  margin-left: 6% !important;
-  max-width: 650px !important;
-  padding: 40px 0 !important;
-}
-
-.hero-content h1 {
-  font-size: clamp(52px, 5.3vw, 82px) !important;
-  line-height: 0.94 !important;
-  margin-bottom: 24px !important;
-}
-
-.hero-description {
-  font-size: 17px !important;
-  max-width: 560px !important;
-}
-/* ===== SECCIÓN CATÁLOGO ===== */
-
-.catalog-section {
-  width: 100%;
-  padding: 80px 6% !important;
-  background: #f8f7f3;
-}
-
-.catalog-section .section-heading {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 8px;
-  margin-bottom: 45px;
-}
-
-.catalog-section .section-heading .eyebrow {
-  margin: 0;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: #77766f;
-}
-
-.catalog-section .section-heading h2 {
-  margin: 0;
-  font-size: clamp(38px, 4vw, 64px) !important;
-  line-height: 1 !important;
-  color: #20201d;
-}
-/* ===== DISEÑO FINAL PORTADA ANTTONELA ===== */
-
-body {
-  background: #f7f5f0;
-}
-
-/* La portada conserva la foto real de la tienda */
-.hero {
-  width: 100% !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.hero-image {
-  position: relative !important;
-  width: 100% !important;
-  height: calc(100vh - 132px) !important;
-  min-height: 570px !important;
-  max-height: 760px !important;
-
-  background-image: url("/tienda-anttonela.jpg") !important;
-  background-size: cover !important;
-  background-position: center 45% !important;
-  background-repeat: no-repeat !important;
-
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Oscurecido elegante para que las letras resalten */
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -668,41 +143,47 @@ body {
   );
 }
 
-/* Texto de portada */
 .hero-content {
   position: relative;
   z-index: 2;
   width: min(700px, 88%);
-  margin-left: 6% !important;
-  padding: 50px 0 !important;
+  margin-left: 6%;
+  padding: 50px 0;
   color: #fff;
 }
 
-.hero-content h1 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(58px, 5.8vw, 92px) !important;
-  line-height: 0.94 !important;
-  letter-spacing: -3px;
-  color: #fff;
-  margin-bottom: 28px !important;
+.eyebrow {
+  color: #7b7056;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .hero-content .eyebrow {
   color: #fff;
-  font-size: 12px;
   letter-spacing: 4px;
   margin-bottom: 25px;
 }
 
+.hero-content h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(58px, 5.8vw, 92px);
+  line-height: 0.94;
+  letter-spacing: -3px;
+  color: #fff;
+  margin-bottom: 28px;
+}
+
 .hero-description {
-  color: rgba(255, 255, 255, 0.94) !important;
-  max-width: 580px !important;
-  font-size: 17px !important;
+  color: rgba(255, 255, 255, 0.94);
+  max-width: 580px;
+  font-size: 17px;
   line-height: 1.7;
   margin-bottom: 34px;
 }
 
-.hero-content .primary-button {
+.primary-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -717,31 +198,626 @@ body {
   transition: 0.25s ease;
 }
 
-.hero-content .primary-button:hover {
+.primary-button:hover {
   background: transparent;
   color: #fff;
 }
 
-/* Celular */
-@media (max-width: 600px) {
+/* =========================
+   CATÁLOGO
+========================= */
+
+.catalog-section,
+.section {
+  width: 100%;
+  padding: 85px 6%;
+}
+
+.catalog-section {
+  background: #f8f7f3;
+}
+
+.section-heading {
+  margin-bottom: 42px;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 15px;
+}
+
+.section-heading h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(40px, 4vw, 64px);
+  line-height: 1;
+}
+
+/* BUSCADOR */
+
+.catalog-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.search-input,
+.filter-select {
+  height: 50px;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 0 16px;
+  outline: none;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.filter-select {
+  min-width: 190px;
+}
+
+.search-input:focus,
+.filter-select:focus {
+  border-color: var(--ink);
+}
+
+/* CATEGORÍAS */
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 35px;
+}
+
+.category-button {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.category-button:hover,
+.category-button.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* PRODUCTOS */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.product-image,
+.product-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: #efede7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #97938a;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-code {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.product-info h3,
+.product-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-info > p:not(.product-code) {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.product-info strong,
+.product-price {
+  display: block;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 12px 0 5px;
+}
+
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.product-button {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  padding: 11px 15px;
+  cursor: pointer;
+}
+
+/* CATÁLOGO VACÍO */
+
+.empty-catalog {
+  padding: 60px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.empty-catalog h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.empty-catalog p {
+  color: var(--muted);
+}
+
+/* =========================
+   CÓMO COMPRAR
+========================= */
+
+#como-comprar {
+  padding: 85px 6%;
+  background: #fff;
+}
+
+#como-comprar .eyebrow {
+  margin-bottom: 15px;
+}
+
+#como-comprar h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(38px, 4vw, 58px);
+  margin-bottom: 18px;
+}
+
+#como-comprar > p:last-child {
+  max-width: 700px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+  .products-grid,
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-header nav {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .announcement {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  .site-header {
+    min-height: 76px;
+    padding: 0 20px;
+  }
+
+  .brand {
+    font-size: 15px;
+    letter-spacing: 1.5px;
+  }
+
+  .site-header nav {
+    display: none;
+  }
+
+  .cart-link {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
   .hero-image {
-    height: auto !important;
-    min-height: 620px !important;
-    background-position: center center !important;
+    height: auto;
+    min-height: 620px;
+    background-position: center center;
   }
 
   .hero-content {
-    margin-left: 24px !important;
-    margin-right: 24px !important;
     width: auto;
+    margin: 0 24px;
   }
 
   .hero-content h1 {
-    font-size: 52px !important;
+    font-size: 50px;
     letter-spacing: -2px;
   }
 
   .hero-description {
-    font-size: 15px !important;
+    font-size: 15px;
   }
+
+  .catalog-section,
+  .section,
+  #como-comprar {
+    padding: 65px 20px;
+  }
+
+  .catalog-toolbar {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  .products-grid,
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .empty-catalog {
+    padding: 40px 20px;
+  }
+}
+/* PORTADA EDITORIAL CON FONDO DE TIENDA */
+
+.editorial-hero {
+  position: relative;
+  width: 100%;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.editorial-background {
+  position: absolute;
+  inset: 0;
+  background-image: url("/tienda-anttonela.jpg");
+  background-size: cover;
+  background-position: center 45%;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.editorial-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 14, 12, 0.78) 0%,
+    rgba(15, 14, 12, 0.52) 40%,
+    rgba(15, 14, 12, 0.16) 72%,
+    rgba(15, 14, 12, 0.04) 100%
+  );
+}
+.editorial-hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 86%);
+  min-height: 620px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
+  align-items: center;
+}
+/* TEXTO EDITORIAL DE PORTADA */
+
+.hero-copy {
+  max-width: 520px;
+}
+
+.hero-copy .eyebrow {
+  margin-bottom: 18px;
+  color: #7b7056;
+}
+
+.hero-copy h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(58px, 5vw, 78px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #171814;
+}
+
+.hero-copy h1 em {
+  color: #806b55;
+  font-weight: 600;
+}
+
+.hero-copy .hero-description {
+  max-width: 500px;
+  color: #34332f;
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.hero-copy .primary-button {
+  background: #171814;
+  color: #ffffff;
+  border-color: #171814;
+  min-width: 190px;
+}
+
+.hero-copy .primary-button:hover {
+  background: #342f29;
+  color: #ffffff;
+}
+
+.hero-note {
+  margin-top: 12px;
+  color: #77766f;
+  font-size: 12px;
+}
+/* TARJETA EDITORIAL DERECHA */
+
+.collection-card {
+  width: 100%;
+  max-width: 560px;
+  justify-self: end;
+  background: rgba(247, 245, 240, 0.94);
+  border: 1px solid rgba(23, 24, 20, 0.18);
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.collection-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #5f5b52;
+}
+
+.collection-art {
+  position: relative;
+  min-height: 370px;
+  overflow: hidden;
+  background: #ddd7cb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.shape-one {
+  width: 330px;
+  height: 330px;
+  background: #a99b83;
+  top: -130px;
+  right: -80px;
+}
+
+.shape-two {
+  width: 260px;
+  height: 260px;
+  background: #d2c8b7;
+  bottom: -110px;
+  left: -60px;
+}
+
+.shape-three {
+  width: 180px;
+  height: 180px;
+  background: #6f715f;
+  bottom: 25px;
+  right: 30px;
+}
+
+.collection-message {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 42px;
+  line-height: 1.02;
+  color: #171814;
+}
+
+.collection-message em {
+  color: #765f49;
+}
+
+.collection-card > p {
+  padding-top: 14px;
+  text-align: center;
+  color: #77766f;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+/* BUSCADOR DEL CATÁLOGO */
+
+.catalog-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 470px);
+}
+
+.catalog-search input {
+  flex: 1;
+  height: 48px;
+  padding: 0 18px;
+  border: 1px solid #d8d2c7;
+  background: #ffffff;
+  color: #171814;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.catalog-search input::placeholder {
+  color: #969187;
+}
+
+.catalog-search input:focus {
+  border-color: #8b725b;
+}
+
+.catalog-search button {
+  height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 24px;
+  background: #806b55;
+  color: #ffffff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.catalog-search button:hover {
+  background: #685542;
+}
+/* PANEL LATERAL DEL CATÁLOGO */
+
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.catalog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.filter-box {
+  background: #f8f5ef;
+  border: 1px solid #e4ded3;
+  padding: 14px;
+  border-radius: 7px;
+}
+
+.filter-box > p {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #34312c;
+}
+
+.filter-box button {
+  display: block;
+  width: 100%;
+  padding: 7px 9px;
+  margin: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #27241f;
+  text-align: left;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-box button:hover {
+  background: #eee8de;
+}
+
+.filter-box button.active {
+  background: #eee8de;
+  border-left: 2px solid #9b7d5e;
+}
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price-filter p {
+  margin: 0;
+}
+/* CAPA CLARA PARA DAR CONTRASTE AL TEXTO DEL HERO */
+
+.editorial-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.editorial-background {
+  position: absolute;
+  inset: 0;
+  background-image: url("/tienda-anttonela.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.editorial-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(247, 243, 235, 0.88) 0%,
+    rgba(247, 243, 235, 0.74) 28%,
+    rgba(247, 243, 235, 0.30) 48%,
+    rgba(247, 243, 235, 0.08) 70%
+  );
+}
+
+.editorial-hero-content {
+  position: relative;
+  z-index: 2;
 }
