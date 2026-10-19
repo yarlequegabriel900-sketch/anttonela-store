@@ -21,13 +21,16 @@ export default async function Home() {
 
   return (
     <main>
+      {/* BARRA SUPERIOR */}
       <div className="announcement">
         VENTA MAYORISTA · PRECIOS POR DOCENA
       </div>
 
+      {/* NAVEGACIÓN */}
       <header className="site-header">
         <a className="brand" href="/">
-          PRENDAS ANTTONELA
+          <span>PRENDAS</span>
+          <span>ANTTONELA</span>
         </a>
 
         <nav aria-label="Navegación principal">
@@ -37,94 +40,180 @@ export default async function Home() {
         </nav>
 
         <a className="cart-link" href="#catalogo">
-          Ver prendas
+          Ver prendas →
         </a>
       </header>
 
-      <section className="hero">
-  <div className="hero-image">
-    <div className="hero-overlay"></div>
+      {/* PORTADA */}
+      <section className="editorial-hero">
+        <div className="editorial-background" />
 
-    <div className="hero-content">
-      <p className="eyebrow">GAMARRA · LIMA</p>
+        <div className="editorial-hero-content">
+          <div className="hero-copy">
+            <p className="eyebrow">MODA MAYORISTA · GAMARRA</p>
 
-      <h1>
-        Moda mayorista
-        <br />
-        para tu negocio
-      </h1>
+            <h1>
+              Tu próximo
+              <br />
+              pedido empieza
+              <br />
+              <em>aquí.</em>
+            </h1>
 
-      <p className="hero-description">
-        Prendas seleccionadas para emprendedores y negocios.
-        Venta mayorista por docena desde Gamarra.
-      </p>
+            <p className="hero-description">
+              Descubre prendas para tu negocio, revisa sus detalles y arma tu
+              pedido por docena. Coordinamos el pago y el envío por WhatsApp.
+            </p>
 
-      <a href="#catalogo" className="primary-button">
-        VER CATÁLOGO
-      </a>
-    </div>
-  </div>
-</section>
+            <a href="#catalogo" className="primary-button">
+              Explorar catálogo <span>↗</span>
+            </a>
 
-      <section className="catalog-section" id="catalogo">
-        <div className="section-heading">
-          <p className="eyebrow">CATÁLOGO</p>
-          <h2>Prendas disponibles</h2>
-        </div>
-
-        {error ? (
-          <div>
-            <h3>Error al cargar el catálogo</h3>
-            <p>{error.message}</p>
-          </div>
-        ) : products && products.length > 0 ? (
-          <div className="product-grid">
-            {products.map((product) => (
-              <article className="product-card" key={product.id}>
-                <div className="product-placeholder">
-                  PRENDAS ANTTONELA
-                </div>
-
-                <div className="product-info">
-                  <p className="product-code">
-                    Código {product.code}
-                  </p>
-
-                  <h3>{product.name}</h3>
-
-                  {product.fabric && (
-                    <p>Tela: {product.fabric}</p>
-                  )}
-
-                  <strong>
-                    S/ {Number(product.price_dozen).toFixed(2)} por docena
-                  </strong>
-
-                  <p>
-                    Stock: {product.stock_dozen} docena
-                    {product.stock_dozen === 1 ? "" : "s"}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="empty-catalog">
-            <h3>Estamos preparando el catálogo</h3>
-            <p>
-              Próximamente encontrarás aquí las prendas disponibles
-              de PRENDAS ANTTONELA.
+            <p className="hero-note">
+              Catálogo oficial · Atención mayorista
             </p>
           </div>
-        )}
+
+          <div className="collection-card">
+            <div className="collection-top">
+              <span>COLECCIÓN</span>
+              <span>01 / ANTTONELA</span>
+            </div>
+
+            <div className="collection-art">
+              <div className="shape shape-one" />
+              <div className="shape shape-two" />
+              <div className="shape shape-three" />
+
+              <div className="collection-message">
+                <span>Tu marca.</span>
+                <em>Tu estilo.</em>
+                <span>Tu negocio.</span>
+              </div>
+            </div>
+
+            <p>FOTOGRAFÍAS DEL CATÁLOGO SE AGREGARÁN AQUÍ</p>
+          </div>
+        </div>
       </section>
 
-      <section id="como-comprar">
-        <p className="eyebrow">PEDIDOS</p>
-        <h2>Compra mayorista</h2>
+      {/* CATÁLOGO */}
+      <section className="catalog-section" id="catalogo">
+        <div className="catalog-header">
+          <div>
+            <p className="eyebrow">PRENDAS DISPONIBLES</p>
+            <h2>Catálogo mayorista</h2>
+          </div>
+
+          <div className="catalog-search">
+            <input
+              type="text"
+              placeholder="Buscar por código, nombre o tela..."
+              aria-label="Buscar productos"
+            />
+            <button type="button">Buscar</button>
+          </div>
+        </div>
+
+        <div className="catalog-layout">
+          <aside className="catalog-sidebar">
+            <div className="filter-box">
+              <p>CATEGORÍAS</p>
+              <button type="button" className="active">
+                Todas
+              </button>
+              <button type="button">Polos</button>
+              <button type="button">Shorts</button>
+              <button type="button">Vestidos</button>
+              <button type="button">Pantalones</button>
+              <button type="button">Accesorios</button>
+              <button type="button">Niños</button>
+              <button type="button">Niñas</button>
+              <button type="button">Varones</button>
+            </div>
+
+            <div className="filter-box price-filter">
+              <p>RANGO DE PRECIO</p>
+              <span>⌄</span>
+            </div>
+          </aside>
+
+          <div className="catalog-products">
+            {error ? (
+              <div className="empty-catalog">
+                <h3>Error al cargar el catálogo</h3>
+                <p>{error.message}</p>
+              </div>
+            ) : products && products.length > 0 ? (
+              <div className="products-grid">
+                {products.map((product) => (
+                  <article className="product-card" key={product.id}>
+                    <div className="product-image">
+                      <span className="product-photo-label">
+                        FOTO DE PRENDA
+                      </span>
+
+                      <button
+                        className="favorite-button"
+                        type="button"
+                        aria-label="Agregar a favoritos"
+                      >
+                        ♡
+                      </button>
+                    </div>
+
+                    <div className="product-info">
+                      <p className="product-code">
+                        Código {product.code}
+                      </p>
+
+                      <h3>{product.name}</h3>
+
+                      <p>
+                        Tela: {product.fabric || "Por definir"}
+                      </p>
+
+                      <strong>
+                        S/ {Number(product.price_dozen).toFixed(2)} por docena
+                      </strong>
+
+                      <p className="product-stock">
+                        Stock: {product.stock_dozen} docena
+                        {product.stock_dozen === 1 ? "" : "s"}
+                      </p>
+
+                      <a
+                        className="whatsapp-product"
+                        href="#como-comprar"
+                        aria-label={`Consultar ${product.name}`}
+                      >
+                        ◉
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-catalog">
+                <h3>Estamos preparando el catálogo</h3>
+                <p>
+                  Próximamente encontrarás aquí las prendas disponibles de
+                  PRENDAS ANTTONELA.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* CÓMO COMPRAR */}
+      <section className="how-to-buy" id="como-comprar">
+        <p className="eyebrow">FÁCIL Y DIRECTO</p>
+        <h2>¿Cómo hacer tu pedido?</h2>
+
         <p>
-          Selecciona tus prendas y prepara tu pedido. Más adelante
-          conectaremos el carrito directamente con WhatsApp.
+          Elige tus prendas por docena y prepara tu pedido. Coordinaremos la
+          atención y el envío directamente por WhatsApp.
         </p>
       </section>
     </main>
