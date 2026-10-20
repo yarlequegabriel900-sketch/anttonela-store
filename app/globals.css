@@ -682,7 +682,8 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
-  width: min(100%, 470px);
+  width: min(100%, 560px);
+  margin-bottom: 18px;
 }
 
 .catalog-search input {
@@ -728,6 +729,10 @@ img {
   grid-template-columns: 240px minmax(0, 1fr);
   gap: 24px;
   align-items: start;
+}
+.catalog-products {
+  min-width: 0;
+  width: 100%;
 }
 
 .catalog-sidebar {
@@ -972,5 +977,293 @@ img {
 
   .admin-login-heading h1 {
     font-size: 38px;
+  }
+}
+/* ========================================
+   RESPONSIVE CATÁLOGO - CELULAR
+======================================== */
+
+@media (max-width: 700px) {
+  .catalog-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .catalog-sidebar {
+    width: 100%;
+  }
+
+  .catalog-products {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .catalog-search {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+/* ========================================
+   RESPONSIVE CELULAR
+======================================== */
+
+@media (max-width: 700px) {
+  .catalog-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .catalog-sidebar,
+  .catalog-products,
+  .catalog-search {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ========================================
+   VERSION MOVIL - PRENDAS ANTTONELA
+======================================== */
+
+@media (max-width: 700px) {
+
+  /* PORTADA */
+  .editorial-hero {
+    width: 100%;
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .editorial-hero-content {
+    width: 100%;
+    min-height: auto;
+    padding: 32px 26px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero-title {
+    font-size: clamp(52px, 15vw, 64px);
+    line-height: 0.9;
+  }
+
+  .hero-description {
+    width: 100%;
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* TARJETA COLECCIÓN */
+  .editorial-card {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    min-height: 390px;
+  }
+  
+  
+  /* CATÁLOGO MÓVIL */
+  .catalog-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .catalog-sidebar,
+  .catalog-products {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .catalog-search {
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .catalog-search input,
+  .catalog-search button {
+    width: 100%;
+  }
+
+  .catalog-search button {
+    border-radius: 6px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+    /* TARJETAS DE PRODUCTO EN CELULAR */
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .product-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .product-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+  }
+}
+/* PRODUCTOS - 2 COLUMNAS EN CELULAR */
+@media (max-width: 700px) {
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+  }
+
+  .product-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .product-image {
+    min-height: 230px;
+  }
+
+  .product-info {
+    padding: 16px 12px;
+  }
+
+  .product-info h3 {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .product-info p {
+    font-size: 12px;
+  }
+
+  .product-price {
+    font-size: 17px;
+  }
+}
+/* CATEGORÍAS COMPACTAS EN CELULAR */
+@media (max-width: 700px) {
+  .filter-box:first-child {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px;
+    row-gap: 4px;
+    padding: 18px;
+  }
+
+  .filter-box:first-child > p {
+    grid-column: 1 / -1;
+    margin: 0 0 8px;
+  }
+
+  .filter-box:first-child button {
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 12px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    text-align: left;
+    font-size: 15px;
+  }
+
+  .filter-box:first-child button.active {
+    background: #ebe5dc;
+    border-left: 2px solid #8b725b;
+  }
+}/* TARJETAS DE PRODUCTO - CELULAR */
+@media (max-width: 700px) {
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .product-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .product-image {
+    width: 100%;
+    height: 230px;
+    min-height: 0;
+  }
+
+  .product-info {
+    padding: 16px 14px 18px;
+  }
+
+  .product-info h3 {
+    font-size: 17px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .product-info p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .product-price {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+  }
+}
+/* ALTURA DE FOTO EN TARJETAS - SOLO CELULAR */
+@media (max-width: 700px) {
+  .products-grid .product-card .product-image {
+    height: 240px !important;
+    min-height: 240px !important;
+    max-height: 240px !important;
+  }
+}
+/* TEXTO DE TARJETAS - SOLO CELULAR */
+@media (max-width: 700px) {
+  .product-info {
+    padding: 16px 14px !important;
+  }
+
+  .product-code {
+    font-size: 13px !important;
+  }
+
+  .product-info h3 {
+    font-size: 17px !important;
+    line-height: 1.15 !important;
+  }
+
+  .product-info p {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  .product-info strong {
+    font-size: 19px !important;
+    line-height: 1.15 !important;
+  }
+
+  .product-stock {
+    font-size: 13px !important;
   }
 }

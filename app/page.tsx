@@ -139,83 +139,83 @@ export default async function Home() {
           </aside>
 
           <div className="catalog-products">
-            {error ? (
-              <div className="empty-catalog">
-                <h3>Error al cargar el catálogo</h3>
-                <p>{error.message}</p>
-              </div>
-            ) : products && products.length > 0 ? (
-              <div className="products-grid">
-                {products.map((product) => (
-                  <article className="product-card" key={product.id}>
-                    <div className="product-image">
-                      <span className="product-photo-label">
-                        FOTO DE PRENDA
-                      </span>
+  {error ? (
+    <div className="empty-catalog">
+      <h3>Error al cargar el catálogo</h3>
+      <p>{error.message}</p>
+    </div>
+  ) : products && products.length > 0 ? (
+    <div className="products-grid">
+      {products.map((product) => (
+        <article className="product-card" key={product.id}>
+          <div className="product-image">
+            <span className="product-photo-label">
+              FOTO DE PRENDA
+            </span>
 
-                      <button
-                        className="favorite-button"
-                        type="button"
-                        aria-label="Agregar a favoritos"
-                      >
-                        ♡
-                      </button>
-                    </div>
-
-                    <div className="product-info">
-                      <p className="product-code">
-                        Código {product.code}
-                      </p>
-
-                      <h3>{product.name}</h3>
-
-                      <p>
-                        Tela: {product.fabric || "Por definir"}
-                      </p>
-
-                      <strong>
-                        S/ {Number(product.price_dozen).toFixed(2)} por docena
-                      </strong>
-
-                      <p className="product-stock">
-                        Stock: {product.stock_dozen} docena
-                        {product.stock_dozen === 1 ? "" : "s"}
-                      </p>
-
-                      <a
-                        className="whatsapp-product"
-                        href="#como-comprar"
-                        aria-label={`Consultar ${product.name}`}
-                      >
-                        ◉
-                      </a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div className="empty-catalog">
-                <h3>Estamos preparando el catálogo</h3>
-                <p>
-                  Próximamente encontrarás aquí las prendas disponibles de
-                  PRENDAS ANTTONELA.
-                </p>
-              </div>
-            )}
+            <button
+              className="favorite-button"
+              type="button"
+              aria-label="Agregar a favoritos"
+            >
+              ♡
+            </button>
           </div>
-        </div>
-      </section>
 
-      {/* CÓMO COMPRAR */}
-      <section className="how-to-buy" id="como-comprar">
-        <p className="eyebrow">FÁCIL Y DIRECTO</p>
-        <h2>¿Cómo hacer tu pedido?</h2>
+          <div className="product-info">
+            <p className="product-code">
+              Código {product.code}
+            </p>
 
-        <p>
-          Elige tus prendas por docena y prepara tu pedido. Coordinaremos la
-          atención y el envío directamente por WhatsApp.
-        </p>
-      </section>
-    </main>
-  );
+            <h3>{product.name}</h3>
+
+            <p>
+              Tela: {product.fabric || "Por definir"}
+            </p>
+
+            <strong>
+              S/ {Number(product.price_dozen).toFixed(2)} por docena
+            </strong>
+
+            <p className="product-stock">
+              Stock: {product.stock_dozen} docena
+              {product.stock_dozen === 1 ? "" : "s"}
+            </p>
+
+            <a
+              className="whatsapp-product"
+              href="#como-comprar"
+              aria-label={`Consultar ${product.name}`}
+            >
+              ◉
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <div className="empty-catalog">
+      <h3>Estamos preparando el catálogo</h3>
+      <p>
+        Próximamente encontrarás aquí las prendas disponibles de
+        PRENDAS ANTTONELA.
+      </p>
+    </div>
+  )}
+</div>
+</div>
+</section>
+
+{/* CÓMO COMPRAR */}
+<section className="how-to-buy" id="como-comprar">
+  <p className="eyebrow">FÁCIL Y DIRECTO</p>
+  <h2>¿Cómo hacer tu pedido?</h2>
+
+  <p>
+    Elige tus prendas por docena y prepara tu pedido. Coordinaremos la
+    atención y el envío directamente por WhatsApp.
+  </p>
+</section>
+</main>
+);
 }

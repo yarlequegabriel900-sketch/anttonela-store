@@ -11,45 +11,92 @@ export default function ResetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
-  const supabase = createClient();
+    const supabase = createClient();
 
-  async function verificarRecuperacion() {
-    const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
+    async function prepararRecuperacion() {
+      setError("");
 
-if (code) {
-  const { error: exchangeError } =
-    await supabase.auth.exchangeCodeForSession(code);
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
 
-  if (exchangeError) {
-    setError(
-      "El enlace de recuperación no es válido o ya expiró. Solicita uno nuevo."
-    );
-    return;
-  }
-}
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      // Si Supabase nos envió un código PKCE, lo cambiamos por una sesión.
+      if (code) {
+        const { error: exchangeError } =
+          await supabase.auth.exchangeCodeForSession(code);
 
-    if (!session) {
-      setError(
-        "El enlace de recuperación no es válido o ya expiró. Solicita uno nuevo."
-      );
+        if (exchangeError) {
+          console.error(
+            "ERROR EXCHANGE CODE:",
+            exchangeError
+          );
+
+          setError(
+            `No se pudo validar el enlace: ${exchangeError.message}`
+          );
+          return;
+        }
+
+        // Quitamos el código de la URL para evitar intentar usarlo otra vez.
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
+      }
+
+      // Comprobamos que realmente exista una sesión antes
+      // de permitir el cambio de contraseña.
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError) {
+        console.error(
+          "ERROR GET SESSION:",
+          sessionError
+        );
+
+        setError(
+          `No se pudo comprobar la sesión: ${sessionError.message}`
+        );
+        return;
+      }
+
+      if (!session) {
+        setError(
+          "No existe una sesión de recuperación válida. Solicita un nuevo enlace."
+        );
+        return;
+      }
+
+      setReady(true);
     }
-  }
 
-  verificarRecuperacion();
-}, []);
+    prepararRecuperacion();
+  }, []);
 
-  async function cambiarPassword(e: React.FormEvent<HTMLFormElement>) {
+  async function cambiarPassword(
+    e: React.FormEvent<HTMLFormElement>
+  ) {
     e.preventDefault();
 
     setError("");
 
+    if (!ready) {
+      setError(
+        "La sesión de recuperación todavía no está disponible."
+      );
+      return;
+    }
+
     if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres.");
+      setError(
+        "La contraseña debe tener al menos 6 caracteres."
+      );
       return;
     }
 
@@ -62,19 +109,43 @@ if (code) {
 
     const supabase = createClient();
 
-    const { error } = await supabase.auth.updateUser({
-      password,
-    });
+    // Verificación final antes de intentar modificar la contraseña.
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
 
-    if (error) {
-      setError("No se pudo actualizar la contraseña. Solicita un nuevo enlace.");
+    if (sessionError || !session) {
+      setError(
+        sessionError
+          ? `Error de sesión: ${sessionError.message}`
+          : "La sesión de recuperación ya no es válida."
+      );
+      setLoading(false);
+      return;
+    }
+
+    const { error: updateError } =
+      await supabase.auth.updateUser({
+        password,
+      });
+
+    if (updateError) {
+      console.error(
+        "ERROR UPDATE PASSWORD:",
+        updateError
+      );
+
+      setError(
+        `No se pudo cambiar la contraseña: ${updateError.message}`
+      );
       setLoading(false);
       return;
     }
 
     await supabase.auth.signOut();
 
-    router.push("/admin/login");
+    router.replace("/admin/login");
     router.refresh();
   }
 
@@ -104,9 +175,12 @@ if (code) {
               type="password"
               placeholder="Nueva contraseña"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               required
               minLength={6}
+              disabled={!ready || loading}
             />
           </label>
 
@@ -116,18 +190,30 @@ if (code) {
               type="password"
               placeholder="Repite la contraseña"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) =>
+                setConfirmPassword(e.target.value)
+              }
               required
               minLength={6}
+              disabled={!ready || loading}
             />
           </label>
 
           {error && (
-            <p className="admin-login-error">{error}</p>
+            <p className="admin-login-error">
+              {error}
+            </p>
           )}
 
-          <button type="submit" disabled={loading}>
-            {loading ? "ACTUALIZANDO..." : "CAMBIAR CONTRASEÑA"}
+          <button
+            type="submit"
+            disabled={!ready || loading}
+          >
+            {loading
+              ? "ACTUALIZANDO..."
+              : ready
+                ? "CAMBIAR CONTRASEÑA"
+                : "VALIDANDO ENLACE..."}
           </button>
         </form>
 

@@ -6,13 +6,6 @@ import { redirect } from "next/navigation";
 
 export async function crearProducto(formData: FormData) {
   const supabase = await createClient();
-  const {
-  data: { user },
-} = await supabase.auth.getUser();
-
-if (!user) {
-  throw new Error("No hay una sesión de administrador activa.");
-}
 
   const code = String(formData.get("code") || "").trim();
   const name = String(formData.get("name") || "").trim();

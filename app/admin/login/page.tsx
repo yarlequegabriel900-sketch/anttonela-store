@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { createClient } from "@/utils/client";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function AdminLoginPage() {
@@ -22,13 +21,7 @@ const [recovering, setRecovering] = useState(false);
     setError("");
 
     const supabase = createClient();
-const {
-  data: { user },
-} = await supabase.auth.getUser();
 
-if (!user) {
-  redirect("/admin/login");
-}
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,

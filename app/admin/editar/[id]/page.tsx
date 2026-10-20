@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { actualizarProducto } from "../../actions";
 type Props = {
   params: Promise<{
@@ -12,15 +12,6 @@ export default async function EditarProductoPage({ params }: Props) {
   const { id } = await params;
 
   const supabase = await createClient();
-
-  // Comprobar que el administrador tenga sesión iniciada
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/admin/login");
-  }
 
   // Buscar el producto que se quiere editar
   const { data: product, error } = await supabase
