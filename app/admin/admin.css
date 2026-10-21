@@ -1,9 +1,21 @@
+
 .admin-page {
   min-height: 100vh;
-  background: #f4f0e8;
+  background-color: #eee7dc;
+  background-image:
+    linear-gradient(
+      rgba(20, 18, 15, 0.66),
+      rgba(20, 18, 15, 0.76)
+    ),
+    url("/tienda-anttonela.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #171714;
   font-family: Arial, sans-serif;
 }
+
 
 .admin-topbar {
   background: #171714;
