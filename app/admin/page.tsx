@@ -141,8 +141,20 @@ export default async function AdminPage() {
 
         <section className="admin-products">
           <div className="admin-products-header">
-            <h2>Productos</h2>
-          </div>
+  <div className="admin-products-title">
+    <div className="admin-products-icon">◆</div>
+    <h2>Productos</h2>
+  </div>
+
+  <div className="admin-products-search">
+    <span>⌕</span>
+    <input
+      type="text"
+      placeholder="Buscar producto, código o tela..."
+      aria-label="Buscar productos"
+    />
+  </div>
+</div>
 
           {error ? (
             <p className="admin-error">
