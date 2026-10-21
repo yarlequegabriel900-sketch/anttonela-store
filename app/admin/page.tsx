@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import {
   cerrarSesion,
   eliminarProducto,
@@ -8,6 +9,13 @@ import {
 import EliminarProductoButton from "./EliminarProductoButton";
 export default async function AdminPage() {
   const supabase = await createClient();
+  const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  redirect("/admin/login");
+}
   const { data: products, error } = await supabase
     .from("products")
     .select("id, code, name, fabric, price_dozen, stock_dozen, status")

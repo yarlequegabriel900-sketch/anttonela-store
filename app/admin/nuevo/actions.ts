@@ -6,7 +6,13 @@ import { redirect } from "next/navigation";
 
 export async function crearProducto(formData: FormData) {
   const supabase = await createClient();
+const {
+  data: { user },
+} = await supabase.auth.getUser();
 
+if (!user) {
+  redirect("/admin/login");
+}
   const code = String(formData.get("code") || "").trim();
   const name = String(formData.get("name") || "").trim();
   const description = String(formData.get("description") || "").trim();

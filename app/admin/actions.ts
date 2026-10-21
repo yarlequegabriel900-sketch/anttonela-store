@@ -12,6 +12,13 @@ export async function cerrarSesion() {
 }
 export async function actualizarProducto(formData: FormData) {
   const supabase = await createClient();
+  const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  redirect("/admin/login");
+}
 
   const id = String(formData.get("id") || "");
   const code = String(formData.get("code") || "").trim();
@@ -57,6 +64,13 @@ export async function actualizarProducto(formData: FormData) {
 }
 export async function eliminarProducto(formData: FormData) {
   const supabase = await createClient();
+  const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  redirect("/admin/login");
+}
   const id = String(formData.get("id") || "");
 
   if (!id) {
@@ -76,6 +90,13 @@ export async function eliminarProducto(formData: FormData) {
 }
 export async function cambiarEstadoProducto(formData: FormData) {
   const supabase = await createClient();
+  const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  redirect("/admin/login");
+}
 
   const id = String(formData.get("id") || "");
   const estadoActual = String(formData.get("status") || "");
