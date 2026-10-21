@@ -1,83 +1,130 @@
+import Link from "next/link";
 import { crearProducto } from "./actions";
+import "../admin.css";
+
 export default function NuevoProductoPage() {
   return (
-    <main style={{ padding: "40px", maxWidth: "800px", margin: "auto" }}>
-      <h1>Agregar nuevo producto</h1>
+    <main className="admin-page">
+      {/* BARRA SUPERIOR */}
+      <header className="admin-topbar">
+        <div className="admin-brand">
+          <div className="admin-brand-icon">N</div>
 
-      <p>Completa los datos de la prenda para publicarla en el catálogo.</p>
+          <div>
+            <span>PRENDAS</span>
+            <strong>ANTTONELA</strong>
+          </div>
+        </div>
 
-     <form
-  action={crearProducto}
-  style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "15px",
-          marginTop: "30px",
-        }}
-      >
-        <label>
-          Código
-          <input
-            type="text"
-            name="code"
-            placeholder="Ejemplo: 481"
-            required
-          />
-        </label>
+        <Link href="/admin" className="admin-back-button">
+          ← VOLVER AL PANEL
+        </Link>
+      </header>
 
-        <label>
-          Nombre de la prenda
-          <input
-            type="text"
-            name="name"
-            placeholder="Ejemplo: Polo de dama"
-            required
-          />
-        </label>
+      {/* CONTENIDO */}
+      <section className="admin-new-product">
+        <div className="admin-new-heading">
+          <p className="admin-eyebrow">ADMINISTRACIÓN · CATÁLOGO</p>
 
-        <label>
-          Descripción
-          <textarea
-            name="description"
-            placeholder="Descripción del producto"
-          />
-        </label>
+          <h1>Agregar producto</h1>
 
-        <label>
-          Tela
-          <input
-            type="text"
-            name="fabric"
-            placeholder="Ejemplo: Algodón Jersey"
-          />
-        </label>
+          <p>
+            Registra una nueva prenda para incorporarla al catálogo mayorista.
+          </p>
+        </div>
 
-        <label>
-          Precio por docena
-          <input
-            type="number"
-            name="price_dozen"
-            step="0.01"
-            placeholder="Ejemplo: 4.99"
-            required
-          />
-        </label>
+        <div className="admin-product-form-card">
+          <div className="admin-form-header">
+            <div>
+              <p className="admin-eyebrow">NUEVA PRENDA</p>
+              <h2>Información del producto</h2>
+            </div>
 
-        <label>
-          Stock en docenas
-          <input
-            type="number"
-            name="stock_dozen"
-            min="0"
-            placeholder="Ejemplo: 10"
-            required
-          />
-        </label>
+            <span>PRENDAS ANTTONELA</span>
+          </div>
 
-        <button type="submit">
-          GUARDAR PRODUCTO
-        </button>
-      </form>
+          <form action={crearProducto} className="admin-product-form">
+            <div className="admin-form-grid">
+              <label>
+                <span>CÓDIGO</span>
+                <input
+                  type="text"
+                  name="code"
+                  placeholder="Ejemplo: 481"
+                  required
+                />
+              </label>
+
+              <label>
+                <span>NOMBRE DE LA PRENDA</span>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Ejemplo: Polo de dama"
+                  required
+                />
+              </label>
+
+              <label>
+                <span>TELA</span>
+                <input
+                  type="text"
+                  name="fabric"
+                  placeholder="Ejemplo: Algodón Jersey"
+                />
+              </label>
+
+              <label>
+                <span>PRECIO POR DOCENA</span>
+
+                <div className="admin-price-input">
+                  <span>S/</span>
+
+                  <input
+                    type="number"
+                    name="price_dozen"
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
+              </label>
+
+              <label>
+                <span>STOCK EN DOCENAS</span>
+                <input
+                  type="number"
+                  name="stock_dozen"
+                  min="0"
+                  placeholder="Ejemplo: 10"
+                  required
+                />
+              </label>
+            </div>
+
+            <label className="admin-description-field">
+              <span>DESCRIPCIÓN</span>
+
+              <textarea
+                name="description"
+                placeholder="Describe brevemente la prenda..."
+                rows={5}
+              />
+            </label>
+
+            <div className="admin-form-actions">
+              <Link href="/admin" className="admin-cancel-button">
+                CANCELAR
+              </Link>
+
+              <button type="submit" className="admin-save-button">
+                GUARDAR PRODUCTO →
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
     </main>
   );
 }

@@ -260,3 +260,263 @@
     padding-right: 3%;
   }
 }
+
+/* =====================================================
+   ADMIN · NUEVO PRODUCTO
+===================================================== */
+
+.admin-new-product {
+  min-height: calc(100vh - 72px);
+  padding: 55px 4%;
+  background: #f3eee5;
+}
+
+.admin-new-heading {
+  max-width: 1560px;
+  margin: 0 auto 35px;
+}
+
+.admin-new-heading h1 {
+  margin: 8px 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 400;
+  line-height: 1;
+  color: #171713;
+}
+
+.admin-new-heading > p:last-child {
+  margin: 0;
+  font-size: 16px;
+  color: #705f50;
+}
+
+.admin-back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 22px;
+  border: 1px solid #59564f;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  transition: 0.2s ease;
+}
+
+.admin-back-button:hover {
+  background: #ffffff;
+  color: #171713;
+}
+
+.admin-product-form-card {
+  max-width: 1560px;
+  margin: 0 auto;
+  background: #fffdf9;
+  border: 1px solid #ddd3c5;
+}
+
+.admin-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 28px 32px;
+  border-bottom: 1px solid #ddd3c5;
+}
+
+.admin-form-header h2 {
+  margin: 5px 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #171713;
+}
+
+.admin-form-header > span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #9b8875;
+}
+
+.admin-product-form {
+  padding: 35px 32px 32px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 30px;
+}
+
+.admin-product-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.admin-product-form label > span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #6f5d4e;
+}
+
+.admin-product-form input,
+.admin-product-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d8cec0;
+  border-radius: 0;
+  background: #ffffff;
+  padding: 16px 17px;
+  font: inherit;
+  font-size: 15px;
+  color: #171713;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-product-form input {
+  height: 54px;
+}
+
+.admin-product-form textarea {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.admin-product-form input:focus,
+.admin-product-form textarea:focus {
+  border-color: #171713;
+  box-shadow: 0 0 0 1px #171713;
+}
+
+.admin-product-form input::placeholder,
+.admin-product-form textarea::placeholder {
+  color: #aaa096;
+}
+
+.admin-price-input {
+  display: flex;
+  align-items: center;
+  height: 54px;
+  border: 1px solid #d8cec0;
+  background: #ffffff;
+}
+
+.admin-price-input:focus-within {
+  border-color: #171713;
+  box-shadow: 0 0 0 1px #171713;
+}
+
+.admin-price-input > span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  border-right: 1px solid #e1d8cc;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  color: #171713;
+}
+
+.admin-price-input input {
+  height: 52px;
+  border: 0;
+  box-shadow: none !important;
+}
+
+.admin-description-field {
+  margin-top: 27px;
+}
+
+.admin-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 27px;
+  border-top: 1px solid #e2d9cd;
+}
+
+.admin-cancel-button,
+.admin-save-button {
+  min-height: 50px;
+  padding: 0 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-cancel-button {
+  border: 1px solid #cfc4b6;
+  background: transparent;
+  color: #171713;
+}
+
+.admin-save-button {
+  border: 1px solid #171713;
+  background: #171713;
+  color: #ffffff;
+}
+
+.admin-save-button:hover {
+  background: #312f29;
+}
+
+/* NUEVO PRODUCTO · RESPONSIVE */
+
+@media (max-width: 760px) {
+  .admin-new-product {
+    padding: 35px 18px;
+  }
+
+  .admin-new-heading h1 {
+    font-size: 44px;
+  }
+
+  .admin-form-header {
+    align-items: flex-start;
+    padding: 24px 20px;
+  }
+
+  .admin-form-header > span {
+    display: none;
+  }
+
+  .admin-product-form {
+    padding: 26px 20px 22px;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .admin-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .admin-cancel-button,
+  .admin-save-button {
+    width: 100%;
+  }
+
+  .admin-back-button {
+    padding: 11px 14px;
+    font-size: 10px;
+  }
+}
