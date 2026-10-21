@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import RealtimeProducts from "./RealtimeProducts";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -21,6 +22,7 @@ export default async function Home() {
 
   return (
     <main>
+      <RealtimeProducts />
       {/* BARRA SUPERIOR */}
       <div className="announcement">
         VENTA MAYORISTA · PRECIOS POR DOCENA
