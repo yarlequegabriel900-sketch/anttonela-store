@@ -59,11 +59,15 @@ export default async function AdminPage() {
       <span>＋</span>
       Agregar producto
     </Link>
-
-    <a href="/" className="admin-sidebar-link">
-      <span>◫</span>
-      Ver catálogo
-    </a>
+<a
+  href="/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="admin-sidebar-link"
+>
+  <span>◫</span>
+  Ver catálogo
+</a>
   </nav>
 
   <div className="admin-sidebar-bottom">
