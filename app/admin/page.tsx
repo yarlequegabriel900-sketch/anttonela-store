@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import AdminSessionGuard from "./AdminSessionGuard";
 import {
   cerrarSesion,
   eliminarProducto,
@@ -23,6 +24,7 @@ if (!user) {
 
   return (
     <main>
+      <AdminSessionGuard />
       <h1>Administrador PRENDAS ANTTONELA</h1>
       <p>Panel de administración del catálogo.</p>
 <form action={cerrarSesion}>
