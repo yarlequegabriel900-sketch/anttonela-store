@@ -76,18 +76,34 @@ export default async function AdminPage() {
   </div>
 </aside>
 
-      <header className="admin-topbar">
-        <div className="admin-brand">
-          <span>PRENDAS</span>
-          <span>ANTTONELA</span>
-        </div>
+      <header className="admin-topbar admin-topbar-enterprise">
+  <div className="admin-topbar-title">
+    <span>SISTEMA DE GESTIÓN</span>
+    <strong>Panel Administrativo</strong>
+  </div>
 
-        <form action={cerrarSesion}>
-          <button className="admin-logout" type="submit">
-            CERRAR SESIÓN
-          </button>
-        </form>
-      </header>
+  <div className="admin-topbar-account">
+    <div className="admin-session-status">
+      <span className="admin-online-dot"></span>
+      Sesión activa
+    </div>
+
+    <div className="admin-user-profile">
+      <div className="admin-user-avatar">GY</div>
+
+      <div className="admin-user-info">
+        <strong>Gabriel</strong>
+        <span>Administrador</span>
+      </div>
+    </div>
+
+    <form action={cerrarSesion}>
+      <button className="admin-logout" type="submit">
+        CERRAR SESIÓN
+      </button>
+    </form>
+  </div>
+</header>
 
       <div className="admin-container">
         <section className="admin-heading">

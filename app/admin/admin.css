@@ -710,3 +710,140 @@
     display: none;
   }
 }
+/* =========================================================
+   CABECERA CORPORATIVA - PRENDAS ANTTONELA
+========================================================= */
+
+.admin-topbar-enterprise {
+  min-height: 76px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: rgba(20, 19, 17, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+}
+
+.admin-topbar-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-topbar-title span {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.admin-topbar-title strong {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.admin-topbar-account {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.admin-session-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.admin-online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #67b57a;
+  box-shadow: 0 0 0 4px rgba(103, 181, 122, 0.12);
+}
+
+.admin-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #efe5d5;
+  color: #1d1b18;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.admin-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-user-info strong {
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.admin-user-info span {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 10px;
+}
+
+.admin-topbar-enterprise .admin-logout {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-topbar-enterprise .admin-logout:hover {
+  background: #ffffff;
+  color: #171714;
+  border-color: #ffffff;
+}
+
+/* MÓVIL */
+@media (max-width: 760px) {
+  .admin-topbar-enterprise {
+    padding: 0 16px;
+  }
+
+  .admin-session-status,
+  .admin-user-info {
+    display: none;
+  }
+
+  .admin-user-profile {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .admin-topbar-account {
+    gap: 10px;
+  }
+}
