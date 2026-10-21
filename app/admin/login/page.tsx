@@ -32,9 +32,7 @@ const [recovering, setRecovering] = useState(false);
       setLoading(false);
       return;
     }
-
-    router.push("/admin");
-    router.refresh();
+window.location.href = "/admin";
   }
 async function recuperarPassword() {
   setError("");
