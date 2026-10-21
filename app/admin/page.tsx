@@ -37,6 +37,40 @@ export default async function AdminPage() {
   return (
     <main className="admin-page">
       <AdminSessionGuard />
+      <aside className="admin-sidebar">
+  <div className="admin-sidebar-logo">
+    <div className="admin-sidebar-logo-mark">PA</div>
+
+    <div>
+      <span>PRENDAS</span>
+      <strong>ANTTONELA</strong>
+    </div>
+  </div>
+
+  <nav className="admin-sidebar-nav">
+    <p>MENÚ PRINCIPAL</p>
+
+    <Link href="/admin" className="admin-sidebar-link active">
+      <span>▦</span>
+      Productos
+    </Link>
+
+    <Link href="/admin/nuevo" className="admin-sidebar-link">
+      <span>＋</span>
+      Agregar producto
+    </Link>
+
+    <a href="/" className="admin-sidebar-link">
+      <span>◫</span>
+      Ver catálogo
+    </a>
+  </nav>
+
+  <div className="admin-sidebar-bottom">
+    <span>Panel administrativo</span>
+    <strong>PRENDAS ANTTONELA</strong>
+  </div>
+</aside>
 
       <header className="admin-topbar">
         <div className="admin-brand">
