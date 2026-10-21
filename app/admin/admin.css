@@ -867,3 +867,514 @@
     gap: 10px;
   }
 }
+/* =========================================================
+   ANTTONELA ADMIN · DARK PREMIUM UI
+   Capa visual final
+========================================================= */
+
+/* ---------- CONTENIDO GENERAL ---------- */
+
+.admin-container {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-add-button {
+  border: 1px solid rgba(214, 178, 119, 0.75);
+  border-radius: 8px;
+  background: rgba(17, 15, 12, 0.92);
+  color: #fffaf2;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(214, 178, 119, 0.08);
+  transition: 0.2s ease;
+}
+
+.admin-add-button:hover {
+  opacity: 1;
+  color: #17130f;
+  background: #d6b277;
+  border-color: #d6b277;
+}
+
+
+/* ---------- TARJETAS DE ESTADÍSTICAS ---------- */
+
+.admin-stat {
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(214, 178, 119, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(53, 42, 31, 0.95),
+      rgba(24, 21, 17, 0.97)
+    );
+
+  border: 1px solid rgba(214, 178, 119, 0.48);
+  border-radius: 12px;
+}
+
+.admin-stat:nth-child(2) {
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(65, 181, 116, 0.13),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(20, 55, 40, 0.94),
+      rgba(15, 29, 23, 0.97)
+    );
+
+  border-color: rgba(74, 183, 125, 0.5);
+}
+
+.admin-stat:nth-child(2) span {
+  color: #83d6a7;
+}
+
+.admin-stat:nth-child(3) {
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(210, 73, 73, 0.14),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(77, 32, 28, 0.94),
+      rgba(38, 20, 18, 0.97)
+    );
+
+  border-color: rgba(206, 80, 70, 0.52);
+}
+
+.admin-stat:nth-child(3) span {
+  color: #e58d83;
+}
+
+
+/* ---------- PANEL PRODUCTOS ---------- */
+
+.admin-products {
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(42, 35, 28, 0.96),
+      rgba(20, 18, 15, 0.98)
+    );
+
+  border: 1px solid rgba(214, 178, 119, 0.42);
+  border-radius: 12px;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  backdrop-filter: blur(14px);
+}
+
+.admin-products-header {
+  padding: 22px 28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(73, 56, 39, 0.55),
+      rgba(32, 27, 22, 0.65)
+    );
+
+  border-bottom: 1px solid rgba(214, 178, 119, 0.22);
+}
+
+.admin-products-header h2 {
+  color: #fff8ed;
+  font-size: 28px;
+}
+
+
+/* ---------- TABLA ---------- */
+
+.admin-table {
+  color: #eee8df;
+}
+
+.admin-table th {
+  padding: 16px 20px;
+
+  background: rgba(64, 53, 43, 0.75);
+  color: #d7c4a8;
+
+  border: 0;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.admin-table td {
+  padding: 19px 20px;
+
+  background: rgba(17, 16, 14, 0.72);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+  color: #f1ece4;
+}
+
+.admin-table tbody tr {
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-table tbody tr:hover td {
+  background: rgba(55, 45, 35, 0.72);
+}
+
+.admin-product-name {
+  color: #ffffff;
+}
+
+.admin-code {
+  color: #a99d8e;
+}
+
+
+/* ---------- ESTADOS ---------- */
+
+.admin-status.published {
+  background: rgba(47, 133, 82, 0.28);
+  color: #8ed4a7;
+  border: 1px solid rgba(73, 176, 111, 0.25);
+}
+
+.admin-status.draft {
+  background: rgba(184, 132, 62, 0.18);
+  color: #e1b875;
+  border: 1px solid rgba(214, 178, 119, 0.25);
+}
+
+
+/* ---------- BOTONES DE TABLA ---------- */
+
+.admin-action-button {
+  border: 1px solid rgba(214, 178, 119, 0.42);
+  border-radius: 6px;
+
+  background: rgba(18, 16, 13, 0.75);
+  color: #f5ead9;
+
+  padding: 9px 12px;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-action-button:hover {
+  background: #d6b277;
+  border-color: #d6b277;
+  color: #17130f;
+  transform: translateY(-1px);
+}
+
+/* Último botón de cada fila: ELIMINAR */
+.admin-actions form:last-child .admin-action-button {
+  border-color: rgba(215, 77, 77, 0.48);
+  color: #ef8d8d;
+}
+
+.admin-actions form:last-child .admin-action-button:hover {
+  background: #a83333;
+  border-color: #c84848;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   AGREGAR PRODUCTO · DARK PREMIUM
+========================================================= */
+
+.admin-new-product {
+  min-height: calc(100vh - 72px);
+
+  background:
+    linear-gradient(
+      rgba(18, 14, 10, 0.78),
+      rgba(12, 10, 8, 0.92)
+    ),
+    url("/tienda-anttonela.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  padding: 55px 4% 80px;
+}
+
+.admin-new-heading h1 {
+  color: #fff8ed;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+}
+
+.admin-new-heading > p:last-child {
+  color: rgba(255, 245, 231, 0.72);
+}
+
+.admin-new-heading .admin-eyebrow {
+  color: #d6b277;
+}
+
+
+/* ---------- TARJETA FORMULARIO ---------- */
+
+.admin-product-form-card {
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(48, 39, 31, 0.94),
+      rgba(21, 18, 15, 0.97)
+    );
+
+  border: 1px solid rgba(214, 178, 119, 0.42);
+  border-radius: 12px;
+
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(16px);
+}
+
+.admin-form-header {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(74, 57, 40, 0.46),
+      rgba(25, 22, 18, 0.5)
+    );
+
+  border-bottom: 1px solid rgba(214, 178, 119, 0.22);
+}
+
+.admin-form-header h2 {
+  color: #fff8ed;
+}
+
+.admin-form-header > span {
+  color: #d6b277;
+}
+
+.admin-form-header .admin-eyebrow {
+  color: #d6b277;
+}
+
+
+/* ---------- FORMULARIO ---------- */
+
+.admin-product-form label > span {
+  color: #d7c3a5;
+}
+
+.admin-product-form input,
+.admin-product-form textarea {
+  border: 1px solid rgba(214, 178, 119, 0.26);
+  border-radius: 7px;
+
+  background: rgba(12, 12, 11, 0.7);
+
+  color: #ffffff;
+
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.35);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-product-form input::placeholder,
+.admin-product-form textarea::placeholder {
+  color: rgba(235, 223, 207, 0.38);
+}
+
+.admin-product-form input:focus,
+.admin-product-form textarea:focus {
+  border-color: #d6b277;
+
+  background: rgba(18, 17, 15, 0.92);
+
+  box-shadow:
+    0 0 0 2px rgba(214, 178, 119, 0.12),
+    0 0 20px rgba(214, 178, 119, 0.07);
+}
+
+
+/* ---------- PRECIO ---------- */
+
+.admin-price-input {
+  border: 1px solid rgba(214, 178, 119, 0.26);
+  border-radius: 7px;
+
+  background: rgba(12, 12, 11, 0.7);
+
+  overflow: hidden;
+}
+
+.admin-price-input > span {
+  border-right: 1px solid rgba(214, 178, 119, 0.22);
+  color: #d6b277;
+  background: rgba(214, 178, 119, 0.06);
+}
+
+.admin-price-input input {
+  background: transparent;
+}
+
+.admin-price-input:focus-within {
+  border-color: #d6b277;
+
+  box-shadow:
+    0 0 0 2px rgba(214, 178, 119, 0.12);
+}
+
+
+/* ---------- ACCIONES DEL FORMULARIO ---------- */
+
+.admin-form-actions {
+  border-top: 1px solid rgba(214, 178, 119, 0.18);
+}
+
+.admin-cancel-button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.03);
+  color: #e8dfd3;
+
+  transition: 0.2s ease;
+}
+
+.admin-cancel-button:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-save-button {
+  border: 1px solid #d6b277;
+  border-radius: 7px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d6b277,
+      #b98b45
+    );
+
+  color: #17130f;
+
+  box-shadow:
+    0 8px 24px rgba(185, 139, 69, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-save-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #e4c58f,
+      #c99c55
+    );
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 28px rgba(185, 139, 69, 0.3);
+}
+
+
+/* ---------- BOTÓN VOLVER ---------- */
+
+.admin-back-button {
+  border-color: rgba(214, 178, 119, 0.42);
+  border-radius: 7px;
+  color: #f4e8d5;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.admin-back-button:hover {
+  background: #d6b277;
+  border-color: #d6b277;
+  color: #17130f;
+}
+
+
+/* ---------- SIDEBAR: AJUSTE PREMIUM ---------- */
+
+.admin-sidebar {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15, 14, 12, 0.99),
+      rgba(21, 18, 14, 0.98)
+    );
+
+  border-right: 1px solid rgba(214, 178, 119, 0.13);
+}
+
+.admin-sidebar-logo-mark {
+  background:
+    linear-gradient(
+      135deg,
+      #f3dfb7,
+      #d6b277
+    );
+
+  color: #17130f;
+}
+
+.admin-sidebar-link.active {
+  background:
+    linear-gradient(
+      90deg,
+      #f1d49e,
+      #d6b277
+    );
+
+  color: #17130f;
+
+  box-shadow:
+    0 6px 20px rgba(214, 178, 119, 0.16);
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 760px) {
+  .admin-new-product {
+    padding: 35px 18px 60px;
+  }
+
+  .admin-products {
+    border-radius: 9px;
+  }
+
+  .admin-stat {
+    min-height: 105px;
+  }
+}
