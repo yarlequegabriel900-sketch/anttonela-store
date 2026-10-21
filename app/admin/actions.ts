@@ -2,6 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function cerrarSesion() {
   const supabase = await createClient();
@@ -57,10 +58,15 @@ if (!user) {
     .eq("id", id);
 
   if (error) {
-    throw new Error(`No se pudo actualizar el producto: ${error.message}`);
-  }
+  throw new Error(`No se pudo actualizar el producto: ${error.message}`);
+}
 
-  redirect("/admin");
+revalidatePath("/");
+revalidatePath("/catalogo");
+revalidatePath("/admin");
+revalidatePath(`/admin/editar/${id}`);
+
+redirect("/admin");
 }
 export async function eliminarProducto(formData: FormData) {
   const supabase = await createClient();
