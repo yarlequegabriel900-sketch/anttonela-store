@@ -125,8 +125,22 @@ export default async function AdminPage() {
        <section className="admin-stats">
   <div className="admin-stat admin-stat-total">
     <div className="admin-stat-icon">
-      <span>⬡</span>
-    </div>
+  <svg
+    viewBox="0 0 24 24"
+    width="34"
+    height="34"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+    <polyline points="3.29 7 12 12 20.71 7" />
+    <line x1="12" y1="22" x2="12" y2="12" />
+  </svg>
+</div>
 
     <div className="admin-stat-content">
       <span>TOTAL PRODUCTOS</span>
@@ -142,8 +156,21 @@ export default async function AdminPage() {
 
   <div className="admin-stat admin-stat-published">
     <div className="admin-stat-icon">
-      <span>◇</span>
-    </div>
+  <svg
+    viewBox="0 0 24 24"
+    width="34"
+    height="34"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M20.59 13.41 11 23l-9-9V3h11l7.59 7.59a2 2 0 0 1 0 2.82z" />
+    <circle cx="7.5" cy="8.5" r="1.5" />
+  </svg>
+</div>
 
     <div className="admin-stat-content">
       <span>PUBLICADOS</span>
@@ -159,8 +186,21 @@ export default async function AdminPage() {
 
   <div className="admin-stat admin-stat-hidden">
     <div className="admin-stat-icon">
-      <span>◉</span>
-    </div>
+  <svg
+    viewBox="0 0 24 24"
+    width="36"
+    height="36"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+</div>
 
     <div className="admin-stat-content">
       <span>OCULTOS</span>
@@ -250,7 +290,23 @@ export default async function AdminPage() {
                           className="admin-action-button"
                           href={`/admin/editar/${product.id}`}
                         >
-                          EDITAR
+                         <span className="admin-action-content">
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 20h9" />
+    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+  </svg>
+  EDITAR
+</span>
                         </Link>
 
                         <form action={cambiarEstadoProducto}>
@@ -271,7 +327,25 @@ export default async function AdminPage() {
                             type="submit"
                           >
                             {product.status === "published"
-                              ? "OCULTAR"
+                              ? <span className="admin-action-content">
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M3 3l18 18" />
+    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+    <path d="M9.9 4.2A10.7 10.7 0 0 1 12 4c6 0 10 8 10 8a17.6 17.6 0 0 1-2.1 3.2" />
+    <path d="M6.6 6.6C3.8 8.5 2 12 2 12s4 8 10 8a9.7 9.7 0 0 0 4.1-.9" />
+  </svg>
+  OCULTAR
+</span>
                               : "PUBLICAR"}
                           </button>
                         </form>

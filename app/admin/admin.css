@@ -1689,3 +1689,123 @@
     height: 55px;
   }
 }
+/* =========================================================
+   ACCIONES PRODUCTO · ESTILO REFERENCIA
+========================================================= */
+
+.admin-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-actions form {
+  margin: 0;
+}
+
+/* BASE DE LOS 3 BOTONES */
+
+.admin-action-button,
+.admin-actions form button {
+  min-height: 40px;
+  padding: 0 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+  border: 1px solid rgba(214, 178, 119, 0.55);
+
+  background: rgba(10, 10, 9, 0.78);
+  color: #f7efe3;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* ICONO + TEXTO */
+
+.admin-action-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.admin-action-content svg {
+  flex: 0 0 auto;
+}
+
+/* EDITAR */
+
+.admin-actions > .admin-action-button {
+  border-color: rgba(218, 169, 82, 0.75);
+}
+
+.admin-actions > .admin-action-button svg {
+  color: #e5bb72;
+}
+
+.admin-actions > .admin-action-button:hover {
+  border-color: #e5bb72;
+  background: rgba(108, 74, 29, 0.22);
+
+  box-shadow:
+    0 0 14px rgba(218, 169, 82, 0.16);
+}
+
+/* OCULTAR */
+
+.admin-actions form:not(:last-child) button svg {
+  color: #eee6da;
+}
+
+.admin-actions form:not(:last-child) button:hover {
+  border-color: rgba(238, 230, 218, 0.7);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ELIMINAR */
+
+.admin-actions form:last-child button {
+  border-color: rgba(235, 63, 70, 0.78);
+  color: #ff6269;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(85, 17, 20, 0.22),
+      rgba(31, 10, 11, 0.38)
+    );
+}
+
+.admin-actions form:last-child button svg {
+  color: #ff3f49;
+}
+
+.admin-actions form:last-child button:hover {
+  border-color: #ff4d55;
+  background: rgba(124, 22, 27, 0.3);
+
+  box-shadow:
+    0 0 15px rgba(255, 61, 70, 0.18);
+}
+
+/* EFECTO AL PRESIONAR */
+
+.admin-action-button:active,
+.admin-actions form button:active {
+  transform: translateY(1px);
+}
