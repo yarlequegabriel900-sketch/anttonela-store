@@ -8,11 +8,18 @@ export default function AdminSessionGuard() {
   const router = useRouter();
 
   useEffect(() => {
+    const adminYaEstabaAbierto =
+      sessionStorage.getItem("admin_session_active") === "true";
+
     const navigation = performance.getEntriesByType(
       "navigation"
     )[0] as PerformanceNavigationTiming | undefined;
 
-    if (navigation?.type === "reload") {
+    const esRecarga = navigation?.type === "reload";
+
+    if (esRecarga && adminYaEstabaAbierto) {
+      sessionStorage.removeItem("admin_session_active");
+
       const cerrarSesion = async () => {
         const supabase = createClient();
 
@@ -23,7 +30,10 @@ export default function AdminSessionGuard() {
       };
 
       cerrarSesion();
+      return;
     }
+
+    sessionStorage.setItem("admin_session_active", "true");
   }, [router]);
 
   return null;
