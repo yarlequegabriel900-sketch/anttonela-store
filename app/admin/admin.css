@@ -1506,3 +1506,186 @@
     width: 100%;
   }
 }
+/* =========================================================
+   TARJETAS KPI · ESTILO REFERENCIA ANTTONELA
+========================================================= */
+
+.admin-stat {
+  position: relative;
+  min-height: 118px;
+  padding: 18px 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  overflow: hidden;
+}
+
+/* ICONO CIRCULAR */
+
+.admin-stat-icon {
+  position: relative;
+  z-index: 3;
+
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+}
+
+.admin-stat-icon span {
+  margin: 0;
+  color: inherit;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+/* TEXTO */
+
+.admin-stat-content {
+  position: relative;
+  z-index: 3;
+}
+
+.admin-stat-content > span {
+  margin-bottom: 10px;
+}
+
+.admin-stat-content > strong {
+  font-size: 38px;
+}
+
+/* CURVA DECORATIVA */
+
+.admin-stat-wave {
+  position: absolute;
+  z-index: 1;
+
+  right: -5px;
+  bottom: -3px;
+
+  width: 54%;
+  height: 68px;
+
+  pointer-events: none;
+}
+
+.admin-stat-wave svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.admin-stat-wave path {
+  fill: none;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+
+/* TOTAL PRODUCTOS · DORADO */
+
+.admin-stat-total .admin-stat-icon {
+  color: #ffe0a0;
+
+  border: 1px solid rgba(225, 170, 76, 0.7);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(216, 157, 59, 0.25),
+      rgba(83, 56, 24, 0.35)
+    );
+
+  box-shadow:
+    0 0 22px rgba(215, 156, 57, 0.26),
+    inset 0 0 20px rgba(215, 156, 57, 0.1);
+}
+
+.admin-stat-total .admin-stat-wave path {
+  stroke: rgba(224, 163, 68, 0.9);
+  filter: drop-shadow(0 0 5px rgba(224, 163, 68, 0.45));
+}
+
+
+/* PUBLICADOS · VERDE */
+
+.admin-stat-published .admin-stat-icon {
+  color: #b6f5d2;
+
+  border: 1px solid rgba(47, 180, 112, 0.72);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(34, 171, 99, 0.22),
+      rgba(10, 71, 43, 0.3)
+    );
+
+  box-shadow:
+    0 0 22px rgba(36, 180, 104, 0.23),
+    inset 0 0 20px rgba(36, 180, 104, 0.1);
+}
+
+.admin-stat-published .admin-stat-wave path {
+  stroke: rgba(48, 196, 123, 0.9);
+  filter: drop-shadow(0 0 5px rgba(48, 196, 123, 0.42));
+}
+
+
+/* OCULTOS · ROJO */
+
+.admin-stat-hidden .admin-stat-icon {
+  color: #ffb0aa;
+
+  border: 1px solid rgba(226, 65, 65, 0.72);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(222, 50, 50, 0.24),
+      rgba(96, 23, 23, 0.3)
+    );
+
+  box-shadow:
+    0 0 22px rgba(221, 52, 52, 0.26),
+    inset 0 0 20px rgba(221, 52, 52, 0.11);
+}
+
+.admin-stat-hidden .admin-stat-wave path {
+  stroke: rgba(239, 83, 83, 0.92);
+  filter: drop-shadow(0 0 5px rgba(239, 83, 83, 0.42));
+}
+
+
+/* MÓVIL */
+
+@media (max-width: 760px) {
+  .admin-stat {
+    min-height: 105px;
+    padding: 16px 18px;
+    gap: 16px;
+  }
+
+  .admin-stat-icon {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+  }
+
+  .admin-stat-icon span {
+    font-size: 27px;
+  }
+
+  .admin-stat-wave {
+    width: 48%;
+    height: 55px;
+  }
+}

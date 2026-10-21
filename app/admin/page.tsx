@@ -122,22 +122,58 @@ export default async function AdminPage() {
           </Link>
         </section>
 
-        <section className="admin-stats">
-          <div className="admin-stat">
-            <span>TOTAL PRODUCTOS</span>
-            <strong>{totalProductos}</strong>
-          </div>
+       <section className="admin-stats">
+  <div className="admin-stat admin-stat-total">
+    <div className="admin-stat-icon">
+      <span>⬡</span>
+    </div>
 
-          <div className="admin-stat">
-            <span>PUBLICADOS</span>
-            <strong>{publicados}</strong>
-          </div>
+    <div className="admin-stat-content">
+      <span>TOTAL PRODUCTOS</span>
+      <strong>{totalProductos}</strong>
+    </div>
 
-          <div className="admin-stat">
-            <span>OCULTOS</span>
-            <strong>{ocultos}</strong>
-          </div>
-        </section>
+    <div className="admin-stat-wave" aria-hidden="true">
+      <svg viewBox="0 0 220 70" preserveAspectRatio="none">
+        <path d="M0 58 C35 58, 42 38, 72 42 C105 47, 115 63, 145 45 C170 30, 181 13, 220 22" />
+      </svg>
+    </div>
+  </div>
+
+  <div className="admin-stat admin-stat-published">
+    <div className="admin-stat-icon">
+      <span>◇</span>
+    </div>
+
+    <div className="admin-stat-content">
+      <span>PUBLICADOS</span>
+      <strong>{publicados}</strong>
+    </div>
+
+    <div className="admin-stat-wave" aria-hidden="true">
+      <svg viewBox="0 0 220 70" preserveAspectRatio="none">
+        <path d="M0 58 C35 58, 42 38, 72 42 C105 47, 115 63, 145 45 C170 30, 181 13, 220 22" />
+      </svg>
+    </div>
+  </div>
+
+  <div className="admin-stat admin-stat-hidden">
+    <div className="admin-stat-icon">
+      <span>◉</span>
+    </div>
+
+    <div className="admin-stat-content">
+      <span>OCULTOS</span>
+      <strong>{ocultos}</strong>
+    </div>
+
+    <div className="admin-stat-wave" aria-hidden="true">
+      <svg viewBox="0 0 220 70" preserveAspectRatio="none">
+        <path d="M0 58 C35 58, 42 38, 72 42 C105 47, 115 63, 145 45 C170 30, 181 13, 220 22" />
+      </svg>
+    </div>
+  </div>
+</section>
 
         <section className="admin-products">
           <div className="admin-products-header">
