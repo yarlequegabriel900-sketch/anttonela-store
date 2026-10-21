@@ -45,21 +45,16 @@ export default function NuevoProductoPage() {
   </div>
 </aside>
       {/* BARRA SUPERIOR */}
-      <header className="admin-topbar">
-        <div className="admin-brand">
-          <div className="admin-brand-icon">N</div>
+    <header className="admin-topbar">
+  <div className="admin-brand">
+    <span>PRENDAS</span>
+    <strong>ANTTONELA</strong>
+  </div>
 
-          <div>
-            <span>PRENDAS</span>
-            <strong>ANTTONELA</strong>
-          </div>
-        </div>
-
-        <Link href="/admin" className="admin-back-button">
-          ← VOLVER AL PANEL
-        </Link>
-      </header>
-
+  <Link href="/admin" className="admin-back-button">
+    ← VOLVER AL PANEL
+  </Link>
+</header>
       {/* CONTENIDO */}
       <section className="admin-new-product">
         <div className="admin-new-heading">
