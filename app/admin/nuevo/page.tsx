@@ -77,7 +77,11 @@ export default function NuevoProductoPage() {
             <span>PRENDAS ANTTONELA</span>
           </div>
 
-          <form action={crearProducto} className="admin-product-form">
+        <form
+  action={crearProducto}
+  className="admin-product-form"
+  encType="multipart/form-data"
+>
             <div className="admin-form-grid">
               <label>
                 <span>CÓDIGO</span>
@@ -146,7 +150,32 @@ export default function NuevoProductoPage() {
                 rows={5}
               />
             </label>
+<div className="admin-images-field">
+  <div className="admin-images-heading">
+    <div>
+      <span>IMÁGENES DEL PRODUCTO</span>
+      <p>
+        Puedes seleccionar varias imágenes. La primera será la imagen principal.
+      </p>
+    </div>
+  </div>
 
+  <label className="admin-image-upload">
+    <div className="admin-image-upload-icon">＋</div>
+
+    <div>
+      <strong>AGREGAR IMÁGENES</strong>
+      <span>Selecciona las fotos de la prenda</span>
+    </div>
+
+    <input
+      type="file"
+      name="images"
+      accept="image/jpeg,image/png,image/webp"
+      multiple
+    />
+  </label>
+</div>
             <div className="admin-form-actions">
               <Link href="/admin" className="admin-cancel-button">
                 CANCELAR

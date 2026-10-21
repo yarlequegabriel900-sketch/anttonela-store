@@ -1809,3 +1809,131 @@
 .admin-actions form button:active {
   transform: translateY(1px);
 }
+/* =========================================================
+   CARGA DE IMÁGENES · PRODUCTOS
+========================================================= */
+
+.admin-images-field {
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(214, 178, 119, 0.18);
+}
+
+.admin-images-heading {
+  margin-bottom: 14px;
+}
+
+.admin-images-heading span {
+  display: block;
+  margin-bottom: 6px;
+  color: #d6b277;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.admin-images-heading p {
+  margin: 0;
+  color: rgba(245, 234, 217, 0.58);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-image-upload {
+  position: relative;
+  min-height: 130px;
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  border: 1px dashed rgba(214, 178, 119, 0.55);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(214, 178, 119, 0.07),
+      rgba(15, 13, 11, 0.35)
+    );
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-image-upload:hover {
+  border-color: #d6b277;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(214, 178, 119, 0.13),
+      rgba(15, 13, 11, 0.45)
+    );
+
+  box-shadow: 0 0 22px rgba(214, 178, 119, 0.1);
+}
+
+.admin-image-upload-icon {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(214, 178, 119, 0.65);
+  border-radius: 50%;
+
+  background: rgba(214, 178, 119, 0.09);
+  color: #e8c784;
+
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1;
+
+  box-shadow: 0 0 18px rgba(214, 178, 119, 0.12);
+}
+
+.admin-image-upload > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-image-upload strong {
+  color: #fff7e9;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.admin-image-upload span {
+  color: rgba(245, 234, 217, 0.55);
+  font-size: 12px;
+}
+
+/* Ocultamos el input nativo.
+   Toda la caja funciona como selector de archivos. */
+
+.admin-image-upload input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .admin-image-upload {
+    min-height: 150px;
+    flex-direction: column;
+    text-align: center;
+  }
+}
