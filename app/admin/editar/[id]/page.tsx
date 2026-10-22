@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { notFound, redirect } from "next/navigation";
-import { actualizarProducto } from "../../actions";
+import {
+  actualizarProducto,
+  eliminarImagenProducto,
+} from "../../actions";
 import "../../admin.css";
+import ImageUploader from "../../nuevo/ImageUploader";
 
 type Props = {
   params: Promise<{
@@ -23,13 +27,25 @@ if (!user) {
 }
 
   const { data: product, error } = await supabase
-    .from("products")
-    .select(
-      "id, code, name, description, fabric, price_dozen, stock_dozen, status, featured"
+  .from("products")
+  .select(`
+    id,
+    code,
+    name,
+    description,
+    fabric,
+    price_dozen,
+    stock_dozen,
+    status,
+    featured,
+    product_images (
+      id,
+      image_url,
+      sort_order
     )
-    .eq("id", id)
-    .single();
-
+  `)
+  .eq("id", id)
+  .single();
   if (error || !product) {
     notFound();
   }
@@ -119,6 +135,61 @@ if (!user) {
               </select>
             </label>
           </div>
+<div className="admin-edit-images">
+  <div className="admin-edit-images-heading">
+    <span>IMÁGENES DEL PRODUCTO</span>
+    <p>Imágenes actualmente publicadas para este producto.</p>
+  </div>
+
+  {product.product_images && product.product_images.length > 0 ? (
+    <div className="admin-edit-images-grid">
+      {product.product_images
+        .sort((a, b) => a.sort_order - b.sort_order)
+        .map((image, index) => (
+          <div className="admin-edit-image-card" key={image.id}>
+            <img
+              src={image.image_url}
+              alt={`${product.name} - imagen ${index + 1}`}
+            />
+
+           {index === 0 && (
+  <span className="admin-edit-image-main">
+    IMAGEN PRINCIPAL
+  </span>
+)}
+
+<form action={eliminarImagenProducto}>
+  <input type="hidden" name="image_id" value={image.id} />
+  <input type="hidden" name="product_id" value={product.id} />
+
+  <button
+    type="submit"
+    className="admin-edit-image-delete"
+    title="Eliminar imagen"
+  >
+    🗑 ELIMINAR
+  </button>
+</form>
+          </div>
+        ))}
+    </div>
+  ) : (
+    <div className="admin-edit-images-empty">
+      Este producto todavía no tiene imágenes.
+    </div>
+  )}
+
+  <div className="admin-edit-add-images">
+    <div className="admin-edit-add-images-title">
+      <span>AGREGAR NUEVAS IMÁGENES</span>
+      <p>
+        Las imágenes seleccionadas se agregarán a las imágenes actuales del producto.
+      </p>
+    </div>
+
+    <ImageUploader />
+  </div>
+</div>
 
           <div className="admin-form-grid">
             <label>

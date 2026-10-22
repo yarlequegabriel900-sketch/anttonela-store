@@ -1992,3 +1992,150 @@
     gap: 10px;
   }
 }
+/* =========================================================
+   EDITAR PRODUCTO · CORRECCIÓN DE TÍTULOS
+========================================================= */
+
+.admin-edit-page .admin-eyebrow,
+.admin-edit-page .admin-edit-hero h1,
+.admin-edit-page .admin-edit-hero p,
+.admin-edit-page .admin-form-eyebrow,
+.admin-edit-page .admin-form-title,
+.admin-edit-page .admin-form-code {
+  color: #fff8ed !important;
+}
+
+.admin-edit-page .admin-eyebrow,
+.admin-edit-page .admin-form-eyebrow {
+  color: #e7bd73 !important;
+}
+
+.admin-edit-page .admin-edit-hero h1 {
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.75);
+}
+
+.admin-edit-page .admin-edit-hero p {
+  color: #e8ded0 !important;
+}
+/* =========================================================
+   EDITAR PRODUCTO · GALERÍA DE IMÁGENES
+========================================================= */
+
+.admin-edit-images {
+  margin-top: 10px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(214, 178, 119, 0.22);
+}
+
+.admin-edit-images-heading {
+  margin-bottom: 18px;
+}
+
+.admin-edit-images-heading span {
+  display: block;
+  color: #e7bd73;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.admin-edit-images-heading p {
+  margin: 7px 0 0;
+  color: #a99f92;
+  font-size: 14px;
+}
+
+.admin-edit-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 180px));
+  gap: 16px;
+}
+
+.admin-edit-image-card {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+  border: 1px solid rgba(214, 178, 119, 0.35);
+  border-radius: 10px;
+  background: #0e0d0b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.admin-edit-image-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.admin-edit-image-main {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: rgba(15, 12, 8, 0.9);
+  border: 1px solid rgba(231, 189, 115, 0.55);
+  color: #f0c978;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.admin-edit-images-empty {
+  padding: 25px;
+  border: 1px dashed rgba(214, 178, 119, 0.4);
+  border-radius: 9px;
+  color: #aaa096;
+  text-align: center;
+  background: rgba(10, 9, 8, 0.35);
+}
+
+@media (max-width: 700px) {
+  .admin-edit-images-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-edit-image-card {
+    height: 170px;
+  }
+}
+/* =========================================================
+   EDITAR PRODUCTO · BOTÓN ELIMINAR IMAGEN
+========================================================= */
+
+.admin-edit-image-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(255, 110, 110, 0.55);
+  border-radius: 6px;
+
+  background: rgba(35, 8, 8, 0.9);
+  color: #ff9a9a;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-edit-image-delete:hover {
+  background: rgba(120, 25, 25, 0.95);
+  border-color: #ff8b8b;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.admin-edit-image-delete:active {
+  transform: translateY(0);
+}
