@@ -23,7 +23,19 @@ export default async function AdminPage() {
 
   const { data: products, error } = await supabase
     .from("products")
-    .select("id, code, name, fabric, price_dozen, stock_dozen, status")
+    .select(`
+  id,
+  code,
+  name,
+  fabric,
+  price_dozen,
+  stock_dozen,
+  status,
+  product_images (
+    image_url,
+    sort_order
+  )
+`)
     .order("created_at", { ascending: false });
 
   const totalProductos = products?.length || 0;
@@ -252,15 +264,31 @@ export default async function AdminPage() {
               <tbody>
                 {products.map((product) => (
                   <tr key={product.id}>
-                    <td>
-                      <div className="admin-product-name">
-                        {product.name}
-                      </div>
+                   <td>
+  <div className="admin-product-cell">
+    {product.product_images?.[0]?.image_url ? (
+      <img
+        src={product.product_images[0].image_url}
+        alt={product.name}
+        className="admin-product-thumbnail"
+      />
+    ) : (
+      <div className="admin-product-thumbnail admin-product-thumbnail-empty">
+        SIN FOTO
+      </div>
+    )}
 
-                      <div className="admin-code">
-                        Código {product.code}
-                      </div>
-                    </td>
+    <div className="admin-product-details">
+      <div className="admin-product-name">
+        {product.name}
+      </div>
+
+      <div className="admin-code">
+        Código {product.code}
+      </div>
+    </div>
+  </div>
+</td>
 
                     <td>{product.fabric || "Sin especificar"}</td>
 

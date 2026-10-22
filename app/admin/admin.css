@@ -1937,3 +1937,58 @@
     text-align: center;
   }
 }
+/* =========================================================
+   MINIATURA DE PRODUCTO · TABLA ADMIN
+========================================================= */
+
+.admin-product-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 230px;
+}
+
+.admin-product-thumbnail {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 9px;
+  border: 1px solid rgba(214, 178, 119, 0.45);
+  background: #181511;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.32);
+}
+
+.admin-product-thumbnail-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  color: #8f877c;
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+.admin-product-details {
+  min-width: 0;
+}
+
+.admin-product-details .admin-product-name {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 760px) {
+  .admin-product-thumbnail {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .admin-product-cell {
+    min-width: 200px;
+    gap: 10px;
+  }
+}
