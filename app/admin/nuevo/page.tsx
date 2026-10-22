@@ -1,3 +1,4 @@
+import ImageUploader from "./ImageUploader";
 import Link from "next/link";
 import { crearProducto } from "./actions";
 import "../admin.css";
@@ -160,21 +161,7 @@ export default function NuevoProductoPage() {
     </div>
   </div>
 
-  <label className="admin-image-upload">
-    <div className="admin-image-upload-icon">＋</div>
-
-    <div>
-      <strong>AGREGAR IMÁGENES</strong>
-      <span>Selecciona las fotos de la prenda</span>
-    </div>
-
-    <input
-      type="file"
-      name="images"
-      accept="image/jpeg,image/png,image/webp"
-      multiple
-    />
-  </label>
+  <ImageUploader />
 </div>
             <div className="admin-form-actions">
               <Link href="/admin" className="admin-cancel-button">
