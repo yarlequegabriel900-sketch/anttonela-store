@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import RealtimeProducts from "./RealtimeProducts";
 
@@ -153,7 +154,12 @@ product_images (
   ) : products && products.length > 0 ? (
     <div className="products-grid">
       {products.map((product) => (
-        <article className="product-card" key={product.id}>
+     <Link
+  href={`/producto/${product.id}`}
+  className="product-card-link"
+  key={product.id}
+>
+  <article className="product-card">
           <div className="product-image">
             {product.product_images?.[0]?.image_url ? (
   <img
@@ -205,6 +211,7 @@ product_images (
             </a>
           </div>
         </article>
+        </Link>
       ))}
     </div>
   ) : (

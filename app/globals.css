@@ -1274,3 +1274,621 @@ img {
   object-fit: cover;
   object-position: center;
 }
+/* =========================================================
+   FICHA DE PRODUCTO · PRENDAS ANTTONELA
+========================================================= */
+
+.product-detail-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(15, 12, 9, 0.94), rgba(15, 12, 9, 0.97)),
+    url("/tienda-anttonela.jpg") center / cover fixed;
+  color: #f4eee5;
+}
+
+.product-detail-topbar {
+  min-height: 92px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  border-bottom: 1px solid rgba(214, 178, 119, 0.2);
+  background: rgba(13, 11, 9, 0.92);
+}
+
+.product-detail-back {
+  color: #cdb991;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  transition: color 0.2s ease;
+}
+
+.product-detail-back:hover {
+  color: #f1ca7c;
+}
+
+.product-detail-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  letter-spacing: 3px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.product-detail-brand span {
+  font-size: 11px;
+  color: #a79a88;
+}
+
+.product-detail-brand strong {
+  margin-top: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #e5bd76;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.product-detail-container {
+  width: min(1380px, 92%);
+  margin: 0 auto;
+  padding: 55px 0 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(380px, 0.85fr);
+  gap: 65px;
+  align-items: start;
+}
+
+/* GALERÍA */
+
+.product-detail-gallery {
+  min-width: 0;
+}
+
+.product-detail-main-image {
+  position: relative;
+  width: 100%;
+  height: min(680px, 72vh);
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid rgba(214, 178, 119, 0.25);
+  border-radius: 4px;
+  background: #ebe5dc;
+  box-shadow: 0 24px 65px rgba(0, 0, 0, 0.32);
+}
+
+.product-detail-main-image > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.product-detail-no-image {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: #6c6258;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* FLECHAS */
+
+.product-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 46px;
+  height: 58px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(226, 193, 132, 0.4);
+  background: rgba(17, 14, 11, 0.82);
+  color: #f0c978;
+  font-family: Georgia, serif;
+  font-size: 36px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.product-gallery-arrow:hover {
+  background: #17120d;
+  color: #ffffff;
+  border-color: #e0b66e;
+}
+
+.product-gallery-arrow-left {
+  left: 14px;
+}
+
+.product-gallery-arrow-right {
+  right: 14px;
+}
+
+/* CONTADOR */
+
+.product-gallery-counter {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 7px 11px;
+  border: 1px solid rgba(231, 189, 115, 0.35);
+  border-radius: 4px;
+  background: rgba(15, 12, 9, 0.86);
+  color: #ead3a7;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+/* MINIATURAS */
+
+.product-detail-thumbnails {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+}
+
+.product-detail-thumbnail {
+  flex: 0 0 88px;
+  width: 88px;
+  height: 108px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(214, 178, 119, 0.25);
+  border-radius: 3px;
+  background: #17130f;
+  opacity: 0.65;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.product-detail-thumbnail:hover {
+  opacity: 1;
+}
+
+.product-detail-thumbnail.active {
+  opacity: 1;
+  border: 2px solid #d8ae67;
+  transform: translateY(-2px);
+}
+
+.product-detail-thumbnail img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* INFORMACIÓN */
+
+.product-detail-info {
+  position: sticky;
+  top: 30px;
+  padding: 42px;
+  border: 1px solid rgba(214, 178, 119, 0.22);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(35, 29, 23, 0.97),
+      rgba(19, 16, 13, 0.98)
+    );
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.34);
+}
+
+.product-detail-eyebrow {
+  margin: 0 0 22px;
+  color: #d5ad69;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.product-detail-code {
+  margin: 0 0 9px;
+  color: #9d9285;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.product-detail-info h1 {
+  margin: 0;
+  color: #f4eee5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.product-detail-divider {
+  width: 100%;
+  height: 1px;
+  margin: 30px 0;
+  background: rgba(214, 178, 119, 0.2);
+}
+
+/* PRECIO */
+
+.product-detail-price {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-detail-price span,
+.product-detail-data span,
+.product-detail-description > span {
+  color: #9d9285;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+.product-detail-price strong {
+  color: #edc476;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+/* TELA Y STOCK */
+
+.product-detail-data {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.product-detail-data > div {
+  min-height: 82px;
+  padding: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(214, 178, 119, 0.16);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.product-detail-data strong {
+  color: #eee4d6;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* DESCRIPCIÓN */
+
+.product-detail-description {
+  margin-top: 28px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(214, 178, 119, 0.16);
+}
+
+.product-detail-description p {
+  margin: 11px 0 0;
+  color: #bcb2a6;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* BOTÓN WHATSAPP - POR AHORA VISUAL */
+
+.product-detail-whatsapp-placeholder {
+  width: 100%;
+  margin-top: 32px;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6ae68;
+  background: #d6ae68;
+  color: #17120d;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.product-detail-whatsapp-placeholder:hover {
+  background: transparent;
+  color: #efc77d;
+}
+
+.product-detail-note {
+  margin: 15px 0 0;
+  color: #81786f;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   RESPONSIVE · TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+  .product-detail-container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .product-detail-info {
+    position: static;
+  }
+
+  .product-detail-main-image {
+    height: 650px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE · CELULAR
+========================================================= */
+
+@media (max-width: 650px) {
+  .product-detail-topbar {
+    min-height: 72px;
+    padding: 0 20px;
+  }
+
+  .product-detail-brand strong {
+    font-size: 16px;
+  }
+
+  .product-detail-container {
+    width: 100%;
+    padding: 0 0 45px;
+    gap: 0;
+  }
+
+  .product-detail-main-image {
+    height: 520px;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .product-detail-thumbnails {
+    padding: 12px 16px;
+    margin: 0;
+    background: #15110e;
+  }
+
+  .product-detail-thumbnail {
+    flex-basis: 68px;
+    width: 68px;
+    height: 84px;
+  }
+
+  .product-gallery-arrow {
+    width: 38px;
+    height: 48px;
+    font-size: 29px;
+  }
+
+  .product-gallery-arrow-left {
+    left: 10px;
+  }
+
+  .product-gallery-arrow-right {
+    right: 10px;
+  }
+
+  .product-detail-info {
+    margin: 0;
+    padding: 32px 22px;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .product-detail-info h1 {
+    font-size: 34px;
+  }
+
+  .product-detail-price strong {
+    font-size: 32px;
+  }
+
+  .product-detail-data {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================================
+   WHATSAPP · SELECTOR DE ASESORES
+========================================================= */
+
+.whatsapp-quote {
+  position: relative;
+  margin-top: 32px;
+}
+
+.product-detail-whatsapp-button {
+  width: 100%;
+  min-height: 60px;
+  padding: 15px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+
+  border: 1px solid #d6ae68;
+  background: #d6ae68;
+  color: #17120d;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.product-detail-whatsapp-button span {
+  font-size: 17px;
+}
+
+.product-detail-whatsapp-button:hover {
+  background: transparent;
+  color: #efc77d;
+  border-color: #efc77d;
+}
+
+/* PANEL */
+
+.whatsapp-advisors {
+  margin-top: 12px;
+  padding: 25px;
+
+  border: 1px solid rgba(214, 178, 119, 0.28);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(28, 23, 18, 0.99),
+      rgba(15, 13, 11, 0.99)
+    );
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+.whatsapp-advisors-heading {
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(214, 178, 119, 0.16);
+}
+
+.whatsapp-advisors-heading > span {
+  display: block;
+  margin-bottom: 7px;
+
+  color: #d6ae68;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.whatsapp-advisors-heading h3 {
+  margin: 0;
+
+  color: #f2e9dc;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.whatsapp-advisors-heading p {
+  margin: 9px 0 0;
+
+  color: #9d9285;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ASESORES */
+
+.whatsapp-advisors-list {
+  margin-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.whatsapp-advisor {
+  width: 100%;
+  min-height: 67px;
+  padding: 12px 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  border: 1px solid rgba(214, 178, 119, 0.16);
+  background: rgba(255, 255, 255, 0.025);
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.whatsapp-advisor:hover {
+  background: rgba(214, 178, 119, 0.08);
+  border-color: rgba(214, 178, 119, 0.5);
+  transform: translateX(3px);
+}
+
+.whatsapp-advisor div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.whatsapp-advisor div span {
+  color: #82786d;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.whatsapp-advisor div strong {
+  color: #eee5d8;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.whatsapp-advisor-action {
+  color: #d9b36f;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+/* CELULAR */
+
+@media (max-width: 650px) {
+  .whatsapp-advisors {
+    padding: 20px 16px;
+  }
+
+  .whatsapp-advisor {
+    min-height: 70px;
+  }
+
+  .whatsapp-advisor:hover {
+    transform: none;
+  }
+
+  .whatsapp-advisor-action {
+    font-size: 8px;
+  }
+}
