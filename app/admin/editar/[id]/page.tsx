@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { notFound, redirect } from "next/navigation";
 import { actualizarProducto } from "../../actions";
+import "../../admin.css";
 
 type Props = {
   params: Promise<{
@@ -34,96 +35,129 @@ if (!user) {
   }
 
   return (
-    <main style={{ maxWidth: "700px", margin: "50px auto", padding: "30px" }}>
-      <Link href="/admin">← VOLVER AL ADMINISTRADOR</Link>
+  <main className="admin-new-product admin-edit-product">
+    <div className="admin-new-product-overlay" />
 
-      <h1 style={{ marginTop: "30px" }}>Editar producto</h1>
+    <div className="admin-new-product-content">
+      <div className="admin-new-product-topbar">
+        <div>
+          <span className="admin-new-product-eyebrow">
+            ADMINISTRACIÓN · CATÁLOGO
+          </span>
+          <h1>Editar producto</h1>
+          <p>
+            Actualiza la información de la prenda seleccionada.
+          </p>
+        </div>
 
-      <form
-        action={actualizarProducto}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "18px",
-          marginTop: "30px",
-        }}
-      >
-        <input type="hidden" name="id" value={product.id} />
+        <Link href="/admin" className="admin-back-button">
+          ← VOLVER AL ADMINISTRADOR
+        </Link>
+      </div>
 
-        <label>
-          Código
-          <input
-            type="text"
-            name="code"
-            defaultValue={product.code}
-            required
-          />
-        </label>
+      <section className="admin-product-form-card">
+        <div className="admin-product-form-header">
+          <div>
+            <span>EDICIÓN DE PRODUCTO</span>
+            <h2>{product.name}</h2>
+          </div>
 
-        <label>
-          Nombre del producto
-          <input
-            type="text"
-            name="name"
-            defaultValue={product.name}
-            required
-          />
-        </label>
+          <div className="admin-edit-code">
+            {product.code}
+          </div>
+        </div>
 
-        <label>
-          Descripción
-          <textarea
-            name="description"
-            defaultValue={product.description || ""}
-            rows={4}
-          />
-        </label>
+        <form action={actualizarProducto} className="admin-product-form">
+          <input type="hidden" name="id" value={product.id} />
 
-        <label>
-          Tela
-          <input
-            type="text"
-            name="fabric"
-            defaultValue={product.fabric || ""}
-          />
-        </label>
+          <div className="admin-form-grid">
+            <label>
+              <span>CÓDIGO</span>
+              <input
+                type="text"
+                name="code"
+                defaultValue={product.code}
+                required
+              />
+            </label>
 
-        <label>
-          Precio por docena
-          <input
-            type="number"
-            name="price_dozen"
-            step="0.01"
-            min="0"
-            defaultValue={product.price_dozen}
-            required
-          />
-        </label>
+            <label>
+              <span>NOMBRE DEL PRODUCTO</span>
+              <input
+                type="text"
+                name="name"
+                defaultValue={product.name}
+                required
+              />
+            </label>
+          </div>
 
-        <label>
-          Stock en docenas
-          <input
-            type="number"
-            name="stock_dozen"
-            step="1"
-            min="0"
-            defaultValue={product.stock_dozen}
-            required
-          />
-        </label>
+          <label>
+            <span>DESCRIPCIÓN</span>
+            <textarea
+              name="description"
+              defaultValue={product.description || ""}
+              rows={5}
+            />
+          </label>
 
-        <label>
-          Estado
-          <select name="status" defaultValue={product.status}>
-            <option value="draft">Borrador</option>
-            <option value="published">Publicado</option>
-          </select>
-        </label>
+          <div className="admin-form-grid">
+            <label>
+              <span>TELA</span>
+              <input
+                type="text"
+                name="fabric"
+                defaultValue={product.fabric || ""}
+              />
+            </label>
 
-        <button type="submit">
-          GUARDAR CAMBIOS
-        </button>
-      </form>
-    </main>
-  );
+            <label>
+              <span>ESTADO</span>
+              <select name="status" defaultValue={product.status}>
+                <option value="draft">Borrador</option>
+                <option value="published">Publicado</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="admin-form-grid">
+            <label>
+              <span>PRECIO POR DOCENA</span>
+              <input
+                type="number"
+                name="price_dozen"
+                step="0.01"
+                min="0"
+                defaultValue={product.price_dozen}
+                required
+              />
+            </label>
+
+            <label>
+              <span>STOCK EN DOCENAS</span>
+              <input
+                type="number"
+                name="stock_dozen"
+                step="1"
+                min="0"
+                defaultValue={product.stock_dozen}
+                required
+              />
+            </label>
+          </div>
+
+          <div className="admin-form-actions">
+            <Link href="/admin" className="admin-cancel-button">
+              CANCELAR
+            </Link>
+
+            <button type="submit" className="admin-save-button">
+              GUARDAR CAMBIOS →
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+);
 }
