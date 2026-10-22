@@ -8,14 +8,18 @@ export default async function Home() {
     .from("products")
     .select(`
       id,
-      code,
-      name,
-      description,
-      fabric,
-      price_dozen,
-      stock_dozen,
-      status,
-      featured
+code,
+name,
+description,
+fabric,
+price_dozen,
+stock_dozen,
+status,
+featured,
+product_images (
+  image_url,
+  sort_order
+)
     `)
     .eq("status", "published")
     .order("created_at", { ascending: false });
@@ -151,9 +155,17 @@ export default async function Home() {
       {products.map((product) => (
         <article className="product-card" key={product.id}>
           <div className="product-image">
-            <span className="product-photo-label">
-              FOTO DE PRENDA
-            </span>
+            {product.product_images?.[0]?.image_url ? (
+  <img
+    src={product.product_images[0].image_url}
+    alt={product.name}
+    className="product-photo"
+  />
+) : (
+  <span className="product-photo-label">
+    FOTO DE PRENDA
+  </span>
+)}
 
             <button
               className="favorite-button"
