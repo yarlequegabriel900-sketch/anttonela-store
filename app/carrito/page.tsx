@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import { createClient } from "@/utils/client";
 type CartItem = {
   id: string;
   code: string;
@@ -27,7 +27,14 @@ const advisors = [
   },
 ];
 export default function CarritoPage() {
+    const supabase = createClient();
   const [items, setItems] = useState<CartItem[]>([]);
+  const [customerName, setCustomerName] = useState("");
+const [customerPhone, setCustomerPhone] = useState("");
+const [dni, setDni] = useState("");
+const [destination, setDestination] = useState("");
+const [agency, setAgency] = useState("");
+const [address, setAddress] = useState("");
   const [selectedAdvisor, setSelectedAdvisor] = useState("");
 
   useEffect(() => {
@@ -103,7 +110,23 @@ const removeItem = (id: string) => {
     total + item.price_dozen * item.quantity,
   0
 );
-const quoteByWhatsApp = () => {
+const quoteByWhatsApp = async () => {
+      if (
+    !customerName.trim() ||
+    !dni.trim() ||
+    !customerPhone.trim() ||
+    !destination.trim() ||
+    !agency.trim() ||
+    !address.trim()
+  ) {
+    alert("Completa todos los datos del cliente para continuar.");
+    return;
+  }
+
+  if (!/^\d{8}$/.test(dni.trim())) {
+    alert("El DNI debe tener 8 dígitos.");
+    return;
+  }
   if (!selectedAdvisor) {
     alert("Selecciona un asesor para continuar.");
     return;
@@ -116,31 +139,65 @@ const quoteByWhatsApp = () => {
   if (!advisor) {
     return;
   }
+const orderNumber = `ANT-${Date.now()}`;
 
-  const productsText = items
-    .map(
-      (item) =>
-        `• ${item.name}
-Código: ${item.code}
-Cantidad: ${item.quantity} unidades
-Precio: S/ ${Number(item.price_dozen).toFixed(2)} c/u
-Subtotal: S/ ${(Number(item.price_dozen) * item.quantity).toFixed(2)}`
-    )
-    .join("\n\n");
+const { data: order, error: orderError } = await supabase
+  .from("orders")
+  .insert({
+    order_number: orderNumber,
+    customer_name: customerName.trim(),
+    customer_phone: customerPhone.trim(),
+    dni: dni.trim(),
+    destination: destination.trim(),
+    agency: agency.trim(),
+    address: address.trim(),
+    advisor_name: advisor.name,
+    advisor_phone: advisor.phone,
+    status: "pending",
+    total: totalPrice,
+  })
+  .select("id, order_number")
+  .single();
 
-  const message = `Hola ${advisor.name}, vengo de la web de PRENDAS ANTTONELA.
+if (orderError || !order) {
+  console.error(orderError);
+  alert("No se pudo crear el pedido. Inténtalo nuevamente.");
+  return;
+}
+const orderItems = items.map((item) => ({
+  order_id: order.id,
+  product_id: item.id,
+  product_code: item.code,
+  product_name: item.name,
+  quantity_units: item.quantity,
+  price_dozen: Number(item.price_dozen),
+  subtotal: Number(item.price_dozen) * item.quantity,
+}));
 
-Quiero cotizar este pedido:
+const { error: itemsError } = await supabase
+  .from("order_items")
+  .insert(orderItems);
 
-${productsText}
+if (itemsError) {
+  console.error(itemsError);
+  alert("El pedido se creó, pero ocurrió un error al guardar los productos.");
+  return;
+}
+  const orderUrl =
+  `${window.location.origin}/pedido/${order.id}`;
 
+const message = `Hola ${advisor.name}, tienes una nueva cotización de PRENDAS ANTTONELA.
+
+Pedido: ${order.order_number}
+Cliente: ${customerName.trim()}
 Total de unidades: ${totalUnits}
 Total del pedido: S/ ${totalPrice.toFixed(2)}
 
-Quisiera información para realizar mi pedido.`;
+Ver pedido completo:
+${orderUrl}`;
 
-  window.location.href =
-    `https://wa.me/${advisor.phone}?text=${encodeURIComponent(message)}`;
+window.location.href =
+  `https://wa.me/${advisor.phone}?text=${encodeURIComponent(message)}`;
 };
   return (
     <main className="cart-page">
@@ -237,6 +294,73 @@ Quisiera información para realizar mi pedido.`;
                 </div>
               </div>
             ))}
+            <div className="cart-customer-data">
+  <p className="cart-customer-eyebrow">DATOS DEL CLIENTE</p>
+  <h2>Datos para el envío</h2>
+
+  <div className="cart-customer-grid">
+    <label>
+      NOMBRE COMPLETO
+      <input
+        type="text"
+        value={customerName}
+        onChange={(event) => setCustomerName(event.target.value)}
+        placeholder="Nombre y apellidos"
+      />
+    </label>
+
+    <label>
+      DNI
+      <input
+        type="text"
+        value={dni}
+        onChange={(event) => setDni(event.target.value)}
+        placeholder="DNI"
+        maxLength={8}
+      />
+    </label>
+
+    <label>
+      TELÉFONO
+      <input
+        type="tel"
+        value={customerPhone}
+        onChange={(event) => setCustomerPhone(event.target.value)}
+        placeholder="Número de contacto"
+      />
+    </label>
+
+    <label>
+      DESTINO
+      <input
+        type="text"
+        value={destination}
+        onChange={(event) => setDestination(event.target.value)}
+        placeholder="Ej. Piura"
+      />
+    </label>
+
+    <label>
+      AGENCIA
+      <input
+        type="text"
+        value={agency}
+        onChange={(event) => setAgency(event.target.value)}
+        placeholder="Ej. Flores"
+      />
+    </label>
+
+    <label>
+      DIRECCIÓN
+      <input
+        type="text"
+        value={address}
+        onChange={(event) => setAddress(event.target.value)}
+        placeholder="Dirección de entrega o referencia"
+      />
+    </label>
+  </div>
+</div>
             <div className="cart-summary">
   <div>
     <div className="cart-quote">

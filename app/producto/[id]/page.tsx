@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import ProductGallery from "./ProductGallery";
-import WhatsAppQuote from "./WhatsAppQuote";
 import AddToCart from "./AddToCart";
 type Props = {
   params: Promise<{
@@ -112,12 +111,7 @@ export default async function ProductoPage({ params }: Props) {
   stockUnits={product.stock_units}
   imageUrl={images[0]?.image_url || null}
 />
-          <WhatsAppQuote
-  productName={product.name}
-  productCode={product.code}
-  priceDozen={Number(product.price_dozen)}
-  productId={product.id}
-/>
+  
 
           <p className="product-detail-note">
             Venta mayorista · Atención directa de PRENDAS ANTTONELA
