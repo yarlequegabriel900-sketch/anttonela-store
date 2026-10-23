@@ -53,7 +53,7 @@ stockUnits < 0
       fabric,
       description,
       price_dozen: priceDozen,
-      stock_dozen: stockDozen,
+     stock_units: stockUnits,
       status,
     })
     .eq("id", id);
