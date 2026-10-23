@@ -433,3 +433,69 @@ export async function actualizarDatosPedido(formData: FormData) {
 
   redirect(`/admin/pedidos/editar/${orderId}`);
 }
+  export async function eliminarProductoPedido(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const orderId = String(formData.get("order_id") || "");
+  const itemId = String(formData.get("item_id") || "");
+
+  if (!orderId || !itemId) {
+    throw new Error("No se encontró el pedido o producto.");
+  }
+
+  const { error: deleteError } = await supabase
+    .from("order_items")
+    .delete()
+    .eq("id", itemId)
+    .eq("order_id", orderId);
+
+  if (deleteError) {
+    throw new Error(
+      `No se pudo quitar el producto: ${deleteError.message}`
+    );
+  }
+
+  const { data: remainingItems, error: itemsError } =
+    await supabase
+      .from("order_items")
+      .select("subtotal")
+      .eq("order_id", orderId);
+
+  if (itemsError) {
+    throw new Error(
+      `No se pudo recalcular el pedido: ${itemsError.message}`
+    );
+  }
+
+  const newTotal = (remainingItems || []).reduce(
+    (total, item) => total + Number(item.subtotal),
+    0
+  );
+
+  const { error: orderError } = await supabase
+    .from("orders")
+    .update({
+      total: newTotal,
+    })
+    .eq("id", orderId);
+
+  if (orderError) {
+    throw new Error(
+      `No se pudo actualizar el total del pedido: ${orderError.message}`
+    );
+  }
+
+  revalidatePath("/admin/pedidos");
+  revalidatePath(`/admin/pedidos/editar/${orderId}`);
+  revalidatePath(`/pedido/${orderId}`);
+
+  redirect(`/admin/pedidos/editar/${orderId}`);
+}

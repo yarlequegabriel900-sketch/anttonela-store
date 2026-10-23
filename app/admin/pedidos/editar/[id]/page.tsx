@@ -5,6 +5,7 @@ import AdminSessionGuard from "../../../AdminSessionGuard";
 import {
   actualizarDatosPedido,
   actualizarCantidadPedido,
+  eliminarProductoPedido,
 } from "../../../actions";
 type Props = {
   params: Promise<{
@@ -238,6 +239,7 @@ export default async function EditarPedidoPage({ params }: Props) {
                 <th>Cantidad</th>
                 <th>Precio</th>
                 <th>Subtotal</th>
+                <th>Acciones</th>
               </tr>
             </thead>
 
@@ -290,6 +292,28 @@ export default async function EditarPedidoPage({ params }: Props) {
                   <td>
                     S/ {Number(item.subtotal).toFixed(2)}
                   </td>
+                  <td>
+  <form action={eliminarProductoPedido}>
+    <input
+      type="hidden"
+      name="order_id"
+      value={order.id}
+    />
+
+    <input
+      type="hidden"
+      name="item_id"
+      value={item.id}
+    />
+
+    <button
+      type="submit"
+      className="admin-action-button"
+    >
+      QUITAR
+    </button>
+  </form>
+</td>
                 </tr>
               ))}
             </tbody>
