@@ -71,6 +71,10 @@ export default async function AdminPage() {
       <span>＋</span>
       Agregar producto
     </Link>
+    <Link href="/admin/pedidos" className="admin-sidebar-link">
+  <span>▤</span>
+  Pedidos
+</Link>
 <a
   href="/"
   target="_blank"
