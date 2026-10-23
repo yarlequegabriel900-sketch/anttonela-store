@@ -1,0 +1,240 @@
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import AdminSessionGuard from "../../../AdminSessionGuard";
+
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export default async function EditarPedidoPage({ params }: Props) {
+  const { id } = await params;
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const { data: order, error } = await supabase
+    .from("orders")
+    .select(`
+      id,
+      order_number,
+      customer_name,
+      customer_phone,
+      dni,
+      destination,
+      agency,
+      address,
+      advisor_name,
+      advisor_phone,
+      status,
+      total,
+      created_at,
+      order_items (
+        id,
+        product_id,
+        product_code,
+        product_name,
+        quantity_units,
+        price_dozen,
+        subtotal
+      )
+    `)
+    .eq("id", id)
+    .single();
+
+  if (error || !order) {
+    notFound();
+  }
+
+  const items = order.order_items ?? [];
+
+  const totalUnits = items.reduce(
+    (total, item) => total + Number(item.quantity_units),
+    0
+  );
+
+  return (
+    <main className="admin-page">
+      <AdminSessionGuard />
+
+      <aside className="admin-sidebar">
+        <div className="admin-sidebar-logo">
+          <div className="admin-sidebar-logo-mark">PA</div>
+
+          <div>
+            <span>PRENDAS</span>
+            <strong>ANTTONELA</strong>
+          </div>
+        </div>
+
+        <nav className="admin-sidebar-nav">
+          <p>MENÚ PRINCIPAL</p>
+
+          <Link href="/admin" className="admin-sidebar-link">
+            <span>▦</span>
+            Productos
+          </Link>
+
+          <Link href="/admin/nuevo" className="admin-sidebar-link">
+            <span>＋</span>
+            Agregar producto
+          </Link>
+
+          <Link
+            href="/admin/pedidos"
+            className="admin-sidebar-link active"
+          >
+            <span>▤</span>
+            Pedidos
+          </Link>
+
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-sidebar-link"
+          >
+            <span>◫</span>
+            Ver catálogo
+          </a>
+        </nav>
+
+        <div className="admin-sidebar-bottom">
+          <span>Panel administrativo</span>
+          <strong>PRENDAS ANTTONELA</strong>
+        </div>
+      </aside>
+
+      <div className="admin-container">
+        <section className="admin-heading">
+          <div>
+            <p className="admin-eyebrow">
+              ADMINISTRACIÓN · PEDIDOS
+            </p>
+
+            <h1>Editar pedido</h1>
+
+            <p className="admin-description">
+              {order.order_number}
+            </p>
+          </div>
+
+          <Link
+            href="/admin/pedidos"
+            className="admin-add-button"
+          >
+            ← VOLVER A PEDIDOS
+          </Link>
+        </section>
+
+        <section className="admin-products">
+          <div className="admin-products-header">
+            <div className="admin-products-title">
+              <div className="admin-products-icon">◆</div>
+              <h2>Datos del cliente</h2>
+            </div>
+          </div>
+
+          <div className="order-view-grid">
+            <div>
+              <span>NOMBRE</span>
+              <strong>{order.customer_name}</strong>
+            </div>
+
+            <div>
+              <span>DNI</span>
+              <strong>{order.dni || "No registrado"}</strong>
+            </div>
+
+            <div>
+              <span>TELÉFONO</span>
+              <strong>{order.customer_phone}</strong>
+            </div>
+
+            <div>
+              <span>DESTINO</span>
+              <strong>{order.destination || "No registrado"}</strong>
+            </div>
+
+            <div>
+              <span>AGENCIA</span>
+              <strong>{order.agency || "No registrado"}</strong>
+            </div>
+
+            <div>
+              <span>DIRECCIÓN</span>
+              <strong>{order.address || "No registrado"}</strong>
+            </div>
+          </div>
+        </section>
+
+        <section className="admin-products">
+          <div className="admin-products-header">
+            <div className="admin-products-title">
+              <div className="admin-products-icon">◆</div>
+              <h2>Productos del pedido</h2>
+            </div>
+          </div>
+
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Código</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <strong>{item.product_name}</strong>
+                  </td>
+
+                  <td>{item.product_code}</td>
+
+                  <td>
+                    {item.quantity_units} unidades
+                  </td>
+
+                  <td>
+                    S/ {Number(item.price_dozen).toFixed(2)}
+                  </td>
+
+                  <td>
+                    S/ {Number(item.subtotal).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section className="order-view-summary">
+          <div>
+            <span>TOTAL DE UNIDADES</span>
+            <strong>{totalUnits}</strong>
+          </div>
+
+          <div>
+            <span>TOTAL DEL PEDIDO</span>
+            <strong>
+              S/ {Number(order.total).toFixed(2)}
+            </strong>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}

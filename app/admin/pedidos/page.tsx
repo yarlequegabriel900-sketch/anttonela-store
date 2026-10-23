@@ -190,14 +190,22 @@ export default async function AdminPedidosPage() {
                       </td>
 
                       <td>
-                        <div className="admin-actions">
-                          <Link
-                            href={`/pedido/${order.id}`}
-                            className="admin-action-button"
-                          >
-                            VER
-                          </Link>
-                        </div>
+                      
+                      <div className="admin-actions">
+  <Link
+    href={`/pedido/${order.id}`}
+    className="admin-action-button"
+  >
+    VER
+  </Link>
+
+  <Link
+    href={`/admin/pedidos/editar/${order.id}`}
+    className="admin-action-button"
+  >
+    EDITAR
+  </Link>
+</div>
                       </td>
                     </tr>
                   );
