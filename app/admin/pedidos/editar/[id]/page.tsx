@@ -3,12 +3,14 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import AdminSessionGuard from "../../../AdminSessionGuard";
 import AnularPedidoButton from "../../../AnularPedidoButton";
+import ConfirmarPedidoButton from "../../../ConfirmarPedidoButton";
 import {
   actualizarDatosPedido,
   actualizarCantidadPedido,
   eliminarProductoPedido,
   agregarProductoPedido,
   anularPedido,
+  confirmarPedido,
 } from "../../../actions";
 type Props = {
   params: Promise<{
@@ -387,6 +389,28 @@ if (
             </strong>
           </div>
         </section>
+        {order.status !== "confirmed" && (
+  <section className="admin-order-confirm-zone">
+    <div>
+      <strong>Confirmar pedido</strong>
+      <p>
+        Confirma el pedido cuando hayas verificado el pago del cliente.
+      </p>
+    </div>
+
+    <form action={confirmarPedido}>
+      <input
+        type="hidden"
+        name="order_id"
+        value={order.id}
+      />
+
+     <ConfirmarPedidoButton
+  orderNumber={order.order_number}
+/>
+    </form>
+  </section>
+)}
         <section className="admin-order-danger-zone">
   <div>
     <strong>Anular pedido</strong>

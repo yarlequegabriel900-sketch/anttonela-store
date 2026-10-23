@@ -647,3 +647,70 @@ if (
 
   redirect("/admin/historial");
 }
+export async function confirmarPedido(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const orderId = String(formData.get("order_id") || "");
+
+  if (!orderId) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  const { data: currentOrder, error: currentOrderError } =
+    await supabase
+      .from("orders")
+      .select("status")
+      .eq("id", orderId)
+      .single();
+
+  if (currentOrderError || !currentOrder) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  if (
+    currentOrder.status === "cancelled" ||
+    currentOrder.status === "shipped"
+  ) {
+    throw new Error(
+      "Este pedido ya está cerrado y no puede ser confirmado."
+    );
+  }
+
+  if (
+  currentOrder.status === "confirmed" ||
+  currentOrder.status === "preparing"
+) {
+  throw new Error(
+    "Este pedido ya fue confirmado y no puede confirmarse nuevamente."
+  );
+}
+
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status: "confirmed",
+      confirmed_at: new Date().toISOString(),
+      reserved_until: null,
+    })
+    .eq("id", orderId);
+
+  if (error) {
+    throw new Error(
+      `No se pudo confirmar el pedido: ${error.message}`
+    );
+  }
+
+  revalidatePath("/admin/pedidos");
+  revalidatePath(`/admin/pedidos/editar/${orderId}`);
+  revalidatePath(`/pedido/${orderId}`);
+
+  redirect(`/admin/pedidos/editar/${orderId}`);
+}
