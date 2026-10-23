@@ -2139,3 +2139,52 @@
 .admin-edit-image-delete:active {
   transform: translateY(0);
 }
+/* =========================================================
+   ADMIN · EDICIÓN DE DATOS DEL CLIENTE
+========================================================= */
+
+.order-view-grid input {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 13px;
+
+  border: 1px solid rgba(214, 174, 104, 0.18);
+  border-radius: 3px;
+
+  background: rgba(8, 6, 5, 0.72);
+  color: #f0e5d7;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.order-view-grid input:hover {
+  border-color: rgba(214, 174, 104, 0.35);
+}
+
+.order-view-grid input:focus {
+  border-color: #d6ae68;
+  background: rgba(12, 9, 7, 0.95);
+
+  box-shadow:
+    0 0 0 2px rgba(214, 174, 104, 0.08);
+}
+
+.order-view-grid input::placeholder {
+  color: #71675e;
+}
+
+.order-view-grid input:-webkit-autofill,
+.order-view-grid input:-webkit-autofill:hover,
+.order-view-grid input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f0e5d7;
+  -webkit-box-shadow: 0 0 0 1000px #0d0a08 inset;
+  transition: background-color 9999s ease-in-out 0s;
+}

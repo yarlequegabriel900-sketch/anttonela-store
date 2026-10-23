@@ -267,3 +267,78 @@ export async function eliminarImagenProducto(formData: FormData) {
   revalidatePath("/admin");
   revalidatePath(`/admin/editar/${productId}`);
 }
+export async function actualizarDatosPedido(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const id = String(formData.get("id") || "");
+
+  const customerName = String(
+    formData.get("customer_name") || ""
+  ).trim();
+
+  const dni = String(
+    formData.get("dni") || ""
+  ).trim();
+
+  const customerPhone = String(
+    formData.get("customer_phone") || ""
+  ).trim();
+
+  const destination = String(
+    formData.get("destination") || ""
+  ).trim();
+
+  const agency = String(
+    formData.get("agency") || ""
+  ).trim();
+
+  const address = String(
+    formData.get("address") || ""
+  ).trim();
+
+  if (!id) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  if (!customerName || !customerPhone) {
+    throw new Error(
+      "El nombre y teléfono del cliente son obligatorios."
+    );
+  }
+
+  if (dni && !/^\d{8}$/.test(dni)) {
+    throw new Error("El DNI debe tener 8 dígitos.");
+  }
+
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      customer_name: customerName,
+      dni,
+      customer_phone: customerPhone,
+      destination,
+      agency,
+      address,
+    })
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(
+      `No se pudo actualizar el pedido: ${error.message}`
+    );
+  }
+
+  revalidatePath("/admin/pedidos");
+  revalidatePath(`/admin/pedidos/editar/${id}`);
+  revalidatePath(`/pedido/${id}`);
+
+  redirect(`/admin/pedidos/editar/${id}`);
+}

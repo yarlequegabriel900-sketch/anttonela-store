@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import AdminSessionGuard from "../../../AdminSessionGuard";
-
+import { actualizarDatosPedido } from "../../../actions";
 type Props = {
   params: Promise<{
     id: string;
@@ -143,37 +143,80 @@ export default async function EditarPedidoPage({ params }: Props) {
             </div>
           </div>
 
-          <div className="order-view-grid">
-            <div>
-              <span>NOMBRE</span>
-              <strong>{order.customer_name}</strong>
-            </div>
+          <form action={actualizarDatosPedido}>
+  <input
+    type="hidden"
+    name="id"
+    value={order.id}
+  />
 
-            <div>
-              <span>DNI</span>
-              <strong>{order.dni || "No registrado"}</strong>
-            </div>
+  <div className="order-view-grid">
+    <div>
+      <span>NOMBRE</span>
+      <input
+        type="text"
+        name="customer_name"
+        defaultValue={order.customer_name}
+        required
+      />
+    </div>
 
-            <div>
-              <span>TELÉFONO</span>
-              <strong>{order.customer_phone}</strong>
-            </div>
+    <div>
+      <span>DNI</span>
+      <input
+        type="text"
+        name="dni"
+        defaultValue={order.dni || ""}
+        maxLength={8}
+      />
+    </div>
 
-            <div>
-              <span>DESTINO</span>
-              <strong>{order.destination || "No registrado"}</strong>
-            </div>
+    <div>
+      <span>TELÉFONO</span>
+      <input
+        type="text"
+        name="customer_phone"
+        defaultValue={order.customer_phone}
+        required
+      />
+    </div>
 
-            <div>
-              <span>AGENCIA</span>
-              <strong>{order.agency || "No registrado"}</strong>
-            </div>
+    <div>
+      <span>DESTINO</span>
+      <input
+        type="text"
+        name="destination"
+        defaultValue={order.destination || ""}
+      />
+    </div>
 
-            <div>
-              <span>DIRECCIÓN</span>
-              <strong>{order.address || "No registrado"}</strong>
-            </div>
-          </div>
+    <div>
+      <span>AGENCIA</span>
+      <input
+        type="text"
+        name="agency"
+        defaultValue={order.agency || ""}
+      />
+    </div>
+
+    <div>
+      <span>DIRECCIÓN</span>
+      <input
+        type="text"
+        name="address"
+        defaultValue={order.address || ""}
+      />
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    className="admin-add-button"
+    style={{ marginTop: "22px" }}
+  >
+    GUARDAR DATOS DEL CLIENTE
+  </button>
+</form>
         </section>
 
         <section className="admin-products">
