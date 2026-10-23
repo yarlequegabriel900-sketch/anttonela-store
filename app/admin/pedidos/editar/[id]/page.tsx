@@ -2,7 +2,10 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import AdminSessionGuard from "../../../AdminSessionGuard";
-import { actualizarDatosPedido } from "../../../actions";
+import {
+  actualizarDatosPedido,
+  actualizarCantidadPedido,
+} from "../../../actions";
 type Props = {
   params: Promise<{
     id: string;
@@ -248,8 +251,37 @@ export default async function EditarPedidoPage({ params }: Props) {
                   <td>{item.product_code}</td>
 
                   <td>
-                    {item.quantity_units} unidades
-                  </td>
+  <form action={actualizarCantidadPedido}>
+    <input
+      type="hidden"
+      name="order_id"
+      value={order.id}
+    />
+
+    <input
+      type="hidden"
+      name="item_id"
+      value={item.id}
+    />
+
+    <div className="admin-order-quantity">
+      <input
+        type="number"
+        name="quantity_units"
+        min="1"
+        defaultValue={item.quantity_units}
+        required
+      />
+
+      <button
+        type="submit"
+        className="admin-action-button"
+      >
+        ACTUALIZAR
+      </button>
+    </div>
+  </form>
+</td>
 
                   <td>
                     S/ {Number(item.price_dozen).toFixed(2)}

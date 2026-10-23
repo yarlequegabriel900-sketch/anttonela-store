@@ -2188,3 +2188,35 @@
   -webkit-box-shadow: 0 0 0 1000px #0d0a08 inset;
   transition: background-color 9999s ease-in-out 0s;
 }
+/* =========================================================
+   ADMIN · CANTIDAD DE PRODUCTOS EN PEDIDOS
+========================================================= */
+
+.admin-order-quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-order-quantity input {
+  width: 75px;
+  height: 40px;
+  padding: 8px 10px;
+
+  border: 1px solid rgba(214, 174, 104, 0.35);
+  border-radius: 3px;
+
+  background: #0d0a08;
+  color: #f1e7da;
+
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+
+  outline: none;
+}
+
+.admin-order-quantity input:focus {
+  border-color: #d6ae68;
+  box-shadow: 0 0 0 2px rgba(214, 174, 104, 0.08);
+}
