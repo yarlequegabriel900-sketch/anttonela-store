@@ -34,6 +34,7 @@ export default async function AdminPedidosPage() {
         quantity_units
       )
     `)
+        .not("status", "in", '("shipped","cancelled")')
     .order("created_at", { ascending: false });
 
   return (
@@ -70,7 +71,10 @@ export default async function AdminPedidosPage() {
             <span>▤</span>
             Pedidos
           </Link>
-
+<Link href="/admin/historial" className="admin-sidebar-link">
+  <span>◷</span>
+  Historial
+</Link>
           <a
             href="/"
             target="_blank"
@@ -183,9 +187,15 @@ export default async function AdminPedidosPage() {
 
                       <td>
                         <span className="admin-status draft">
-                          {order.status === "pending"
-                            ? "Pendiente"
-                            : order.status}
+                         {order.status === "pending"
+  ? "PENDIENTE"
+  : order.status === "reserved"
+  ? "RESERVADO"
+  : order.status === "confirmed"
+  ? "CONFIRMADO"
+  : order.status === "preparing"
+  ? "EN PREPARACIÓN"
+  : order.status.toUpperCase()}
                         </span>
                       </td>
 

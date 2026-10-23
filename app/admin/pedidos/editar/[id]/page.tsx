@@ -2,11 +2,13 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import AdminSessionGuard from "../../../AdminSessionGuard";
+import AnularPedidoButton from "../../../AnularPedidoButton";
 import {
   actualizarDatosPedido,
   actualizarCantidadPedido,
   eliminarProductoPedido,
   agregarProductoPedido,
+  anularPedido,
 } from "../../../actions";
 type Props = {
   params: Promise<{
@@ -68,7 +70,12 @@ if (productsError) {
   if (error || !order) {
     notFound();
   }
-
+if (
+  order.status === "cancelled" ||
+  order.status === "shipped"
+) {
+  redirect("/admin/historial");
+}
   const items = order.order_items ?? [];
 
   const totalUnits = items.reduce(
@@ -110,7 +117,10 @@ if (productsError) {
             <span>▤</span>
             Pedidos
           </Link>
-
+<Link href="/admin/historial" className="admin-sidebar-link">
+  <span>◷</span>
+  Historial
+</Link>
           <a
             href="/"
             target="_blank"
@@ -377,6 +387,26 @@ if (productsError) {
             </strong>
           </div>
         </section>
+        <section className="admin-order-danger-zone">
+  <div>
+    <strong>Anular pedido</strong>
+    <p>
+      El pedido se conservará en el historial y no contará como venta.
+    </p>
+  </div>
+
+  <form action={anularPedido}>
+    <input
+      type="hidden"
+      name="order_id"
+      value={order.id}
+    />
+
+    <AnularPedidoButton
+  orderNumber={order.order_number}
+/>
+  </form>
+</section>
       </div>
     </main>
   );

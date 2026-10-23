@@ -2254,3 +2254,57 @@
     grid-template-columns: 1fr;
   }
 }
+.admin-order-danger-zone {
+  margin-top: 20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(190, 65, 65, 0.45);
+  border-radius: 10px;
+  background: rgba(80, 18, 18, 0.22);
+}
+
+.admin-order-danger-zone strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #f4eee4;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.admin-order-danger-zone p {
+  margin: 0;
+  color: #b9aea2;
+  font-size: 13px;
+}
+
+.admin-cancel-order-button {
+  min-width: 170px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #b94747;
+  border-radius: 6px;
+  background: #7d2525;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.admin-cancel-order-button:hover {
+  background: #9b3030;
+}
+
+@media (max-width: 800px) {
+  .admin-order-danger-zone {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-cancel-order-button {
+    width: 100%;
+  }
+}

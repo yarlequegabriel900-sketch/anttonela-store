@@ -75,6 +75,10 @@ export default async function AdminPage() {
   <span>▤</span>
   Pedidos
 </Link>
+<Link href="/admin/historial" className="admin-sidebar-link">
+  <span>◷</span>
+  Historial
+</Link>
 <a
   href="/"
   target="_blank"
