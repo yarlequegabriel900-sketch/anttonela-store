@@ -35,7 +35,7 @@ if (!user) {
     description,
     fabric,
     price_dozen,
-    stock_dozen,
+   stock_units,
     status,
     featured,
     product_images (
@@ -204,17 +204,17 @@ if (!user) {
               />
             </label>
 
-            <label>
-              <span>STOCK EN DOCENAS</span>
-              <input
-                type="number"
-                name="stock_dozen"
-                step="1"
-                min="0"
-                defaultValue={product.stock_dozen}
-                required
-              />
-            </label>
+     <label>
+  <span>STOCK EN UNIDADES</span>
+  <input
+    type="number"
+    name="stock_units"
+    step="1"
+    min="0"
+    defaultValue={product.stock_units}
+    required
+  />
+</label>
           </div>
 
           <div className="admin-form-actions">

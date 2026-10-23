@@ -30,17 +30,16 @@ export async function actualizarProducto(formData: FormData) {
   const status = String(formData.get("status") || "draft");
 
   const priceDozen = Number(formData.get("price_dozen"));
-  const stockDozen = Number(formData.get("stock_dozen"));
+ const stockUnits = Number(formData.get("stock_units"));
 
   if (!id || !code || !name) {
     throw new Error("Faltan datos obligatorios del producto.");
   }
 
   if (
-    !Number.isFinite(priceDozen) ||
-    !Number.isFinite(stockDozen) ||
-    priceDozen < 0 ||
-    stockDozen < 0
+   !Number.isFinite(stockUnits) ||
+priceDozen < 0 ||
+stockUnits < 0
   ) {
     throw new Error("Precio o stock inválido.");
   }

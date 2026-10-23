@@ -18,7 +18,7 @@ if (!user) {
   const description = String(formData.get("description") || "").trim();
   const fabric = String(formData.get("fabric") || "").trim();
   const price_dozen = Number(formData.get("price_dozen"));
-  const stock_dozen = Number(formData.get("stock_dozen"));
+  const stock_units = Number(formData.get("stock_units"));
 
   const slug = `${name}-${code}`
     .toLowerCase()
@@ -36,7 +36,7 @@ if (!user) {
     description,
     fabric,
     price_dozen,
-    stock_dozen,
+   stock_units,
     status: "published",
     featured: false,
   })

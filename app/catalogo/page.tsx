@@ -5,7 +5,7 @@ export default async function CatalogoPage() {
 
   const { data: products, error } = await supabase
     .from("products")
-    .select("id, code, name, slug, fabric, price_dozen, stock_dozen, status")
+   .select("id, code, name, slug, fabric, price_dozen, stock_units, status")
     .eq("status", "published")
     .order("created_at", { ascending: false });
 
@@ -31,7 +31,7 @@ export default async function CatalogoPage() {
               <p>Código: {product.code}</p>
               <p>Tela: {product.fabric || "Por especificar"}</p>
               <p>Precio por docena: S/ {Number(product.price_dozen).toFixed(2)}</p>
-              <p>Stock: {product.stock_dozen} docenas</p>
+             <p>Stock: {product.stock_units} unidades</p>
             </div>
           ))}
         </div>

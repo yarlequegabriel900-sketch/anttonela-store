@@ -130,16 +130,16 @@ export default function NuevoProductoPage() {
                 </div>
               </label>
 
-              <label>
-                <span>STOCK EN DOCENAS</span>
-                <input
-                  type="number"
-                  name="stock_dozen"
-                  min="0"
-                  placeholder="Ejemplo: 10"
-                  required
-                />
-              </label>
+            <label>
+  <span>STOCK EN UNIDADES</span>
+  <input
+    type="number"
+    name="stock_units"
+    min="0"
+    placeholder="Ejemplo: 120"
+    required
+  />
+</label>
             </div>
 
             <label className="admin-description-field">

@@ -29,7 +29,7 @@ export default async function AdminPage() {
   name,
   fabric,
   price_dozen,
-  stock_dozen,
+ stock_units,
   status,
   product_images (
     image_url,
@@ -296,7 +296,7 @@ export default async function AdminPage() {
                       S/ {Number(product.price_dozen).toFixed(2)}
                     </td>
 
-                    <td>{product.stock_dozen} docenas</td>
+                   <td>{product.stock_units} unidades</td>
 
                     <td>
                       <span

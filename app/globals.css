@@ -1892,3 +1892,500 @@ img {
     font-size: 8px;
   }
 }
+/* =========================================================
+   FICHA DE PRODUCTO · AGREGAR AL CARRITO
+========================================================= */
+
+.add-to-cart {
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid rgba(214, 178, 119, 0.25);
+  background: rgba(10, 8, 7, 0.65);
+}
+
+.add-to-cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.add-to-cart-quantity > span {
+  color: #d5ad69;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(214, 178, 119, 0.35);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.quantity-selector button {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  color: #efc77d;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.quantity-selector button:hover:not(:disabled) {
+  background: rgba(214, 174, 104, 0.1);
+}
+
+.quantity-selector button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.quantity-selector strong {
+  min-width: 48px;
+  text-align: center;
+  color: #f4eee5;
+  font-size: 16px;
+}
+
+.add-to-cart-quantity small {
+  color: #8f857a;
+  font-size: 11px;
+}
+
+.add-to-cart-button {
+  width: 100%;
+  min-height: 58px;
+  border: 1px solid #d6ae68;
+  background: transparent;
+  color: #efc77d;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.add-to-cart-button:hover:not(:disabled) {
+  background: #d6ae68;
+  color: #17120d;
+}
+
+.add-to-cart-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 650px) {
+  .add-to-cart {
+    padding: 18px;
+  }
+
+  .add-to-cart-quantity {
+    flex-wrap: wrap;
+  }
+}
+/* =========================================================
+   CARRITO · PRENDAS ANTTONELA
+========================================================= */
+
+.cart-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(12, 9, 7, 0.92), rgba(12, 9, 7, 0.97)),
+    url("/tienda-anttonela.jpg") center / cover fixed;
+  color: #f3eadf;
+}
+
+.cart-header {
+  min-height: 82px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(214, 178, 119, 0.18);
+  background: rgba(12, 9, 7, 0.92);
+}
+
+.cart-header > a {
+  color: #d6ae68;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.cart-header > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.cart-header > div span {
+  color: #8d8174;
+  font-size: 8px;
+  letter-spacing: 3px;
+}
+
+.cart-header > div strong {
+  color: #eee2d2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.cart-container {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  padding: 65px 0 90px;
+}
+
+.cart-eyebrow {
+  margin: 0 0 8px;
+  color: #d6ae68;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.cart-container > h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 400;
+}
+
+.cart-container > h1 + p {
+  margin: 10px 0 35px;
+  color: #968b80;
+  font-size: 12px;
+}
+
+/* PRODUCTOS */
+
+.cart-container > div:not(.cart-empty) {
+  display: grid;
+  gap: 14px;
+}
+
+.cart-container > div:not(.cart-empty) > div {
+  min-height: 170px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  gap: 22px;
+  border: 1px solid rgba(214, 178, 119, 0.18);
+  background: rgba(18, 14, 11, 0.92);
+}
+
+.cart-container > div:not(.cart-empty) > div > img {
+  width: 135px;
+  height: 135px;
+  object-fit: cover;
+  background: #ece6dd;
+}
+
+.cart-container > div:not(.cart-empty) > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart-container > div:not(.cart-empty) > div > div > span {
+  color: #c99f5c;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.cart-container > div:not(.cart-empty) > div > div > h2 {
+  margin: 7px 0 18px;
+  color: #f2e9dd;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+/* CANTIDAD */
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart-quantity > span {
+  color: #82786d;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.cart-quantity-controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(214, 178, 119, 0.3);
+}
+
+.cart-quantity-controls button {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  color: #e5bd76;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.cart-quantity-controls button:hover:not(:disabled) {
+  background: rgba(214, 178, 119, 0.1);
+}
+
+.cart-quantity-controls button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.cart-quantity-controls strong {
+  min-width: 42px;
+  text-align: center;
+  color: #f3eadf;
+  font-size: 14px;
+}
+
+.cart-quantity-controls small {
+  padding-right: 12px;
+  color: #82786d;
+  font-size: 9px;
+}
+
+/* ELIMINAR */
+
+.cart-remove-button {
+  width: fit-content;
+  margin-top: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #9c7469;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+  cursor: pointer;
+}
+
+.cart-remove-button:hover {
+  color: #d89b8c;
+}
+
+/* CARRITO VACÍO */
+
+.cart-empty {
+  margin-top: 35px;
+  padding: 65px 30px;
+  border: 1px solid rgba(214, 178, 119, 0.2);
+  background: rgba(18, 14, 11, 0.9);
+  text-align: center;
+}
+
+.cart-empty h2 {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.cart-empty p {
+  margin: 0 0 25px;
+  color: #958a7e;
+  font-size: 12px;
+}
+
+.cart-empty a {
+  display: inline-flex;
+  min-height: 48px;
+  padding: 0 25px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d6ae68;
+  color: #e6bd73;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+
+/* CELULAR */
+
+@media (max-width: 650px) {
+  .cart-header {
+    padding: 0 20px;
+  }
+
+  .cart-container {
+    width: calc(100% - 30px);
+    padding-top: 40px;
+  }
+
+  .cart-container > div:not(.cart-empty) > div {
+    grid-template-columns: 95px 1fr;
+    gap: 15px;
+    padding: 13px;
+  }
+
+  .cart-container > div:not(.cart-empty) > div > img {
+    width: 95px;
+    height: 120px;
+  }
+
+  .cart-container > div:not(.cart-empty) > div > div > h2 {
+    font-size: 19px;
+  }
+
+  .cart-quantity {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+/* =========================================================
+   RESUMEN DEL CARRITO
+========================================================= */
+
+.cart-summary {
+  margin-top: 28px;
+  padding: 26px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  border: 1px solid rgba(214, 178, 119, 0.28);
+  background: rgba(18, 14, 11, 0.96);
+}
+
+.cart-summary > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cart-summary > div:last-child {
+  align-items: flex-end;
+}
+
+.cart-summary span {
+  color: #8f8377;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+}
+
+.cart-summary strong {
+  color: #f1e7d9;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.cart-summary > div:last-child strong {
+  color: #d6ae68;
+  font-size: 30px;
+}
+
+@media (max-width: 650px) {
+  .cart-summary {
+    padding: 22px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cart-summary > div:last-child {
+    align-items: flex-start;
+  }
+}
+/* =========================================================
+   COTIZACIÓN POR WHATSAPP · CARRITO
+========================================================= */
+
+.cart-quote {
+  margin-top: 16px;
+  padding: 26px 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  border: 1px solid rgba(214, 178, 119, 0.2);
+  background: rgba(18, 14, 11, 0.96);
+}
+
+.cart-advisor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-advisor > span {
+  color: #8f8377;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+}
+
+.cart-advisor select {
+  width: 100%;
+  max-width: 330px;
+  height: 50px;
+  padding: 0 15px;
+  border: 1px solid rgba(214, 178, 119, 0.3);
+  outline: none;
+  background: #100d0a;
+  color: #f1e7d9;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cart-advisor select:focus {
+  border-color: #d6ae68;
+}
+
+.cart-whatsapp-button {
+  min-height: 52px;
+  padding: 0 28px;
+  border: 1px solid #d6ae68;
+  background: #d6ae68;
+  color: #17110c;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.cart-whatsapp-button:hover {
+  background: transparent;
+  color: #e6bd73;
+}
+
+@media (max-width: 650px) {
+  .cart-quote {
+    padding: 22px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cart-advisor select {
+    max-width: none;
+  }
+
+  .cart-whatsapp-button {
+    width: 100%;
+  }
+}

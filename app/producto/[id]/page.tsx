@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import ProductGallery from "./ProductGallery";
 import WhatsAppQuote from "./WhatsAppQuote";
-
+import AddToCart from "./AddToCart";
 type Props = {
   params: Promise<{
     id: string;
@@ -24,7 +24,7 @@ export default async function ProductoPage({ params }: Props) {
       description,
       fabric,
       price_dozen,
-      stock_dozen,
+      stock_units,
       status,
       product_images (
         id,
@@ -91,10 +91,9 @@ export default async function ProductoPage({ params }: Props) {
 
             <div>
               <span>STOCK DISPONIBLE</span>
-              <strong>
-                {product.stock_dozen} docena
-                {product.stock_dozen === 1 ? "" : "s"}
-              </strong>
+             <strong>
+  {product.stock_units} unidades
+</strong>
             </div>
           </div>
 
@@ -105,7 +104,14 @@ export default async function ProductoPage({ params }: Props) {
                 "Consulta los detalles de esta prenda con nuestro equipo de ventas."}
             </p>
           </div>
-
+<AddToCart
+  productId={product.id}
+  productCode={product.code}
+  productName={product.name}
+  priceDozen={Number(product.price_dozen)}
+  stockUnits={product.stock_units}
+  imageUrl={images[0]?.image_url || null}
+/>
           <WhatsAppQuote
   productName={product.name}
   productCode={product.code}

@@ -14,7 +14,7 @@ name,
 description,
 fabric,
 price_dozen,
-stock_dozen,
+stock_units,
 status,
 featured,
 product_images (
@@ -198,10 +198,8 @@ product_images (
             </strong>
 
             <p className="product-stock">
-              Stock: {product.stock_dozen} docena
-              {product.stock_dozen === 1 ? "" : "s"}
-            </p>
-
+  Stock: {product.stock_units} unidades
+</p>
             <a
               className="whatsapp-product"
               href="#como-comprar"
