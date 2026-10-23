@@ -499,3 +499,93 @@ export async function actualizarDatosPedido(formData: FormData) {
 
   redirect(`/admin/pedidos/editar/${orderId}`);
 }
+
+export async function agregarProductoPedido(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const orderId = String(formData.get("order_id") || "");
+  const productId = String(formData.get("product_id") || "");
+  const quantityUnits = Number(formData.get("quantity_units"));
+
+  if (!orderId || !productId) {
+    throw new Error("No se encontró el pedido o producto.");
+  }
+
+  if (!Number.isInteger(quantityUnits) || quantityUnits < 1) {
+    throw new Error("La cantidad debe ser mayor a 0.");
+  }
+
+  const { data: product, error: productError } = await supabase
+    .from("products")
+    .select("id, code, name, price_dozen")
+    .eq("id", productId)
+    .single();
+
+  if (productError || !product) {
+    throw new Error("No se encontró el producto.");
+  }
+
+  const subtotal =
+    Number(product.price_dozen) * quantityUnits;
+
+  const { error: insertError } = await supabase
+    .from("order_items")
+    .insert({
+      order_id: orderId,
+      product_id: product.id,
+      product_code: product.code,
+      product_name: product.name,
+      quantity_units: quantityUnits,
+      price_dozen: Number(product.price_dozen),
+      subtotal,
+    });
+
+  if (insertError) {
+    throw new Error(
+      `No se pudo agregar el producto: ${insertError.message}`
+    );
+  }
+
+  const { data: orderItems, error: itemsError } = await supabase
+    .from("order_items")
+    .select("subtotal")
+    .eq("order_id", orderId);
+
+  if (itemsError) {
+    throw new Error(
+      `No se pudo recalcular el pedido: ${itemsError.message}`
+    );
+  }
+
+  const newTotal = (orderItems || []).reduce(
+    (total, item) => total + Number(item.subtotal),
+    0
+  );
+
+  const { error: orderError } = await supabase
+    .from("orders")
+    .update({
+      total: newTotal,
+    })
+    .eq("id", orderId);
+
+  if (orderError) {
+    throw new Error(
+      `No se pudo actualizar el total: ${orderError.message}`
+    );
+  }
+
+  revalidatePath("/admin/pedidos");
+  revalidatePath(`/admin/pedidos/editar/${orderId}`);
+  revalidatePath(`/pedido/${orderId}`);
+
+  redirect(`/admin/pedidos/editar/${orderId}`);
+}

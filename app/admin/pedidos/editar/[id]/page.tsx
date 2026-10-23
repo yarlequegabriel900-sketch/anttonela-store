@@ -6,6 +6,7 @@ import {
   actualizarDatosPedido,
   actualizarCantidadPedido,
   eliminarProductoPedido,
+  agregarProductoPedido,
 } from "../../../actions";
 type Props = {
   params: Promise<{
@@ -54,6 +55,16 @@ export default async function EditarPedidoPage({ params }: Props) {
     .eq("id", id)
     .single();
 
+const { data: products, error: productsError } = await supabase
+  .from("products")
+  .select("id, code, name, price_dozen, stock_units")
+  .order("code", { ascending: true });
+
+if (productsError) {
+  throw new Error(
+    `No se pudieron cargar los productos: ${productsError.message}`
+  );
+}
   if (error || !order) {
     notFound();
   }
@@ -230,7 +241,40 @@ export default async function EditarPedidoPage({ params }: Props) {
               <h2>Productos del pedido</h2>
             </div>
           </div>
+<form action={agregarProductoPedido} className="admin-add-order-product">
+  <input
+    type="hidden"
+    name="order_id"
+    value={order.id}
+  />
 
+  <select name="product_id" required defaultValue="">
+    <option value="" disabled>
+      Seleccionar producto
+    </option>
+
+    {(products || []).map((product) => (
+      <option key={product.id} value={product.id}>
+        {product.code} — {product.name} — Stock: {product.stock_units}
+      </option>
+    ))}
+  </select>
+
+  <input
+    type="number"
+    name="quantity_units"
+    min="1"
+    defaultValue="1"
+    required
+  />
+
+  <button
+    type="submit"
+    className="admin-action-button"
+  >
+    AGREGAR PRODUCTO
+  </button>
+</form>
           <table className="admin-table">
             <thead>
               <tr>

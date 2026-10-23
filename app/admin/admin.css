@@ -2220,3 +2220,37 @@
   border-color: #d6ae68;
   box-shadow: 0 0 0 2px rgba(214, 174, 104, 0.08);
 }
+
+.admin-add-order-product {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 110px auto;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 20px;
+  border-top: 1px solid rgba(214, 169, 82, 0.25);
+  border-bottom: 1px solid rgba(214, 169, 82, 0.25);
+  background: rgba(12, 10, 8, 0.72);
+}
+
+.admin-add-order-product select,
+.admin-add-order-product input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid rgba(214, 169, 82, 0.45);
+  border-radius: 6px;
+  background: #0d0b09;
+  color: #f4eee4;
+  outline: none;
+}
+
+.admin-add-order-product select:focus,
+.admin-add-order-product input:focus {
+  border-color: #d6a952;
+}
+
+@media (max-width: 800px) {
+  .admin-add-order-product {
+    grid-template-columns: 1fr;
+  }
+}
