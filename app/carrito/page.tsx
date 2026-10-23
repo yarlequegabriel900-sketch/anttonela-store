@@ -139,12 +139,11 @@ const quoteByWhatsApp = async () => {
   if (!advisor) {
     return;
   }
-const orderNumber = `ANT-${Date.now()}`;
 
 const { data: order, error: orderError } = await supabase
   .from("orders")
   .insert({
-    order_number: orderNumber,
+   
     customer_name: customerName.trim(),
     customer_phone: customerPhone.trim(),
     dni: dni.trim(),
