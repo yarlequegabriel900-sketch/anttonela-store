@@ -24,7 +24,23 @@ product_images (
     `)
     .eq("status", "published")
     .order("created_at", { ascending: false });
+const productsWithAvailableStock = await Promise.all(
+  (products ?? []).map(async (product) => {
+    const { data: availableStock } = await supabase.rpc(
+      "get_available_stock",
+      {
+        p_product_id: product.id,
+      }
+    );
 
+    return {
+      ...product,
+      available_stock: Number(
+        availableStock ?? product.stock_units
+      ),
+    };
+  })
+);
   return (
     <main>
       <RealtimeProducts />
@@ -153,7 +169,7 @@ product_images (
     </div>
   ) : products && products.length > 0 ? (
     <div className="products-grid">
-      {products.map((product) => (
+  {productsWithAvailableStock.map((product) => (
      <Link
   href={`/producto/${product.id}`}
   className="product-card-link"
@@ -197,8 +213,8 @@ product_images (
               S/ {Number(product.price_dozen).toFixed(2)} por docena
             </strong>
 
-            <p className="product-stock">
-  Stock: {product.stock_units} unidades
+   <p className="product-stock">
+  Stock: {product.available_stock} unidades
 </p>
             <a
               className="whatsapp-product"
