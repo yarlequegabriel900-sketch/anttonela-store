@@ -2470,3 +2470,103 @@
     width: 100%;
   }
 }
+.admin-history-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 20px;
+  border-top: 1px solid rgba(212, 168, 91, 0.18);
+  border-bottom: 1px solid rgba(212, 168, 91, 0.18);
+  background: rgba(12, 10, 8, 0.78);
+}
+
+.admin-history-filters a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid rgba(212, 168, 91, 0.32);
+  border-radius: 6px;
+  background: rgba(26, 22, 18, 0.92);
+  color: #d8cec0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.admin-history-filters a:hover {
+  border-color: #d4a85b;
+  color: #ffffff;
+}
+
+.admin-history-filters a.active {
+  border-color: #e1b86e;
+  background: #e1b86e;
+  color: #17120c;
+  box-shadow: 0 5px 18px rgba(225, 184, 110, 0.18);
+}
+
+@media (max-width: 800px) {
+  .admin-history-filters {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .admin-history-filters a {
+    flex: 1 1 auto;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+}
+.admin-history-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 105px;
+  padding: 7px 11px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.admin-history-status.status-pending {
+  color: #e9bd67;
+  border-color: rgba(233, 189, 103, 0.45);
+  background: rgba(233, 189, 103, 0.1);
+}
+
+.admin-history-status.status-reserved {
+  color: #c59bf0;
+  border-color: rgba(197, 155, 240, 0.45);
+  background: rgba(197, 155, 240, 0.1);
+}
+
+.admin-history-status.status-confirmed {
+  color: #78d99a;
+  border-color: rgba(120, 217, 154, 0.45);
+  background: rgba(120, 217, 154, 0.1);
+}
+
+.admin-history-status.status-preparing {
+  color: #7eb8f2;
+  border-color: rgba(126, 184, 242, 0.45);
+  background: rgba(126, 184, 242, 0.1);
+}
+
+.admin-history-status.status-shipped {
+  color: #67d5c1;
+  border-color: rgba(103, 213, 193, 0.45);
+  background: rgba(103, 213, 193, 0.1);
+}
+
+.admin-history-status.status-cancelled {
+  color: #ef7777;
+  border-color: rgba(239, 119, 119, 0.45);
+  background: rgba(239, 119, 119, 0.1);
+}

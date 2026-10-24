@@ -4,7 +4,12 @@ import { createClient } from "@/utils/supabase/server";
 import AdminSessionGuard from "../AdminSessionGuard";
 import "../admin.css";
 
-export default async function HistorialPedidosPage() {
+export default async function HistorialPedidosPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ estado?: string }>;
+}) {
+  const { estado } = await searchParams;
   const supabase = await createClient();
 
   const {
@@ -15,30 +20,42 @@ export default async function HistorialPedidosPage() {
     redirect("/admin/login");
   }
 
-  const { data: orders, error } = await supabase
-    .from("orders")
-    .select(`
+let ordersQuery = supabase
+  .from("orders")
+  .select(`
+    id,
+    order_number,
+    customer_name,
+    customer_phone,
+    dni,
+    destination,
+    agency,
+    advisor_name,
+    status,
+    total,
+    created_at,
+    confirmed_at,
+    shipped_at,
+    cancelled_at,
+    order_items (
       id,
-      order_number,
-      customer_name,
-      customer_phone,
-      dni,
-      destination,
-      agency,
-      advisor_name,
-      status,
-      total,
-      created_at,
-      confirmed_at,
-      shipped_at,
-      cancelled_at,
-      order_items (
-        id,
-        quantity_units
-      )
-    `)
-    .in("status", ["shipped", "cancelled"])
-    .order("created_at", { ascending: false });
+      quantity_units
+    )
+  `);
+
+if (
+  estado &&
+  ["pending", "reserved", "confirmed", "preparing", "shipped", "cancelled"].includes(
+    estado
+  )
+) {
+  ordersQuery = ordersQuery.eq("status", estado);
+}
+
+const { data: orders, error } = await ordersQuery.order(
+  "created_at",
+  { ascending: false }
+);
 
   if (error) {
     throw new Error(
@@ -104,12 +121,61 @@ export default async function HistorialPedidosPage() {
               <div>
                 <h1>Historial de pedidos</h1>
                 <p>
-                  Pedidos enviados y anulados de PRENDAS ANTTONELA
+                 Registro completo y seguimiento de todos los pedidos de PRENDAS ANTTONELA
                 </p>
               </div>
             </div>
           </div>
+<div className="admin-history-filters">
+  <Link
+    href="/admin/historial"
+    className={!estado ? "active" : ""}
+  >
+    TODOS
+  </Link>
 
+  <Link
+    href="/admin/historial?estado=pending"
+    className={estado === "pending" ? "active" : ""}
+  >
+    PENDIENTES
+  </Link>
+
+  <Link
+    href="/admin/historial?estado=reserved"
+    className={estado === "reserved" ? "active" : ""}
+  >
+    RESERVADOS
+  </Link>
+
+  <Link
+    href="/admin/historial?estado=confirmed"
+    className={estado === "confirmed" ? "active" : ""}
+  >
+    CONFIRMADOS
+  </Link>
+
+  <Link
+    href="/admin/historial?estado=preparing"
+    className={estado === "preparing" ? "active" : ""}
+  >
+    EN PREPARACIÓN
+  </Link>
+
+  <Link
+    href="/admin/historial?estado=shipped"
+    className={estado === "shipped" ? "active" : ""}
+  >
+    ENVIADOS
+  </Link>
+
+  <Link
+    href="/admin/historial?estado=cancelled"
+    className={estado === "cancelled" ? "active" : ""}
+  >
+    ANULADOS
+  </Link>
+</div>
           <table className="admin-table">
             <thead>
               <tr>
@@ -162,10 +228,22 @@ export default async function HistorialPedidosPage() {
                     <td>{order.advisor_name || "—"}</td>
 
                     <td>
-                      {order.status === "shipped"
-                        ? "ENVIADO"
-                        : "ANULADO"}
-                    </td>
+  <span className={`admin-history-status status-${order.status}`}>
+    {order.status === "pending"
+      ? "PENDIENTE"
+      : order.status === "reserved"
+      ? "RESERVADO"
+      : order.status === "confirmed"
+      ? "CONFIRMADO"
+      : order.status === "preparing"
+      ? "EN PREPARACIÓN"
+      : order.status === "shipped"
+      ? "ENVIADO"
+      : order.status === "cancelled"
+      ? "ANULADO"
+      : order.status.toUpperCase()}
+  </span>
+</td>
 
                     <td>
                       <Link
