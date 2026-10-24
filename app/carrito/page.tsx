@@ -159,8 +159,12 @@ const { data: order, error: orderError } = await supabase
   .single();
 
 if (orderError || !order) {
-  console.error(orderError);
-  alert("No se pudo crear el pedido. Inténtalo nuevamente.");
+  console.error("ERROR CREANDO PEDIDO:", orderError);
+
+  alert(
+    `ERROR SUPABASE:\n${orderError?.message || "Error desconocido"}`
+  );
+
   return;
 }
 const orderItems = items.map((item) => ({
