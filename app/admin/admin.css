@@ -2362,3 +2362,111 @@
     width: 100%;
   }
 }
+.admin-order-preparing-zone {
+  margin-top: 20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(202, 157, 73, 0.5);
+  border-radius: 10px;
+  background: rgba(104, 73, 20, 0.22);
+}
+
+.admin-order-preparing-zone strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #f4eee4;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.admin-order-preparing-zone p {
+  margin: 0;
+  color: #b9aea2;
+  font-size: 13px;
+}
+
+.admin-preparing-order-button {
+  min-width: 210px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #c99c49;
+  border-radius: 6px;
+  background: #72531f;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.admin-preparing-order-button:hover {
+  background: #8a6526;
+}
+
+@media (max-width: 800px) {
+  .admin-order-preparing-zone {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-preparing-order-button {
+    width: 100%;
+  }
+}
+.admin-order-shipping-zone {
+  margin-top: 20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(72, 126, 184, 0.5);
+  border-radius: 10px;
+  background: rgba(25, 57, 91, 0.22);
+}
+
+.admin-order-shipping-zone strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #f4eee4;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.admin-order-shipping-zone p {
+  margin: 0;
+  color: #b9aea2;
+  font-size: 13px;
+}
+
+.admin-shipping-order-button {
+  min-width: 210px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #5686b7;
+  border-radius: 6px;
+  background: #315f8d;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.admin-shipping-order-button:hover {
+  background: #3c72a7;
+}
+
+@media (max-width: 800px) {
+  .admin-order-shipping-zone {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-shipping-order-button {
+    width: 100%;
+  }
+}

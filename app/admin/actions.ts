@@ -714,3 +714,111 @@ export async function confirmarPedido(formData: FormData) {
 
   redirect(`/admin/pedidos/editar/${orderId}`);
 }
+export async function prepararPedido(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const orderId = String(formData.get("order_id") || "");
+
+  if (!orderId) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  const { data: currentOrder, error: currentOrderError } =
+    await supabase
+      .from("orders")
+      .select("status")
+      .eq("id", orderId)
+      .single();
+
+  if (currentOrderError || !currentOrder) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  if (currentOrder.status !== "confirmed") {
+    throw new Error(
+      "Solo un pedido confirmado puede pasar a preparación."
+    );
+  }
+
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status: "preparing",
+      preparing_at: new Date().toISOString(),
+    })
+    .eq("id", orderId);
+
+  if (error) {
+    throw new Error(
+      `No se pudo enviar el pedido a preparación: ${error.message}`
+    );
+  }
+
+  revalidatePath("/admin/pedidos");
+  revalidatePath(`/admin/pedidos/editar/${orderId}`);
+  revalidatePath(`/pedido/${orderId}`);
+
+  redirect(`/admin/pedidos/editar/${orderId}`);
+}
+export async function enviarPedido(formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/admin/login");
+  }
+
+  const orderId = String(formData.get("order_id") || "");
+
+  if (!orderId) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  const { data: currentOrder, error: currentOrderError } =
+    await supabase
+      .from("orders")
+      .select("status")
+      .eq("id", orderId)
+      .single();
+
+  if (currentOrderError || !currentOrder) {
+    throw new Error("No se encontró el pedido.");
+  }
+
+  if (currentOrder.status !== "preparing") {
+    throw new Error(
+      "Solo un pedido en preparación puede marcarse como enviado."
+    );
+  }
+
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status: "shipped",
+      shipped_at: new Date().toISOString(),
+    })
+    .eq("id", orderId);
+
+  if (error) {
+    throw new Error(
+      `No se pudo marcar el pedido como enviado: ${error.message}`
+    );
+  }
+
+  revalidatePath("/admin/pedidos");
+  revalidatePath("/admin/historial");
+  revalidatePath(`/pedido/${orderId}`);
+
+  redirect("/admin/historial");
+}

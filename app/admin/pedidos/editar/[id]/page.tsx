@@ -4,6 +4,8 @@ import { createClient } from "@/utils/supabase/server";
 import AdminSessionGuard from "../../../AdminSessionGuard";
 import AnularPedidoButton from "../../../AnularPedidoButton";
 import ConfirmarPedidoButton from "../../../ConfirmarPedidoButton";
+import PrepararPedidoButton from "../../../PrepararPedidoButton";
+import EnviarPedidoButton from "../../../EnviarPedidoButton";
 import {
   actualizarDatosPedido,
   actualizarCantidadPedido,
@@ -11,6 +13,8 @@ import {
   agregarProductoPedido,
   anularPedido,
   confirmarPedido,
+  prepararPedido,
+    enviarPedido,
 } from "../../../actions";
 type Props = {
   params: Promise<{
@@ -389,7 +393,8 @@ if (
             </strong>
           </div>
         </section>
-        {order.status !== "confirmed" && (
+        {(order.status === "pending" ||
+  order.status === "reserved") && (
   <section className="admin-order-confirm-zone">
     <div>
       <strong>Confirmar pedido</strong>
@@ -406,6 +411,50 @@ if (
       />
 
      <ConfirmarPedidoButton
+  orderNumber={order.order_number}
+/>
+    </form>
+  </section>
+)}
+{order.status === "confirmed" && (
+  <section className="admin-order-preparing-zone">
+    <div>
+      <strong>Enviar a preparación</strong>
+      <p>
+        El pago ya fue confirmado. Envía el pedido a preparación para iniciar el embalaje.
+      </p>
+    </div>
+
+    <form action={prepararPedido}>
+      <input
+        type="hidden"
+        name="order_id"
+        value={order.id}
+      />
+
+   <PrepararPedidoButton
+  orderNumber={order.order_number}
+/>
+    </form>
+  </section>
+)}
+{order.status === "preparing" && (
+  <section className="admin-order-shipping-zone">
+    <div>
+      <strong>Marcar como enviado</strong>
+      <p>
+        Confirma que el pedido ya salió hacia la agencia o destino del cliente.
+      </p>
+    </div>
+
+    <form action={enviarPedido}>
+      <input
+        type="hidden"
+        name="order_id"
+        value={order.id}
+      />
+
+     <EnviarPedidoButton
   orderNumber={order.order_number}
 />
     </form>
