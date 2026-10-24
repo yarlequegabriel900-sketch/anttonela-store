@@ -38,6 +38,20 @@ export default async function ProductoPage({ params }: Props) {
   if (error || !product) {
     notFound();
   }
+  const { data: availableStockData, error: availableStockError } =
+  await supabase.rpc("get_available_stock", {
+    p_product_id: product.id,
+  });
+
+if (availableStockError) {
+  throw new Error(
+    `No se pudo consultar el stock disponible: ${availableStockError.message}`
+  );
+}
+
+const availableStock = Number(
+  availableStockData ?? product.stock_units
+);
 
   const images = [...(product.product_images || [])].sort(
     (a, b) => a.sort_order - b.sort_order
@@ -90,8 +104,8 @@ export default async function ProductoPage({ params }: Props) {
 
             <div>
               <span>STOCK DISPONIBLE</span>
-             <strong>
-  {product.stock_units} unidades
+      <strong>
+  {availableStock} unidades
 </strong>
             </div>
           </div>
@@ -109,6 +123,7 @@ export default async function ProductoPage({ params }: Props) {
   productName={product.name}
   priceDozen={Number(product.price_dozen)}
   stockUnits={product.stock_units}
+ availableStock={availableStock}
   imageUrl={images[0]?.image_url || null}
 />
   

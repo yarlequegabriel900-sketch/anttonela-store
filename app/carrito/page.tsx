@@ -14,14 +14,17 @@ type CartItem = {
 };
 const advisors = [
   {
+    id: "77cb099f-aace-4464-837b-91c5fb652dcf",
     name: "Fernando",
     phone: "51922145920",
   },
   {
+    id: "ec922c3a-e819-4461-8cba-411bd141ce73",
     name: "David",
     phone: "51922568509",
   },
   {
+    id: "64bca486-c085-479f-b41b-b3fcc058a360",
     name: "Gabriel",
     phone: "51926154709",
   },
@@ -131,76 +134,78 @@ const quoteByWhatsApp = async () => {
     alert("Selecciona un asesor para continuar.");
     return;
   }
-
-  const advisor = advisors.find(
-    (item) => item.phone === selectedAdvisor
-  );
+const advisor = advisors.find(
+  (item) => item.id === selectedAdvisor
+);
+  
 
   if (!advisor) {
     return;
   }
-
-const { data: order, error: orderError } = await supabase
-  .from("orders")
-  .insert({
-   
-    customer_name: customerName.trim(),
-    customer_phone: customerPhone.trim(),
-    dni: dni.trim(),
-    destination: destination.trim(),
-    agency: agency.trim(),
-    address: address.trim(),
-    advisor_name: advisor.name,
-    advisor_phone: advisor.phone,
-    status: "pending",
-    total: totalPrice,
-  })
-  .select("id, order_number")
-  .single();
+  const secureItems = items.map((item) => ({
+  product_id: item.id,
+  quantity: item.quantity,
+}));
+const { data: order, error: orderError } = await supabase.rpc(
+  "create_secure_quote",
+  {
+    p_customer_name: customerName.trim(),
+    p_customer_phone: customerPhone.trim(),
+    p_dni: dni.trim(),
+    p_destination: destination.trim(),
+    p_agency: agency.trim(),
+    p_address: address.trim(),
+    p_advisor_id: advisor.id,
+    p_items: secureItems,
+  }
+);
 
 if (orderError || !order) {
-  console.error("ERROR CREANDO PEDIDO:", orderError);
+  console.error("ERROR CREANDO PEDIDO SEGURO:", orderError);
+
+  const errorMessage = orderError?.message || "";
+
+  if (errorMessage.includes("STOCK_INSUFFICIENT|")) {
+    const stockData = errorMessage
+      .split("STOCK_INSUFFICIENT|")[1]
+      ?.split("|");
+
+    const availableStock = stockData?.[1];
+    const productName = stockData?.[2];
+
+    alert(
+      `STOCK ACTUALIZADO\n\n` +
+      `${productName || "Producto"}\n` +
+      `Disponibles ahora: ${availableStock || "0"} unidades\n\n` +
+      `Tu carrito NO fue modificado.\n` +
+      `Puedes reducir la cantidad, eliminar este producto o seguir comprando.`
+    );
+
+    return;
+  }
 
   alert(
-    `ERROR SUPABASE:\n${orderError?.message || "Error desconocido"}`
+    `No se pudo crear el pedido.\n\n` +
+    `${errorMessage || "Inténtalo nuevamente."}`
   );
 
   return;
 }
-const orderItems = items.map((item) => ({
-  order_id: order.id,
-  product_id: item.id,
-  product_code: item.code,
-  product_name: item.name,
-  quantity_units: item.quantity,
-  price_dozen: Number(item.price_dozen),
-  subtotal: Number(item.price_dozen) * item.quantity,
-}));
 
-const { error: itemsError } = await supabase
-  .from("order_items")
-  .insert(orderItems);
-
-if (itemsError) {
-  console.error(itemsError);
-  alert("El pedido se creó, pero ocurrió un error al guardar los productos.");
-  return;
-}
   const orderUrl =
-  `${window.location.origin}/pedido/${order.id}`;
+  `${window.location.origin}/pedido/${order.order_id}`;
 
-const message = `Hola ${advisor.name}, tienes una nueva cotización de PRENDAS ANTTONELA.
-
+const message = `Hola ${order.advisor_name}, tienes una nueva cotización de PRENDAS ANTTONELA.
 Pedido: ${order.order_number}
 Cliente: ${customerName.trim()}
 Total de unidades: ${totalUnits}
-Total del pedido: S/ ${totalPrice.toFixed(2)}
+Total del pedido: S/ ${Number(order.total).toFixed(2)}
 
 Ver pedido completo:
 ${orderUrl}`;
 
 window.location.href =
-  `https://wa.me/${advisor.phone}?text=${encodeURIComponent(message)}`;
+  `https://wa.me/${order.advisor_phone}?text=${encodeURIComponent(message)}`;
 };
   return (
     <main className="cart-page">
@@ -378,14 +383,14 @@ window.location.href =
     >
       <option value="">Elegir asesor</option>
 
-      {advisors.map((advisor) => (
-        <option
-          key={advisor.phone}
-          value={advisor.phone}
-        >
-          {advisor.name}
-        </option>
-      ))}
+    {advisors.map((advisor) => (
+  <option
+    key={advisor.id}
+    value={advisor.id}
+  >
+    {advisor.name}
+  </option>
+))}
     </select>
   </div>
 

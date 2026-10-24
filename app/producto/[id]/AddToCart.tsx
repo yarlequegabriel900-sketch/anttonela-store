@@ -9,6 +9,7 @@ type AddToCartProps = {
   productName: string;
   priceDozen: number;
   stockUnits: number;
+  availableStock: number;
   imageUrl: string | null;
 };
 
@@ -18,6 +19,7 @@ export default function AddToCart({
   productName,
   priceDozen,
   stockUnits,
+  availableStock,
   imageUrl,
 }: AddToCartProps) {
   const router = useRouter();
@@ -25,9 +27,8 @@ export default function AddToCart({
   const minimumQuantity = 3;
 
   const [quantity, setQuantity] = useState(
-    Math.min(minimumQuantity, stockUnits)
-  );
-
+  Math.min(minimumQuantity, availableStock)
+);
   const decrease = () => {
     setQuantity((current) =>
       Math.max(minimumQuantity, current - 1)
@@ -35,10 +36,10 @@ export default function AddToCart({
   };
 
   const increase = () => {
-    setQuantity((current) =>
-      Math.min(stockUnits, current + 1)
-    );
-  };
+  setQuantity((current) =>
+    Math.min(availableStock, current + 1)
+  );
+};
 
   const addToCart = () => {
     if (stockUnits < minimumQuantity) {
