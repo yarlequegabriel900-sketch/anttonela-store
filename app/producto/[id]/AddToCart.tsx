@@ -40,9 +40,13 @@ export default function AddToCart({
     Math.min(availableStock, current + 1)
   );
 };
+  const canAddToCart =
+    Number.isFinite(priceDozen) &&
+    priceDozen > 0 &&
+    availableStock >= minimumQuantity;
 
   const addToCart = () => {
-    if (stockUnits < minimumQuantity) {
+    if (!canAddToCart) {
       return;
     }
 
@@ -124,11 +128,13 @@ export default function AddToCart({
         type="button"
         className="add-to-cart-button"
         onClick={addToCart}
-        disabled={stockUnits < minimumQuantity}
+       disabled={!canAddToCart}
       >
-        {stockUnits < minimumQuantity
-          ? "STOCK INSUFICIENTE"
-          : "AGREGAR AL CARRITO"}
+        {priceDozen <= 0 || !Number.isFinite(priceDozen)
+  ? "PRECIO NO DISPONIBLE"
+  : availableStock < minimumQuantity
+    ? "STOCK INSUFICIENTE"
+    : "AGREGAR AL CARRITO"}
       </button>
     </div>
   );
