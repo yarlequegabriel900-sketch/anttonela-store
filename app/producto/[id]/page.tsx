@@ -90,7 +90,7 @@ const availableStock = Number(
           <div className="product-detail-divider" />
 
           <div className="product-detail-price">
-            <span>PRECIO POR DOCENA</span>
+            <span>Precio unitario</span>
             <strong>
               S/ {Number(product.price_dozen).toFixed(2)}
             </strong>

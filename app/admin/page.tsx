@@ -262,7 +262,7 @@ export default async function AdminPage() {
                 <tr>
                   <th>Producto</th>
                   <th>Tela</th>
-                  <th>Precio / docena</th>
+                  <th>Precio unitario</th>
                   <th>Stock</th>
                   <th>Estado</th>
                   <th>Acciones</th>

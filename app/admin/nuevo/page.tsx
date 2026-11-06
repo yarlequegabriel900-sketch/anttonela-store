@@ -114,7 +114,7 @@ export default function NuevoProductoPage() {
               </label>
 
               <label>
-                <span>PRECIO POR DOCENA</span>
+                <span>Precio unitario</span>
 
                 <div className="admin-price-input">
                   <span>S/</span>

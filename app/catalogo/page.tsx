@@ -30,7 +30,7 @@ export default async function CatalogoPage() {
               <h2>{product.name}</h2>
               <p>Código: {product.code}</p>
               <p>Tela: {product.fabric || "Por especificar"}</p>
-              <p>Precio por docena: S/ {Number(product.price_dozen).toFixed(2)}</p>
+              <p>Precio unitario: S/ {Number(product.price_dozen).toFixed(2)}</p>
              <p>Stock: {product.stock_units} unidades</p>
             </div>
           ))}

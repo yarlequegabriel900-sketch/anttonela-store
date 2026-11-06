@@ -193,7 +193,7 @@ if (!user) {
 
           <div className="admin-form-grid">
             <label>
-              <span>PRECIO POR DOCENA</span>
+              <span>Precio unitario</span>
               <input
                 type="number"
                 name="price_dozen"
