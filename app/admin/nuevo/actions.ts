@@ -19,7 +19,24 @@ if (!user) {
   const fabric = String(formData.get("fabric") || "").trim();
   const price_dozen = Number(formData.get("price_dozen"));
   const stock_units = Number(formData.get("stock_units"));
+const category_id = String(
+  formData.get("category_id") || ""
+).trim();
 
+if (!category_id) {
+  throw new Error("Debes seleccionar una categoría.");
+}
+
+const { data: categoria, error: categoriaError } = await supabase
+  .from("categories")
+  .select("id")
+  .eq("id", category_id)
+  .eq("active", true)
+  .single();
+
+if (categoriaError || !categoria) {
+  throw new Error("La categoría seleccionada no es válida.");
+}
   const slug = `${name}-${code}`
     .toLowerCase()
     .normalize("NFD")
@@ -30,16 +47,17 @@ if (!user) {
   const { data: product, error } = await supabase
   .from("products")
   .insert({
-    code,
-    name,
-    slug,
-    description,
-    fabric,
-    price_dozen,
-   stock_units,
-    status: "published",
-    featured: false,
-  })
+  code,
+  name,
+  slug,
+  description,
+  fabric,
+  price_dozen,
+  stock_units,
+  category_id,
+  status: "published",
+  featured: false,
+})
   .select("id")
   .single();
 

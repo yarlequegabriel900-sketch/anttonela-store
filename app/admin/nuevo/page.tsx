@@ -1,9 +1,17 @@
 import ImageUploader from "./ImageUploader";
 import Link from "next/link";
 import { crearProducto } from "./actions";
+import { createClient } from "@/utils/supabase/server";
 import "../admin.css";
 
-export default function NuevoProductoPage() {
+export default async function NuevoProductoPage() {
+  const supabase = await createClient();
+
+  const { data: categorias, error: categoriasError } = await supabase
+    .from("categories")
+    .select("id, name")
+    .eq("active", true)
+    .order("name");
   return (
     <main className="admin-page">
       <aside className="admin-sidebar">
@@ -112,7 +120,41 @@ export default function NuevoProductoPage() {
                   placeholder="Ejemplo: Algodón Jersey"
                 />
               </label>
+<label>
+  <span>CATEGORÍA *</span>
 
+  <select
+    name="category_id"
+    required
+    defaultValue=""
+    disabled={Boolean(categoriasError) || !categorias?.length}
+    style={{
+      width: "100%",
+      padding: "12px",
+      border: "1px solid #d8c8b8",
+      borderRadius: "8px",
+      backgroundColor: "#fff",
+      color: "#241b17",
+      fontSize: "14px",
+    }}
+  >
+    <option value="" disabled>
+      Selecciona una categoría
+    </option>
+
+    {(categorias ?? []).map((categoria) => (
+      <option key={categoria.id} value={categoria.id}>
+        {categoria.name}
+      </option>
+    ))}
+  </select>
+
+  {categoriasError || !categorias?.length ? (
+    <small style={{ color: "#b42318" }}>
+      No hay categorías disponibles. Verifica las categorías en Supabase.
+    </small>
+  ) : null}
+</label>
               <label>
                 <span>Precio unitario</span>
 

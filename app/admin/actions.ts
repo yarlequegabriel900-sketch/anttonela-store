@@ -28,7 +28,22 @@ export async function actualizarProducto(formData: FormData) {
   const fabric = String(formData.get("fabric") || "").trim();
   const description = String(formData.get("description") || "").trim();
   const status = String(formData.get("status") || "draft");
+const categoryId = String(formData.get("category_id") || "").trim();
 
+if (!categoryId) {
+  throw new Error("Debes seleccionar una categoría.");
+}
+
+const { data: category, error: categoryError } = await supabase
+  .from("categories")
+  .select("id")
+  .eq("id", categoryId)
+  .eq("active", true)
+  .single();
+
+if (categoryError || !category) {
+  throw new Error("La categoría seleccionada no es válida.");
+}
   const priceDozen = Number(formData.get("price_dozen"));
  const stockUnits = Number(formData.get("stock_units"));
 
@@ -48,14 +63,15 @@ stockUnits < 0
   const { error } = await supabase
     .from("products")
     .update({
-      code,
-      name,
-      fabric,
-      description,
-      price_dozen: priceDozen,
-     stock_units: stockUnits,
-      status,
-    })
+  code,
+  name,
+  fabric,
+  description,
+  price_dozen: priceDozen,
+  stock_units: stockUnits,
+  status,
+  category_id: categoryId,
+})
     .eq("id", id);
 
   if (error) {

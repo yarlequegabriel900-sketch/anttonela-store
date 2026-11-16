@@ -38,6 +38,7 @@ if (!user) {
    stock_units,
     status,
     featured,
+    category_id,
     product_images (
       id,
       image_url,
@@ -49,6 +50,18 @@ if (!user) {
   if (error || !product) {
     notFound();
   }
+
+const { data: categories, error: categoriesError } = await supabase
+  .from("categories")
+  .select("id, name")
+  .eq("active", true)
+  .order("name");
+
+if (categoriesError) {
+  throw new Error(
+    `No se pudieron cargar las categorías: ${categoriesError.message}`
+  );
+}
 
   return (
   <main className="admin-new-product admin-edit-product">
@@ -135,6 +148,29 @@ if (!user) {
               </select>
             </label>
           </div>
+
+<div className="admin-form-grid">
+  <label>
+    <span>CATEGORÍA *</span>
+
+    <select
+      name="category_id"
+      defaultValue={product.category_id || ""}
+      required
+    >
+      <option value="" disabled>
+        Selecciona una categoría
+      </option>
+
+      {(categories || []).map((category) => (
+        <option key={category.id} value={category.id}>
+          {category.name}
+        </option>
+      ))}
+    </select>
+  </label>
+</div>
+
 <div className="admin-edit-images">
   <div className="admin-edit-images-heading">
     <span>IMÁGENES DEL PRODUCTO</span>
@@ -158,18 +194,16 @@ if (!user) {
   </span>
 )}
 
-<form action={eliminarImagenProducto}>
-  <input type="hidden" name="image_id" value={image.id} />
-  <input type="hidden" name="product_id" value={product.id} />
 
-  <button
-    type="submit"
-    className="admin-edit-image-delete"
-    title="Eliminar imagen"
-  >
-    🗑 ELIMINAR
-  </button>
-</form>
+<button
+  type="submit"
+  form={`eliminar-imagen-${image.id}`}
+  className="admin-edit-image-delete"
+  title="Eliminar imagen"
+>
+  🗑 ELIMINAR
+</button>
+
           </div>
         ))}
     </div>
@@ -227,6 +261,26 @@ if (!user) {
             </button>
           </div>
         </form>
+
+{product.product_images?.map((image) => (
+  <form
+    key={`eliminar-${image.id}`}
+    id={`eliminar-imagen-${image.id}`}
+    action={eliminarImagenProducto}
+  >
+    <input
+      type="hidden"
+      name="image_id"
+      value={image.id}
+    />
+    <input
+      type="hidden"
+      name="product_id"
+      value={product.id}
+    />
+  </form>
+))}
+
       </section>
     </div>
   </main>
