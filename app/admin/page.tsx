@@ -80,7 +80,7 @@ export default async function AdminPage() {
   Historial
 </Link>
 <a
-  href="/"
+  href="/catalogo"
   target="_blank"
   rel="noopener noreferrer"
   className="admin-sidebar-link"

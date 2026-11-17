@@ -60,7 +60,7 @@ const availableStock = Number(
   return (
     <main className="product-detail-page">
       <div className="product-detail-topbar">
-        <Link href="/#catalogo" className="product-detail-back">
+        <Link href="/catalogo" className="product-detail-back">
           ← VOLVER AL CATÁLOGO
         </Link>
 

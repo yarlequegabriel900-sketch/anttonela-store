@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/utils/client";
 type CartItem = {
   id: string;
@@ -39,7 +39,9 @@ const [destination, setDestination] = useState("");
 const [agency, setAgency] = useState("");
 const [address, setAddress] = useState("");
   const [selectedAdvisor, setSelectedAdvisor] = useState("");
-
+const [isSubmitting, setIsSubmitting] = useState(false);
+const submittingRef = useRef(false);
+const [cartMessage, setCartMessage] = useState("");
   useEffect(() => {
     const savedCart = localStorage.getItem("anttonela_cart");
 
@@ -114,6 +116,22 @@ const removeItem = (id: string) => {
   0
 );
 const quoteByWhatsApp = async () => {
+setCartMessage("");
+
+if (totalUnits < 12) {
+  setCartMessage(
+    `PEDIDO MAYORISTA INCOMPLETO\n` +
+    `Debes seleccionar mínimo 12 prendas.\n` +
+    `Actualmente tienes ${totalUnits}.\n` +
+    `Te faltan ${12 - totalUnits} prendas.`
+  );
+  return;
+}
+
+if (items.some((item) => item.quantity < 3)) {
+  alert("Cada modelo debe tener mínimo 3 prendas.");
+  return;
+}
       if (
     !customerName.trim() ||
     !dni.trim() ||
@@ -142,6 +160,10 @@ const advisor = advisors.find(
   if (!advisor) {
     return;
   }
+  if (submittingRef.current) return;
+
+submittingRef.current = true;
+setIsSubmitting(true);try {
   const secureItems = items.map((item) => ({
   product_id: item.id,
   quantity: item.quantity,
@@ -161,6 +183,8 @@ const { data: order, error: orderError } = await supabase.rpc(
 );
 
 if (orderError || !order) {
+  submittingRef.current = false;
+setIsSubmitting(false);
   console.error("ERROR CREANDO PEDIDO SEGURO:", orderError);
 
   const errorMessage = orderError?.message || "";
@@ -204,13 +228,36 @@ Total del pedido: S/ ${Number(order.total).toFixed(2)}
 Ver pedido completo:
 ${orderUrl}`;
 
-window.location.href =
+const whatsappUrl =
   `https://wa.me/${order.advisor_phone}?text=${encodeURIComponent(message)}`;
+
+try {
+  window.location.assign(whatsappUrl);
+} catch {
+  alert(
+    "El pedido fue creado correctamente, pero no se pudo abrir WhatsApp.\n\n" +
+    `Número de pedido: ${order.order_number}\n` +
+    `Puedes consultar el pedido en: ${orderUrl}\n\n` +
+    "No vuelvas a cotizar el mismo carrito."
+  );
+}
+
+} catch (error) {
+  console.error("ERROR INESPERADO AL COTIZAR:", error);
+
+  alert(
+    "No se pudo completar la comunicación con el servidor.\n\n" +
+    "Antes de volver a intentarlo, verifica si tu pedido ya fue registrado."
+  );
+
+  submittingRef.current = false;
+  setIsSubmitting(false);
+}
 };
   return (
     <main className="cart-page">
       <header className="cart-header">
-        <Link href="/#catalogo">
+        <Link href="/catalogo">
           ← SEGUIR COMPRANDO
         </Link>
 
@@ -369,6 +416,28 @@ window.location.href =
     </label>
   </div>
 </div>
+{cartMessage && (
+  <div
+    role="alert"
+    aria-live="assertive"
+  style={{
+  backgroundColor: "#FFF1F2",
+  color: "#9F1239",
+  border: "1px solid #FDA4AF",
+  borderRadius: "10px",
+  padding: "14px",
+  marginBottom: "14px",
+  fontSize: "14px",
+  lineHeight: "1.6",
+  whiteSpace: "pre-line",
+  overflowWrap: "anywhere",
+  width: "100%",
+  boxSizing: "border-box",
+}}
+  >
+    {cartMessage}
+  </div>
+)}
             <div className="cart-summary">
   <div>
     <div className="cart-quote">
@@ -394,13 +463,16 @@ window.location.href =
     </select>
   </div>
 
-  <button
-    type="button"
-    className="cart-whatsapp-button"
-    onClick={quoteByWhatsApp}
-  >
-    COTIZAR POR WHATSAPP
-  </button>
+ <button
+  type="button"
+  className="cart-whatsapp-button"
+  onClick={quoteByWhatsApp}
+  disabled={isSubmitting}
+>
+  {isSubmitting
+    ? "PROCESANDO PEDIDO..."
+    : "COTIZAR POR WHATSAPP"}
+</button>
 </div>
     <span>TOTAL DE UNIDADES</span>
     <strong>{totalUnits}</strong>
