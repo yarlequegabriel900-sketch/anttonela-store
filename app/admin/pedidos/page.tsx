@@ -186,11 +186,17 @@ export default async function AdminPedidosPage() {
                       </td>
 
                       <td>
-                        <span className="admin-status draft">
+                        <span
+  className={`admin-status ${
+    order.status === "expired" ? "expired" : "draft"
+  }`}
+>
                          {order.status === "pending"
   ? "PENDIENTE"
   : order.status === "reserved"
   ? "RESERVADO"
+  : order.status === "expired"
+? "VENCIDO"
   : order.status === "confirmed"
   ? "CONFIRMADO"
   : order.status === "preparing"
@@ -202,6 +208,21 @@ export default async function AdminPedidosPage() {
                       <td>
                       
                       <div className="admin-actions">
+                        {order.customer_phone && (
+  <a
+    href={`https://wa.me/${(() => {
+  const phone = order.customer_phone.replace(/\D/g, "");
+  return phone.length === 9 ? `51${phone}` : phone;
+})()}?text=${encodeURIComponent(
+      `Hola ${order.customer_name}, te contactamos de PRENDAS ANTTONELA sobre tu pedido ${order.order_number}.`
+    )}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="admin-action-button"
+  >
+    WHATSAPP
+  </a>
+)}
   <Link
     href={`/pedido/${order.id}`}
     className="admin-action-button"
