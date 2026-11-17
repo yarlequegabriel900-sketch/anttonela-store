@@ -7,18 +7,6 @@ type SearchParams = Promise<{
   categoria?: string;
 }>;
 
-const categorias = [
-  { nombre: "Todas", valor: "" },
-  { nombre: "Dama", valor: "dama" },
-  { nombre: "Varón", valor: "varon" },
-  { nombre: "Niño", valor: "niño" },
-  { nombre: "Niña", valor: "niña" },
-  { nombre: "Polos", valor: "polo" },
-  { nombre: "Vestidos", valor: "vestido" },
-  { nombre: "Pantalones", valor: "pantalon" },
-  { nombre: "Accesorios", valor: "accesorio" },
-];
-
 function normalizar(texto: string) {
   return texto
     .normalize("NFD")
@@ -37,6 +25,15 @@ export default async function CatalogoPage({
 
   const supabase = await createClient();
 
+  // Categorías reales registradas en Supabase
+  const { data: categories, error: categoriesError } =
+    await supabase
+      .from("categories")
+      .select("id, name, slug")
+      .eq("active", true)
+      .order("name");
+
+  // Productos publicados, con su categoría asignada
   const { data: products, error } = await supabase
     .from("products")
     .select(`
@@ -47,6 +44,7 @@ export default async function CatalogoPage({
       fabric,
       price_dozen,
       status,
+      category_id,
       product_images (
         image_url,
         sort_order
@@ -54,11 +52,19 @@ export default async function CatalogoPage({
     `)
     .eq("status", "published")
     .order("created_at", { ascending: false });
-console.log("DIAGNÓSTICO CATÁLOGO:", {
-  error,
-  cantidad: products?.length,
-  primerProducto: products?.[0]?.code,
-});
+
+  const categorias = [
+    { nombre: "Todas", valor: "" },
+    ...(categories ?? []).map((item) => ({
+      nombre: item.name,
+      valor: item.slug,
+    })),
+  ];
+
+  const categoriaSeleccionada = (categories ?? []).find(
+    (item) => item.slug === categoria
+  );
+
   const filtrados = (products ?? []).filter((producto) => {
     const contenido = normalizar(
       [
@@ -73,7 +79,8 @@ console.log("DIAGNÓSTICO CATÁLOGO:", {
 
     const coincideCategoria =
       !categoria ||
-      contenido.includes(normalizar(categoria));
+      (categoriaSeleccionada !== undefined &&
+        producto.category_id === categoriaSeleccionada.id);
 
     return coincideBusqueda && coincideCategoria;
   });
@@ -189,6 +196,12 @@ console.log("DIAGNÓSTICO CATÁLOGO:", {
       </section>
 
       <section style={{ padding: "12px 6% 40px" }}>
+        {categoriesError && (
+          <p role="alert">
+            No se pudieron cargar las categorías.
+          </p>
+        )}
+
         <div
           style={{
             display: "flex",
@@ -198,13 +211,18 @@ console.log("DIAGNÓSTICO CATÁLOGO:", {
           }}
         >
           {categorias.map((item) => {
-const url = item.valor
-  ? `/catalogo?categoria=${encodeURIComponent(item.valor)}`
-  : "/catalogo";
+            const query = new URLSearchParams();
+
+            if (busqueda) query.set("q", busqueda);
+            if (item.valor) query.set("categoria", item.valor);
+
+            const url = query.toString()
+              ? `/catalogo?${query.toString()}`
+              : "/catalogo";
 
             return (
               <Link
-                key={item.nombre}
+                key={item.valor || "todas"}
                 href={url}
                 style={{
                   padding: "11px 18px",
@@ -228,7 +246,9 @@ const url = item.valor
         </div>
 
         <p style={{ marginBottom: 24 }}>
-          {filtrados.length} productos encontrados
+          {error
+            ? "No se pudo cargar el catálogo"
+            : `${filtrados.length} productos encontrados`}
         </p>
 
         {error ? (
@@ -247,8 +267,7 @@ const url = item.valor
             {filtrados.map((producto) => {
               const imagen = [...(producto.product_images ?? [])]
                 .sort(
-                  (a, b) =>
-                    a.sort_order - b.sort_order
+                  (a, b) => a.sort_order - b.sort_order
                 )[0]?.image_url;
 
               return (
@@ -294,9 +313,7 @@ const url = item.valor
                   </div>
 
                   <div style={{ padding: 18 }}>
-                    <small>
-                      CÓDIGO {producto.code}
-                    </small>
+                    <small>CÓDIGO {producto.code}</small>
 
                     <h2
                       style={{
@@ -318,9 +335,7 @@ const url = item.valor
                       }}
                     >
                       S/{" "}
-                      {Number(
-                        producto.price_dozen
-                      ).toFixed(2)}
+                      {Number(producto.price_dozen).toFixed(2)}
                     </strong>
 
                     <p style={{ fontSize: 12 }}>
