@@ -3,6 +3,7 @@
 import { createClient } from "../../../utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { prepareUploadedProductPhotos } from "@/utils/prepare-uploaded-product-photos";
 
 export async function crearProducto(formData: FormData) {
   const supabase = await createClient();
@@ -44,6 +45,7 @@ if (categoriaError || !categoria) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
+  const images = await prepareUploadedProductPhotos(formData);
   const { data: product, error } = await supabase
   .from("products")
   .insert({
@@ -64,20 +66,14 @@ if (categoriaError || !categoria) {
   if (error) {
     throw new Error(error.message);
   }
-const images = formData
-  .getAll("images")
-  .filter((file): file is File => file instanceof File && file.size > 0);
   for (let index = 0; index < images.length; index++) {
-  const file = images[index];
-
-  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
-
-  const filePath = `${product.id}/${crypto.randomUUID()}.${extension}`;
+  const filePath = `${product.id}/${crypto.randomUUID()}.webp`;
 
   const { error: uploadError } = await supabase.storage
     .from("product-images")
-    .upload(filePath, file, {
-      contentType: file.type,
+    .upload(filePath, images[index], {
+      contentType: "image/webp",
+      cacheControl: "2592000",
       upsert: false,
     });
 

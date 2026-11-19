@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { prepareUploadedProductPhotos } from "@/utils/prepare-uploaded-product-photos";
 
 export async function cerrarSesion() {
   const supabase = await createClient();
@@ -59,6 +60,8 @@ stockUnits < 0
     throw new Error("Precio o stock inválido.");
   }
 
+  const images = await prepareUploadedProductPhotos(formData);
+
   // ACTUALIZAR DATOS DEL PRODUCTO
   const { error } = await supabase
     .from("products")
@@ -77,14 +80,6 @@ stockUnits < 0
   if (error) {
     throw new Error(`No se pudo actualizar el producto: ${error.message}`);
   }
-
-  // OBTENER NUEVAS IMÁGENES SELECCIONADAS
-  const images = formData
-    .getAll("images")
-    .filter(
-      (file): file is File =>
-        file instanceof File && file.size > 0
-    );
 
   // SI HAY NUEVAS IMÁGENES, BUSCAR EL ÚLTIMO ORDEN ACTUAL
   if (images.length > 0) {
@@ -109,17 +104,13 @@ stockUnits < 0
 
     // SUBIR NUEVAS IMÁGENES
     for (let index = 0; index < images.length; index++) {
-      const file = images[index];
-
-      const extension =
-        file.name.split(".").pop()?.toLowerCase() || "jpg";
-
-      const filePath = `${id}/${crypto.randomUUID()}.${extension}`;
+      const filePath = `${id}/${crypto.randomUUID()}.webp`;
 
       const { error: uploadError } = await supabase.storage
         .from("product-images")
-        .upload(filePath, file, {
-          contentType: file.type,
+        .upload(filePath, images[index], {
+          contentType: "image/webp",
+          cacheControl: "2592000",
           upsert: false,
         });
 
