@@ -1,6 +1,11 @@
 
+import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+
+
+
+
 
 type SearchParams = Promise<{
   q?: string;
@@ -12,6 +17,19 @@ function normalizar(texto: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
+}
+
+function esImagenPublicaDeProductos(imagen: string) {
+  try {
+    const url = new URL(imagen);
+    return (
+      url.origin === "https://owbttzijsdqyiarakocm.supabase.co" &&
+      url.pathname.startsWith("/storage/v1/object/public/product-images/") &&
+      url.search === ""
+    );
+  } catch {
+    return false;
+  }
 }
 
 export default async function CatalogoPage({
@@ -287,18 +305,18 @@ export default async function CatalogoPage({
                     style={{
                       height: 280,
                       background: "#eee7de",
+                      position: "relative",
                     }}
                   >
                     {imagen ? (
-                      <img
+                      <Image
                         src={imagen}
                         alt={producto.name}
+                        fill
+                        sizes="(max-width: 527px) 88vw, 350px"
                         loading="lazy"
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "contain",
-                        }}
+                        unoptimized={!esImagenPublicaDeProductos(imagen)}
+                        style={{ objectFit: "contain" }}
                       />
                     ) : (
                       <div
