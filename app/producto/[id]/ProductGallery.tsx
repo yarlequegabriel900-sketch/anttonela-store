@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
+import { canOptimizeProductImage } from "@/utils/product-image";
 
 type ProductImage = {
   id: string;
@@ -43,13 +45,38 @@ export default function ProductGallery({
     );
   }
 
+  const activeImage = images[activeIndex];
+  const optimized = canOptimizeProductImage(activeImage.image_url);
+
   return (
     <div className="product-detail-gallery">
       <div className="product-detail-main-image">
-        <img
-          src={images[activeIndex].image_url}
+        <Image
+          src={activeImage.image_url}
           alt={`${productName} - imagen ${activeIndex + 1}`}
+          fill
+          sizes="(max-width: 900px) 92vw, (max-width: 1400px) 48vw, 680px"
+          loading="eager"
+          unoptimized={!optimized}
         />
+        {optimized && (
+          <a
+            href={activeImage.image_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              position: "absolute",
+              top: 12,
+              right: 12,
+              padding: "7px 11px",
+              background: "#17130f",
+              color: "#fff",
+              borderRadius: 4,
+            }}
+          >
+            Ver foto original
+          </a>
+        )}
 
         {images.length > 1 && (
           <>
@@ -90,9 +117,13 @@ export default function ProductGallery({
               onClick={() => setActiveIndex(index)}
               aria-label={`Ver imagen ${index + 1}`}
             >
-              <img
+              <Image
                 src={image.image_url}
                 alt={`${productName} - miniatura ${index + 1}`}
+                width={88}
+                height={108}
+                loading="lazy"
+                unoptimized={!canOptimizeProductImage(image.image_url)}
               />
             </button>
           ))}
