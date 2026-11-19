@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import { canOptimizeProductImage } from "@/utils/product-image";
+import { canOptimizeProductImage, productImageSource } from "@/utils/product-image";
 
 
 
@@ -292,7 +292,8 @@ export default async function CatalogoPage({
             }}
           >
             {filtrados.map((producto) => {
-              const imagen = producto.product_images?.[0]?.image_url;
+              const original = producto.product_images?.[0]?.image_url;
+              const imagen = original ? productImageSource(original) : undefined;
 
               return (
                 <Link

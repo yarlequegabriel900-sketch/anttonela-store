@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { canOptimizeProductImage } from "@/utils/product-image";
+import { canOptimizeProductImage, productImageSource } from "@/utils/product-image";
 
 type ProductImage = {
   id: string;
@@ -46,18 +46,19 @@ export default function ProductGallery({
   }
 
   const activeImage = images[activeIndex];
+  const activeSource = productImageSource(activeImage.image_url, "detail");
   const optimized = canOptimizeProductImage(activeImage.image_url);
 
   return (
     <div className="product-detail-gallery">
       <div className="product-detail-main-image">
         <Image
-          src={activeImage.image_url}
+          src={activeSource}
           alt={`${productName} - imagen ${activeIndex + 1}`}
           fill
           sizes="(max-width: 900px) 92vw, (max-width: 1400px) 48vw, 680px"
           loading="eager"
-          unoptimized={!optimized}
+          unoptimized={!canOptimizeProductImage(activeSource)}
         />
         {optimized && (
           <a
@@ -118,12 +119,12 @@ export default function ProductGallery({
               aria-label={`Ver imagen ${index + 1}`}
             >
               <Image
-                src={image.image_url}
+                src={productImageSource(image.image_url, "thumbnail")}
                 alt={`${productName} - miniatura ${index + 1}`}
                 width={88}
                 height={108}
                 loading="lazy"
-                unoptimized={!canOptimizeProductImage(image.image_url)}
+                unoptimized={!canOptimizeProductImage(productImageSource(image.image_url, "thumbnail"))}
               />
             </button>
           ))}

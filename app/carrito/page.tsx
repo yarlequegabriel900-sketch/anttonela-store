@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/utils/client";
-import { canOptimizeProductImage } from "@/utils/product-image";
+import { canOptimizeProductImage, productImageSource } from "@/utils/product-image";
 type CartItem = {
   id: string;
   code: string;
@@ -298,12 +298,12 @@ try {
               <div key={item.id}>
                 {item.image_url && (
                   <Image
-                    src={item.image_url}
+                    src={productImageSource(item.image_url, "thumbnail")}
                     alt={item.name}
                     width={100}
                     height={100}
                     loading="lazy"
-                    unoptimized={!canOptimizeProductImage(item.image_url)}
+                    unoptimized={!canOptimizeProductImage(productImageSource(item.image_url, "thumbnail"))}
                     style={{ height: "auto" }}
                   />
                 )}

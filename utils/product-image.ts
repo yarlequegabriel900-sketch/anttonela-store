@@ -1,3 +1,5 @@
+import productWebp from "./product-webp.json";
+
 export function canOptimizeProductImage(image: string) {
   try {
     const url = new URL(image);
@@ -10,3 +12,14 @@ export function canOptimizeProductImage(image: string) {
     return false;
   }
 }
+const localVariants: Record<string, readonly string[]> = productWebp;
+
+const variantIndex = { catalog: 0, detail: 1, thumbnail: 2 };
+
+export function productImageSource(
+  image: string,
+  variant: keyof typeof variantIndex = "catalog"
+) {
+  return localVariants[image]?.[variantIndex[variant]] ?? image;
+}
+
