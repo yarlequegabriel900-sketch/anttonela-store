@@ -1,7 +1,8 @@
 
+import { createClient } from "@supabase/supabase-js";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@/utils/supabase/server";
 import { canOptimizeProductImage } from "@/utils/product-image";
 
 
@@ -20,6 +21,46 @@ function normalizar(texto: string) {
     .toLowerCase();
 }
 
+function publicCatalogClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    { auth: { persistSession: false, autoRefreshToken: false } }
+  );
+}
+
+const getCatalogCategories = unstable_cache(
+  async () => {
+    const { data } = await publicCatalogClient()
+      .from("categories")
+      .select("id, name, slug")
+      .eq("active", true)
+      .order("name")
+      .throwOnError();
+
+    return data;
+  },
+  ["public-catalog-categories"],
+  { revalidate: 60 }
+);
+
+const getCatalogProducts = unstable_cache(
+  async () => {
+    const { data } = await publicCatalogClient()
+      .from("products")
+      .select("id, code, name, fabric, price_dozen, category_id, product_images(image_url)")
+      .eq("status", "published")
+      .order("created_at", { ascending: false })
+      .order("sort_order", { referencedTable: "product_images" })
+      .limit(1, { referencedTable: "product_images" })
+      .throwOnError();
+
+    return data;
+  },
+  ["public-catalog-products"],
+  { revalidate: 60 }
+);
+
 export default async function CatalogoPage({
   searchParams,
 }: {
@@ -27,51 +68,31 @@ export default async function CatalogoPage({
 }) {
   const params = await searchParams;
   const busqueda = (params.q ?? "").trim().slice(0, 100);
+  const termino = normalizar(busqueda);
   const categoria = params.categoria ?? "";
 
-  const supabase = await createClient();
-
-  // Categorías reales registradas en Supabase
-  const { data: categories, error: categoriesError } =
-    await supabase
-      .from("categories")
-      .select("id, name, slug")
-      .eq("active", true)
-      .order("name");
-
-  // Productos publicados, con su categoría asignada
-  const { data: products, error } = await supabase
-    .from("products")
-    .select(`
-      id,
-      code,
-      name,
-      slug,
-      fabric,
-      price_dozen,
-      status,
-      category_id,
-      product_images (
-        image_url,
-        sort_order
-      )
-    `)
-    .eq("status", "published")
-    .order("created_at", { ascending: false });
+  const [categoriesResult, productsResult] = await Promise.allSettled([
+    getCatalogCategories(),
+    getCatalogProducts(),
+  ]);
+  const categoriesError = categoriesResult.status === "rejected";
+  const categories = categoriesResult.status === "fulfilled" ? categoriesResult.value ?? [] : [];
+  const error = productsResult.status === "rejected";
+  const products = productsResult.status === "fulfilled" ? productsResult.value ?? [] : [];
 
   const categorias = [
     { nombre: "Todas", valor: "" },
-    ...(categories ?? []).map((item) => ({
+    ...categories.map((item) => ({
       nombre: item.name,
       valor: item.slug,
     })),
   ];
 
-  const categoriaSeleccionada = (categories ?? []).find(
+  const categoriaSeleccionada = categories.find(
     (item) => item.slug === categoria
   );
 
-  const filtrados = (products ?? []).filter((producto) => {
+  const filtrados = products.filter((producto) => {
     const contenido = normalizar(
       [
         producto.code,
@@ -81,7 +102,7 @@ export default async function CatalogoPage({
     );
 
     const coincideBusqueda =
-      !busqueda || contenido.includes(normalizar(busqueda));
+      !termino || contenido.includes(termino);
 
     const coincideCategoria =
       !categoria ||
@@ -271,15 +292,13 @@ export default async function CatalogoPage({
             }}
           >
             {filtrados.map((producto) => {
-              const imagen = [...(producto.product_images ?? [])]
-                .sort(
-                  (a, b) => a.sort_order - b.sort_order
-                )[0]?.image_url;
+              const imagen = producto.product_images?.[0]?.image_url;
 
               return (
                 <Link
                   key={producto.id}
                   href={`/producto/${producto.id}`}
+                  prefetch={false}
                   style={{
                     textDecoration: "none",
                     color: "#241b15",
