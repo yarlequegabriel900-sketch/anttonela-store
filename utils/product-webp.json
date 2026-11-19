@@ -1,4 +1,229 @@
 {
+  "/catalogo-canva/003.webp": [
+    "/fotos-productos/1c49816fabbf8399d0d5f97d-640.webp",
+    "/fotos-productos/1c49816fabbf8399d0d5f97d-960.webp",
+    "/fotos-productos/1c49816fabbf8399d0d5f97d-192.webp"
+  ],
+  "/catalogo-canva/004.webp": [
+    "/fotos-productos/acf187620fdf73a2d44e12af-640.webp",
+    "/fotos-productos/acf187620fdf73a2d44e12af-960.webp",
+    "/fotos-productos/acf187620fdf73a2d44e12af-192.webp"
+  ],
+  "/catalogo-canva/005.webp": [
+    "/fotos-productos/3c86e151d178a077168e060a-640.webp",
+    "/fotos-productos/3c86e151d178a077168e060a-960.webp",
+    "/fotos-productos/3c86e151d178a077168e060a-192.webp"
+  ],
+  "/catalogo-canva/007.webp": [
+    "/fotos-productos/1dd40cb099d1d2753dd31b29-640.webp",
+    "/fotos-productos/1dd40cb099d1d2753dd31b29-960.webp",
+    "/fotos-productos/1dd40cb099d1d2753dd31b29-192.webp"
+  ],
+  "/catalogo-canva/008.webp": [
+    "/fotos-productos/5930e66eab1462d0f39387b0-640.webp",
+    "/fotos-productos/5930e66eab1462d0f39387b0-960.webp",
+    "/fotos-productos/5930e66eab1462d0f39387b0-192.webp"
+  ],
+  "/catalogo-canva/010.webp": [
+    "/fotos-productos/928b16c965a7ae195dc107b3-640.webp",
+    "/fotos-productos/928b16c965a7ae195dc107b3-960.webp",
+    "/fotos-productos/928b16c965a7ae195dc107b3-192.webp"
+  ],
+  "/catalogo-canva/011.webp": [
+    "/fotos-productos/a9408cf87ef5d646400a02d8-640.webp",
+    "/fotos-productos/a9408cf87ef5d646400a02d8-960.webp",
+    "/fotos-productos/a9408cf87ef5d646400a02d8-192.webp"
+  ],
+  "/catalogo-canva/013.webp": [
+    "/fotos-productos/e0090938e0165b1c86f8effc-640.webp",
+    "/fotos-productos/e0090938e0165b1c86f8effc-960.webp",
+    "/fotos-productos/e0090938e0165b1c86f8effc-192.webp"
+  ],
+  "/catalogo-canva/014.webp": [
+    "/fotos-productos/0e6cc86145868ea2b2a7242d-640.webp",
+    "/fotos-productos/0e6cc86145868ea2b2a7242d-960.webp",
+    "/fotos-productos/0e6cc86145868ea2b2a7242d-192.webp"
+  ],
+  "/catalogo-canva/015.webp": [
+    "/fotos-productos/d22f2dc09bb0f1937cbc7598-640.webp",
+    "/fotos-productos/d22f2dc09bb0f1937cbc7598-960.webp",
+    "/fotos-productos/d22f2dc09bb0f1937cbc7598-192.webp"
+  ],
+  "/catalogo-canva/018.webp": [
+    "/fotos-productos/7f6c4348974691a0d972356e-640.webp",
+    "/fotos-productos/7f6c4348974691a0d972356e-960.webp",
+    "/fotos-productos/7f6c4348974691a0d972356e-192.webp"
+  ],
+  "/catalogo-canva/020.webp": [
+    "/fotos-productos/0d7a3260a1b5ce6185c8095e-640.webp",
+    "/fotos-productos/0d7a3260a1b5ce6185c8095e-960.webp",
+    "/fotos-productos/0d7a3260a1b5ce6185c8095e-192.webp"
+  ],
+  "/catalogo-canva/022.webp": [
+    "/fotos-productos/57dc6c49314dba7b15cb97ba-640.webp",
+    "/fotos-productos/57dc6c49314dba7b15cb97ba-960.webp",
+    "/fotos-productos/57dc6c49314dba7b15cb97ba-192.webp"
+  ],
+  "/catalogo-canva/023.webp": [
+    "/fotos-productos/c8e135d34866bca9dd01babf-640.webp",
+    "/fotos-productos/c8e135d34866bca9dd01babf-960.webp",
+    "/fotos-productos/c8e135d34866bca9dd01babf-192.webp"
+  ],
+  "/catalogo-canva/024.webp": [
+    "/fotos-productos/736d055c6734c10517e3acd2-640.webp",
+    "/fotos-productos/736d055c6734c10517e3acd2-960.webp",
+    "/fotos-productos/736d055c6734c10517e3acd2-192.webp"
+  ],
+  "/catalogo-canva/025.webp": [
+    "/fotos-productos/08d6c17ead129ac0b8e87770-640.webp",
+    "/fotos-productos/08d6c17ead129ac0b8e87770-960.webp",
+    "/fotos-productos/08d6c17ead129ac0b8e87770-192.webp"
+  ],
+  "/catalogo-canva/026.webp": [
+    "/fotos-productos/2a2ee6f16b6601475ac29071-640.webp",
+    "/fotos-productos/2a2ee6f16b6601475ac29071-960.webp",
+    "/fotos-productos/2a2ee6f16b6601475ac29071-192.webp"
+  ],
+  "/catalogo-canva/027.webp": [
+    "/fotos-productos/783b7a8047460645efe6804e-640.webp",
+    "/fotos-productos/783b7a8047460645efe6804e-960.webp",
+    "/fotos-productos/783b7a8047460645efe6804e-192.webp"
+  ],
+  "/catalogo-canva/029.webp": [
+    "/fotos-productos/2118112ff957616171d56012-640.webp",
+    "/fotos-productos/2118112ff957616171d56012-960.webp",
+    "/fotos-productos/2118112ff957616171d56012-192.webp"
+  ],
+  "/catalogo-canva/030.webp": [
+    "/fotos-productos/3bb92b911c3e8a13c7a6f9af-640.webp",
+    "/fotos-productos/3bb92b911c3e8a13c7a6f9af-960.webp",
+    "/fotos-productos/3bb92b911c3e8a13c7a6f9af-192.webp"
+  ],
+  "/catalogo-canva/031.webp": [
+    "/fotos-productos/55260f00c885d335bd6ad5f6-640.webp",
+    "/fotos-productos/55260f00c885d335bd6ad5f6-960.webp",
+    "/fotos-productos/55260f00c885d335bd6ad5f6-192.webp"
+  ],
+  "/catalogo-canva/033.webp": [
+    "/fotos-productos/9db1e62514d10a36f1b3fb71-640.webp",
+    "/fotos-productos/9db1e62514d10a36f1b3fb71-960.webp",
+    "/fotos-productos/9db1e62514d10a36f1b3fb71-192.webp"
+  ],
+  "/catalogo-canva/034.webp": [
+    "/fotos-productos/728225d6e75a162fd6523c46-640.webp",
+    "/fotos-productos/728225d6e75a162fd6523c46-960.webp",
+    "/fotos-productos/728225d6e75a162fd6523c46-192.webp"
+  ],
+  "/catalogo-canva/035.webp": [
+    "/fotos-productos/2d50b781b632543a2c200b77-640.webp",
+    "/fotos-productos/2d50b781b632543a2c200b77-960.webp",
+    "/fotos-productos/2d50b781b632543a2c200b77-192.webp"
+  ],
+  "/catalogo-canva/036.webp": [
+    "/fotos-productos/a9e940ffe83597f478ed7e9f-640.webp",
+    "/fotos-productos/a9e940ffe83597f478ed7e9f-960.webp",
+    "/fotos-productos/a9e940ffe83597f478ed7e9f-192.webp"
+  ],
+  "/catalogo-canva/037.webp": [
+    "/fotos-productos/afe182339ebaef617210e592-640.webp",
+    "/fotos-productos/afe182339ebaef617210e592-960.webp",
+    "/fotos-productos/afe182339ebaef617210e592-192.webp"
+  ],
+  "/catalogo-canva/039.webp": [
+    "/fotos-productos/acf0910b1a7fc60a98f29896-640.webp",
+    "/fotos-productos/acf0910b1a7fc60a98f29896-960.webp",
+    "/fotos-productos/acf0910b1a7fc60a98f29896-192.webp"
+  ],
+  "/catalogo-canva/042.webp": [
+    "/fotos-productos/e7213182c28fa3d1f563f9ca-640.webp",
+    "/fotos-productos/e7213182c28fa3d1f563f9ca-960.webp",
+    "/fotos-productos/e7213182c28fa3d1f563f9ca-192.webp"
+  ],
+  "/catalogo-canva/043.webp": [
+    "/fotos-productos/61892deb746049ecefbedffb-640.webp",
+    "/fotos-productos/61892deb746049ecefbedffb-960.webp",
+    "/fotos-productos/61892deb746049ecefbedffb-192.webp"
+  ],
+  "/catalogo-canva/045.webp": [
+    "/fotos-productos/42ce98306fc869d37360dc1f-640.webp",
+    "/fotos-productos/42ce98306fc869d37360dc1f-960.webp",
+    "/fotos-productos/42ce98306fc869d37360dc1f-192.webp"
+  ],
+  "/catalogo-canva/050.webp": [
+    "/fotos-productos/9547f8cc299bc105cafdb157-640.webp",
+    "/fotos-productos/9547f8cc299bc105cafdb157-960.webp",
+    "/fotos-productos/9547f8cc299bc105cafdb157-192.webp"
+  ],
+  "/catalogo-canva/052.webp": [
+    "/fotos-productos/3482a24affdb07f55ab327b7-640.webp",
+    "/fotos-productos/3482a24affdb07f55ab327b7-960.webp",
+    "/fotos-productos/3482a24affdb07f55ab327b7-192.webp"
+  ],
+  "/catalogo-canva/053.webp": [
+    "/fotos-productos/0381ff6948b3b6a86256fd40-640.webp",
+    "/fotos-productos/0381ff6948b3b6a86256fd40-960.webp",
+    "/fotos-productos/0381ff6948b3b6a86256fd40-192.webp"
+  ],
+  "/catalogo-canva/054.webp": [
+    "/fotos-productos/8126aeaf74bf30acfc9efddd-640.webp",
+    "/fotos-productos/8126aeaf74bf30acfc9efddd-960.webp",
+    "/fotos-productos/8126aeaf74bf30acfc9efddd-192.webp"
+  ],
+  "/catalogo-canva/057.webp": [
+    "/fotos-productos/bc491077dcd0520d5c5ab26e-640.webp",
+    "/fotos-productos/bc491077dcd0520d5c5ab26e-960.webp",
+    "/fotos-productos/bc491077dcd0520d5c5ab26e-192.webp"
+  ],
+  "/catalogo-canva/058.webp": [
+    "/fotos-productos/12bf9e1fe12d528deac8ee96-640.webp",
+    "/fotos-productos/12bf9e1fe12d528deac8ee96-960.webp",
+    "/fotos-productos/12bf9e1fe12d528deac8ee96-192.webp"
+  ],
+  "/catalogo-canva/063.webp": [
+    "/fotos-productos/4385d8d565b98fb8c88c4b4b-640.webp",
+    "/fotos-productos/4385d8d565b98fb8c88c4b4b-960.webp",
+    "/fotos-productos/4385d8d565b98fb8c88c4b4b-192.webp"
+  ],
+  "/catalogo-canva/064.webp": [
+    "/fotos-productos/4fbab91e893f0d6954371f68-640.webp",
+    "/fotos-productos/4fbab91e893f0d6954371f68-960.webp",
+    "/fotos-productos/4fbab91e893f0d6954371f68-192.webp"
+  ],
+  "/catalogo-canva/065.webp": [
+    "/fotos-productos/6f40ec1ef4c3bfc67268aeaa-640.webp",
+    "/fotos-productos/6f40ec1ef4c3bfc67268aeaa-960.webp",
+    "/fotos-productos/6f40ec1ef4c3bfc67268aeaa-192.webp"
+  ],
+  "/catalogo-canva/066.webp": [
+    "/fotos-productos/375f9973ff7a89844b0d5a60-640.webp",
+    "/fotos-productos/375f9973ff7a89844b0d5a60-960.webp",
+    "/fotos-productos/375f9973ff7a89844b0d5a60-192.webp"
+  ],
+  "/catalogo-canva/067.webp": [
+    "/fotos-productos/1daa4d625eb61cc32c0989b6-640.webp",
+    "/fotos-productos/1daa4d625eb61cc32c0989b6-960.webp",
+    "/fotos-productos/1daa4d625eb61cc32c0989b6-192.webp"
+  ],
+  "/catalogo-canva/068.webp": [
+    "/fotos-productos/52a5d94236570f377c56301a-640.webp",
+    "/fotos-productos/52a5d94236570f377c56301a-960.webp",
+    "/fotos-productos/52a5d94236570f377c56301a-192.webp"
+  ],
+  "/catalogo-canva/069.webp": [
+    "/fotos-productos/de1bc05f07b4c0040c2e7756-640.webp",
+    "/fotos-productos/de1bc05f07b4c0040c2e7756-960.webp",
+    "/fotos-productos/de1bc05f07b4c0040c2e7756-192.webp"
+  ],
+  "/catalogo-canva/070.webp": [
+    "/fotos-productos/0ef163ab41f6dea750eb4bd4-640.webp",
+    "/fotos-productos/0ef163ab41f6dea750eb4bd4-960.webp",
+    "/fotos-productos/0ef163ab41f6dea750eb4bd4-192.webp"
+  ],
+  "/catalogo-canva/071.webp": [
+    "/fotos-productos/1984fed3e81ac7bb94a2d3bf-640.webp",
+    "/fotos-productos/1984fed3e81ac7bb94a2d3bf-960.webp",
+    "/fotos-productos/1984fed3e81ac7bb94a2d3bf-192.webp"
+  ],
   "https://owbttzijsdqyiarakocm.supabase.co/storage/v1/object/public/product-images/0766263c-18fa-4733-82a4-73e81a3db6bc/4382c0eb-a6ab-4131-b53b-8802cc976add.png": [
     "/fotos-productos/1ffdf02eb15406cef6c2a7a9-640.webp",
     "/fotos-productos/1ffdf02eb15406cef6c2a7a9-960.webp",

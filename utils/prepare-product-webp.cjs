@@ -7,6 +7,7 @@ const sharp = require("sharp");
 const root = path.join(__dirname, "..");
 const directory = path.join(root, "public", "fotos-productos");
 const manifest = path.join(root, "utils", "product-webp.json");
+const canvaImage = /^\/catalogo-canva\/[\w-]+\.webp$/i;
 
 async function main() {
   const { NEXT_PUBLIC_SUPABASE_URL: url, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: key } =
@@ -29,7 +30,10 @@ async function main() {
     products += data.length;
     for (const product of data) {
       for (const image of product.product_images ?? []) {
-        if (image.image_url?.startsWith(imageRoot.href)) urls.add(image.image_url);
+        const imageUrl = image.image_url;
+        if (imageUrl?.startsWith(imageRoot.href) || canvaImage.test(imageUrl ?? "")) {
+          urls.add(imageUrl);
+        }
       }
     }
     if (data.length < 100) break;
@@ -57,6 +61,15 @@ async function main() {
       if (existing?.size) {
         bytes += existing.size;
         continue;
+      }
+      if (!source && canvaImage.test(original)) {
+        source = await fs.readFile(path.join(root, "public", original.slice(1))).catch((error) => {
+          if (error.code !== "ENOENT") throw error;
+        });
+        if (!source) {
+          missing++;
+          continue photos;
+        }
       }
       if (!source) {
         const response = await fetch(original, {
