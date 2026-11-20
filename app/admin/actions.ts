@@ -216,70 +216,62 @@ if (!user) {
 }
 export async function eliminarImagenProducto(formData: FormData) {
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/admin/login");
-  }
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/admin/login");
 
   const imageId = String(formData.get("image_id") || "");
   const productId = String(formData.get("product_id") || "");
+  if (!imageId || !productId) throw new Error("No se encontró la imagen.");
 
-  if (!imageId || !productId) {
-    throw new Error("No se encontró la imagen.");
-  }
-
-  const { data: image, error: imageSearchError } = await supabase
+  const { data: image, error: imageError } = await supabase
     .from("product_images")
-    .select("id, image_url")
+    .select("image_url")
     .eq("id", imageId)
     .eq("product_id", productId)
-    .single();
+    .maybeSingle();
 
-  if (imageSearchError || !image) {
-    throw new Error("No se pudo encontrar la imagen.");
-  }
+  if (imageError) throw new Error("No se pudo consultar la imagen: " + imageError.message);
+  if (!image) return;
 
-  const marker = "/product-images/";
-
-  if (image.image_url.includes(marker)) {
-    const filePath = image.image_url.split(marker)[1];
-
-    if (filePath) {
-      const decodedFilePath = decodeURIComponent(filePath);
-
-      const { error: storageError } = await supabase.storage
-        .from("product-images")
-        .remove([decodedFilePath]);
-
-      if (storageError) {
-        throw new Error(
-          `No se pudo eliminar la imagen del almacenamiento: ${storageError.message}`
-        );
-      }
-    }
-  }
-
-  const { error: deleteError } = await supabase
+  const { data: removed, error: deleteError } = await supabase
     .from("product_images")
     .delete()
     .eq("id", imageId)
-    .eq("product_id", productId);
+    .eq("product_id", productId)
+    .select("id");
 
-  if (deleteError) {
-    throw new Error(
-      `No se pudo eliminar la imagen: ${deleteError.message}`
-    );
-  }
+  if (deleteError) throw new Error("No se pudo quitar la imagen del producto: " + deleteError.message);
+  if (!removed?.length) throw new Error("Supabase no permitió quitar esta imagen del producto.");
 
   revalidatePath("/");
   revalidatePath("/catalogo");
   revalidatePath("/admin");
   revalidatePath(`/admin/editar/${productId}`);
+  revalidatePath(`/producto/${productId}`);
   refreshPublicCatalog();
+
+  // Si la limpieza del archivo falla, la foto ya no aparece en la prenda.
+  try {
+    const base = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const url = new URL(image.image_url, base);
+    const bucketPath = "/storage/v1/object/public/product-images/";
+    if (url.origin !== new URL(base).origin || !url.pathname.startsWith(bucketPath)) return;
+
+    const filePath = decodeURIComponent(url.pathname.slice(bucketPath.length));
+    if (!filePath.startsWith(`${productId}/`)) return;
+
+    const { data: shared, error: sharedError } = await supabase
+      .from("product_images")
+      .select("id")
+      .eq("image_url", image.image_url)
+      .limit(1);
+    if (sharedError || shared?.length) return;
+
+    const { error: storageError } = await supabase.storage.from("product-images").remove([filePath]);
+    if (storageError) console.warn("La foto se quitó del catálogo, pero el archivo quedó en Storage.");
+  } catch {
+    console.warn("La foto se quitó del catálogo, pero no se pudo limpiar el archivo.");
+  }
 }
 export async function actualizarDatosPedido(formData: FormData) {
   const supabase = await createClient();
