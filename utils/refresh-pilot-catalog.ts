@@ -1,6 +1,6 @@
 import { after } from "next/server";
 
-export function refreshPilotCatalog() {
+export function refreshPublicCatalog() {
   const token = process.env.CATALOG_SYNC_GITHUB_TOKEN;
   if (!token) return;
 
@@ -20,9 +20,9 @@ export function refreshPilotCatalog() {
           signal: AbortSignal.timeout(8000),
         }
       );
-      if (!response.ok) console.error("No se pudo iniciar la actualización del catálogo piloto.", response.status);
+      if (!response.ok) console.error("No se pudo iniciar la actualización del catálogo público.", response.status);
     } catch {
-      console.error("No se pudo conectar con GitHub para actualizar el catálogo piloto.");
+      console.error("No se pudo conectar con GitHub para actualizar el catálogo público.");
     }
   });
 }

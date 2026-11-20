@@ -1,4 +1,4 @@
-name: Actualizar catálogo piloto
+name: Actualizar catálogo público
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: catalogo-anttonela-piloto
+  group: catalogo-anttonela-publico
   cancel-in-progress: false
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      CATALOG_URL: https://piloto.catalogo-anttonela.pages.dev/
+      CATALOG_URL: https://catalogo-anttonela.pages.dev/
       CATALOG_PHOTO_CACHE: .cache/catalogo-piloto-webp
     steps:
       - uses: actions/checkout@v6
@@ -35,14 +35,9 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
-        run: node scripts/catalog-pilot/build.cjs . .catalogo-piloto
-      - name: Confirmar que el enlace de prueba exige autorización
-        if: vars.CATALOG_PILOT_PUBLISH == 'true'
-        run: |
-          redirect="$(curl --silent --show-error --max-time 15 --output /dev/null --write-out '%{redirect_url}' "$CATALOG_URL")"
-          node -e 'const u = new URL(process.argv[1]); if (u.protocol !== "https:" || !u.hostname.endsWith(".cloudflareaccess.com") || !u.pathname.startsWith("/cdn-cgi/access/login")) throw Error("El enlace piloto no exige iniciar sesión.");' "$redirect"
-      - name: Publicar únicamente en la rama piloto
-        if: vars.CATALOG_PILOT_PUBLISH == 'true'
+        run: node scripts/catalog-pilot/build.cjs . .catalogo-publico
+      - name: Publicar en el catálogo público
+        if: vars.CATALOG_PUBLIC_PUBLISH == 'true'
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -59,4 +54,4 @@ jobs:
             const { result } = await response.json();
             if (result?.production_branch !== "main") throw Error("La rama de producción debe ser main.");
           '
-          npx --yes wrangler@4.165.0 pages deploy .catalogo-piloto --project-name catalogo-anttonela --branch piloto
+          npx --yes wrangler@4.165.0 pages deploy .catalogo-publico --project-name catalogo-anttonela --branch main

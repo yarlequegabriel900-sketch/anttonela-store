@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prepareUploadedProductPhotos } from "@/utils/prepare-uploaded-product-photos";
-import { refreshPilotCatalog } from "@/utils/refresh-pilot-catalog";
+import { refreshPublicCatalog } from "@/utils/refresh-pilot-catalog";
 
 export async function cerrarSesion() {
   const supabase = await createClient();
@@ -146,7 +146,7 @@ stockUnits < 0
   revalidatePath("/admin");
   revalidatePath(`/admin/editar/${id}`);
 
-  refreshPilotCatalog();
+  refreshPublicCatalog();
   redirect("/admin");
 }
 export async function eliminarProducto(formData: FormData) {
@@ -174,7 +174,7 @@ if (!user) {
   }
 
   revalidatePath("/catalogo");
-  refreshPilotCatalog();
+  refreshPublicCatalog();
   redirect("/admin");
 }
 export async function cambiarEstadoProducto(formData: FormData) {
@@ -211,7 +211,7 @@ if (!user) {
   }
 
   revalidatePath("/catalogo");
-  refreshPilotCatalog();
+  refreshPublicCatalog();
   redirect("/admin");
 }
 export async function eliminarImagenProducto(formData: FormData) {
@@ -279,7 +279,7 @@ export async function eliminarImagenProducto(formData: FormData) {
   revalidatePath("/catalogo");
   revalidatePath("/admin");
   revalidatePath(`/admin/editar/${productId}`);
-  refreshPilotCatalog();
+  refreshPublicCatalog();
 }
 export async function actualizarDatosPedido(formData: FormData) {
   const supabase = await createClient();
