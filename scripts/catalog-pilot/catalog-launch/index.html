@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Catálogo mayorista de Prendas Anttonela. Encuentra prendas por código, nombre o categoría y consulta su disponibilidad.">
+  <title>Catálogo mayorista | Prendas Anttonela</title>
+  <link rel="stylesheet" href="./catalogo.css">
+  <script src="./catalogo.js" defer></script>
+</head>
+<body>
+  <a class="salto" href="#catalogo">Ir al catálogo</a>
+  <header class="cabecera">
+    <div class="ancho marca"><span>PRENDAS</span> ANTTONELA</div>
+  </header>
+  <main id="catalogo" class="ancho">
+    <section class="intro" aria-labelledby="titulo">
+      <p class="tipo">Moda mayorista</p>
+      <h1 id="titulo">Catálogo de prendas</h1>
+      <p>Encuentra tus prendas y confirma precio y disponibilidad por WhatsApp.</p>
+      <a id="volver-catalogo" class="volver-catalogo" href="./" hidden>Ver catálogo completo</a>
+    </section>
+    <details class="politica-ventas">
+      <summary>Política de ventas</summary>
+      <ul>
+        <li>El precio mayorista publicado aplica desde 12 unidades del mismo código.</li>
+        <li>De 3 a 11 unidades de un código, se suman S/ 0.50 por prenda.</li>
+        <li>Pedido de un solo código: mínimo 12 unidades. Pedido combinado: de 3 a 12 por código y mínimo 12 prendas en total.</li>
+      </ul>
+    </details>
+    <div class="filtros" id="filtros" hidden>
+      <label>Buscar prenda
+        <input id="buscar" type="search" placeholder="Código, nombre o tela" autocomplete="off">
+      </label>
+      <label>Categoría
+        <select id="categoria"><option value="">Todas las categorías</option>{{OPCIONES}}</select>
+      </label>
+    </div>
+    <p role="status" id="resultados" class="resultados">{{TOTAL}} productos</p>
+    <p id="vacio" class="vacio" hidden>No encontramos prendas con esos filtros.</p>
+    <button type="button" id="ver-cotizacion" class="ver-cotizacion" hidden>Ver cotización (0)</button>
+    <section class="productos" aria-label="Prendas disponibles para consulta">
+      {{PRODUCTOS}}
+    </section>
+  </main>
+  <footer class="ancho pie">Prendas Anttonela · Venta mayorista</footer>
+  <dialog id="galeria" aria-labelledby="galeria-titulo">
+    <div class="galeria-cabecera">
+      <div>
+        <p id="galeria-codigo" class="codigo"></p>
+        <h2 id="galeria-titulo"></h2>
+      </div>
+      <form method="dialog"><button type="submit" autofocus>Cerrar</button></form>
+    </div>
+    <img id="galeria-foto" class="galeria-foto" alt="">
+    <div id="galeria-controles" class="galeria-controles">
+      <button type="button" id="foto-anterior">Anterior</button>
+      <span id="galeria-contador" aria-live="polite"></span>
+      <button type="button" id="foto-siguiente">Siguiente</button>
+    </div>
+    <div id="galeria-miniaturas" class="galeria-miniaturas" aria-label="Fotos de la prenda"></div>
+  </dialog>
+  <dialog id="cotizacion" aria-labelledby="cotizacion-titulo">
+    <div class="galeria-cabecera">
+      <h2 id="cotizacion-titulo">Mi cotización</h2>
+      <form method="dialog"><button type="submit">Cerrar</button></form>
+    </div>
+    <p id="cotizacion-vacia">Agrega prendas para cotizarlas juntas.</p>
+    <p id="cotizacion-importes" class="cotizacion-importes" aria-live="polite" hidden></p>
+    <div id="cotizacion-lista"></div>
+    <p id="cotizacion-estado" class="asesores-titulo" role="status" hidden></p>
+    <div id="cotizacion-envio" hidden>
+      <p class="asesores-titulo">Elige un asesor de ventas</p>
+      <div class="opciones-asesor" id="cotizacion-asesores"></div>
+    </div>
+  </dialog>
+</body>
+</html>

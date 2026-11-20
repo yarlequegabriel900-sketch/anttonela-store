@@ -4,6 +4,7 @@ import { createClient } from "../../../utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prepareUploadedProductPhotos } from "@/utils/prepare-uploaded-product-photos";
+import { refreshPilotCatalog } from "@/utils/refresh-pilot-catalog";
 
 export async function crearProducto(formData: FormData) {
   const supabase = await createClient();
@@ -100,5 +101,6 @@ if (categoriaError || !categoria) {
   revalidatePath("/catalogo");
   revalidatePath("/admin");
 
+  refreshPilotCatalog();
   redirect("/admin");
 }
